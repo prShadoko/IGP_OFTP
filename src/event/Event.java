@@ -1,5 +1,8 @@
 package event;
 
-public interface Event {
+import automaton.Automaton;
 
+public interface Event {
+	String getName();
+	void send();
 }

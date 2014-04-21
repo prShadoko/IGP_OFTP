@@ -11,12 +11,6 @@ public class OFTPAutomaton extends AbstractAutomaton {
 	}
 
 	@Override
-	public void sendEvent(Event event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Event receiveEvent() {
 		// TODO Auto-generated method stub
 		return null;

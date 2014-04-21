@@ -1,6 +1,7 @@
 package state;
 
 import java.util.Collection;
+import java.util.Map;
 
 import transition.Transition;
 import action.Action;
@@ -9,24 +10,27 @@ import event.Event;
 
 public class AbstractState implements State {
 
-	private Collection<Transition> transitions;
+	private Map<String, Transition> transitions;
 	
 	@Override
 	public void run(Automaton automaton) {
 		//TODO: Do the event receive logic
+		Event event = automaton.receiveEvent();
 		//TODO: Manage error
 		
-		for(Transition transition : transitions) {
-			Collection<Action> actions = transition.getActions(automaton);
-			Collection<Event> events = transition.getOutputEvents(automaton);
-			State nextState = transition.getNextState(automaton);
+		if(transitions.containsKey(event.getName())) {
+			Transition transition = transitions.get(event.getName());
+			
+			Collection<Action> actions = transition.getActions();
+			Collection<Event> events = transition.getOutputEvents();
+			State nextState = transition.getNextState();
 			
 			for(Action action : actions) {
 				action.execute(automaton);
 			}
 			
-			for(Event event : events) {
-				automaton.sendEvent(event); // ?
+			for(Event e : events) {
+				event.send(); // ?
 			}
 			
 			automaton.setState(nextState);

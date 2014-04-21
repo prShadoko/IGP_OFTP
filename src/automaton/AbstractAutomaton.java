@@ -1,7 +1,6 @@
 package automaton;
 
 import state.State;
-import event.Event;
 
 public abstract class AbstractAutomaton implements Automaton {
 
