@@ -1,8 +1,17 @@
 package transition;
 
+import java.util.Collection;
+
+import state.State;
+import action.Action;
+import automaton.Automaton;
+import event.Event;
+
 public interface Transition {
 
-	void update(Automaton automaton);
+	Collection<Action> getActions(Automaton automaton);
+
+	Collection<Event> getOutputEvents(Automaton automaton);
 	
-	Collection<Action> getActions()
+	State getNextState(Automaton automaton);
 }

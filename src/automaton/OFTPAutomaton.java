@@ -1,26 +1,25 @@
 package automaton;
 
+import event.Event;
 import state.State;
 
 
-public class OFTPAutomaton implements Automaton {
+public class OFTPAutomaton extends AbstractAutomaton {
 
-	private State state;
-	
 	public OFTPAutomaton(State state) {
-		setState(state);
-	}
-	
-	@Override
-	public void run() {
-		while(null != state) {
-			state.run(this);
-		}
+		super(state);
 	}
 
 	@Override
-	public void setState(State state) {
-		this.state = state;
+	public void sendEvent(Event event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Event receiveEvent() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
