@@ -1,9 +1,12 @@
-package event;
+package oftp.automaton.event;
 
 import automaton.Automaton;
+import automaton.event.Event;
 
-public class MonitorEvent implements Event {
-
+public abstract class NetworkEvent implements Event {
+	
+	public abstract char[] toBytes();
+	
 	@Override
 	public void send() {
 		// TODO Auto-generated method stub
@@ -15,5 +18,4 @@ public class MonitorEvent implements Event {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

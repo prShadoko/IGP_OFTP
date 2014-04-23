@@ -1,18 +1,30 @@
 package automaton;
 
-import state.State;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class AbstractAutomaton implements Automaton {
+import automaton.event.Event;
+import automaton.state.State;
 
-private State state;
-	
+public abstract class AbstractAutomaton implements Automaton, Observer {
+
+	Thread mainThread;
+
+	private State state;
+
+	private Queue<Event> queue = new ConcurrentLinkedQueue<Event>();
+
 	public AbstractAutomaton(State state) {
 		setState(state);
+
+		mainThread = Thread.currentThread();
 	}
-	
+
 	@Override
 	public void run() {
-		while(null != state) {
+		while (null != state) {
 			state.run(this);
 		}
 	}
@@ -22,4 +34,43 @@ private State state;
 		this.state = state;
 	}
 
+	@Override
+	public Event receiveEvent() {
+		Event event = queue.poll();
+
+		while (null == event) {
+			try {
+				final Thread currentThread = Thread.currentThread();
+				Thread sleeper = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						try {
+							synchronized (currentThread) {
+								currentThread.wait();
+							}
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				sleeper.start();
+				sleeper.join();
+			} catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+			}
+			event = queue.poll();
+		}
+		return event;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (null != arg && arg instanceof Event) {
+			queue.add((Event) arg);
+			synchronized (mainThread) {
+				mainThread.notifyAll();
+			}
+		}
+	}
 }

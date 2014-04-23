@@ -1,11 +1,9 @@
 package automaton;
 
-import event.Event;
-import state.State;
+import automaton.event.Event;
+import automaton.state.State;
 
-public interface Automaton {
-
-	void run();
+public interface Automaton extends Runnable {
 	
 	void setState(State state);
 	

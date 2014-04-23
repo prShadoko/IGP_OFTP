@@ -1,6 +1,5 @@
-package predicate;
+package automaton.predicate;
 
-import automaton.Automaton;
 
 public interface Predicate {
 	

@@ -1,4 +1,4 @@
-package event;
+package automaton.event;
 
 import automaton.Automaton;
 

@@ -1,4 +1,4 @@
-package action;
+package automaton.action;
 
 import automaton.Automaton;
 
