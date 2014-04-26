@@ -1,10 +1,13 @@
 package oftp.automaton.event;
 
-import automaton.Automaton;
-import automaton.event.Event;
+import automaton.event.AbstractEvent;
 
-public abstract class NetworkEvent implements Event {
+public abstract class NetworkEvent extends AbstractEvent {
 	
+	public NetworkEvent(String name) {
+		super(name);
+	}
+
 	public abstract char[] toBytes();
 	
 	@Override
@@ -13,9 +16,4 @@ public abstract class NetworkEvent implements Event {
 		
 	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -1,14 +1,13 @@
 package automaton;
 
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import pattern.publish.subscribe.Subscriber;
 import automaton.event.Event;
 import automaton.state.State;
 
-public abstract class AbstractAutomaton implements Automaton, Observer {
+public abstract class AbstractAutomaton implements Automaton, Subscriber<Event> {
 
 	Thread mainThread;
 
@@ -18,8 +17,6 @@ public abstract class AbstractAutomaton implements Automaton, Observer {
 
 	public AbstractAutomaton(State state) {
 		setState(state);
-
-		mainThread = Thread.currentThread();
 	}
 
 	@Override
@@ -36,13 +33,15 @@ public abstract class AbstractAutomaton implements Automaton, Observer {
 
 	@Override
 	public Event receiveEvent() {
+		mainThread = Thread.currentThread();
+
 		Event event = queue.poll();
 
 		while (null == event) {
 			try {
 				final Thread currentThread = Thread.currentThread();
+
 				Thread sleeper = new Thread(new Runnable() {
-					
 					@Override
 					public void run() {
 						try {
@@ -54,6 +53,7 @@ public abstract class AbstractAutomaton implements Automaton, Observer {
 						}
 					}
 				});
+
 				sleeper.start();
 				sleeper.join();
 			} catch (InterruptedException e) {
@@ -65,12 +65,10 @@ public abstract class AbstractAutomaton implements Automaton, Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if (null != arg && arg instanceof Event) {
-			queue.add((Event) arg);
-			synchronized (mainThread) {
-				mainThread.notifyAll();
-			}
+	public void inform(Event event) {
+		queue.add(event);
+		synchronized (mainThread) {
+			mainThread.notifyAll();
 		}
 	}
 }

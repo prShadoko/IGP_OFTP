@@ -32,7 +32,7 @@ public class Main {
 		// -------------- O -------------- //
 		
 		Monitor m = new Monitor();
-		m.addObserver(automaton);
+		m.subscribe(MonitorEvent.class, automaton);
 		
 		new Thread(m).start();
 		

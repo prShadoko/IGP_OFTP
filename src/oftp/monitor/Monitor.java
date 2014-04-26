@@ -1,16 +1,15 @@
 package oftp.monitor;
 
-import java.util.Observable;
-
 import oftp.automaton.event.MonitorEvent;
+import pattern.publish.subscribe.Publisher;
+import automaton.event.Event;
 
-public class Monitor extends Observable implements Runnable {
+public class Monitor extends Publisher<Event> implements Runnable {
 	@Override
 	public void run() {
 		try {
 			Thread.sleep(500);
-			setChanged();
-			notifyObservers(new MonitorEvent("F_CONNECT_RQ"));
+			publish(new MonitorEvent("F_CONNECT_RQ"));
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
