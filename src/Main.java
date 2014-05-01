@@ -1,5 +1,5 @@
 import oftp.automaton.OFTPAutomaton;
-import oftp.automaton.event.MonitorEvent;
+import oftp.automaton.event.monitor.MonitorEvent;
 import oftp.automaton.state.Idle;
 import oftp.automaton.state.InitiatorWaitForReadyMessage;
 import oftp.monitor.Monitor;
@@ -27,7 +27,7 @@ public class Main {
 		
 		idle.addTranstion(fConnectRequest, transition);
 		
-		OFTPAutomaton automaton = new OFTPAutomaton(idle);
+		OFTPAutomaton automaton = new OFTPAutomaton(idle, 10101);
 		
 		// -------------- O -------------- //
 		

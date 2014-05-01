@@ -1,8 +1,12 @@
 package automaton.event;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class AbstractEvent implements Event {
 
 	private String name;
+	private Map<String, Object> attributes = new HashMap<>();
 
 	public AbstractEvent(String name) {
 		setName(name);
@@ -14,6 +18,15 @@ public abstract class AbstractEvent implements Event {
 	
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public Object getAttribute(String key) {
+		return attributes.get(key);
+	}
+
+	protected void setAttribute(String key, Object attribute) {
+		attributes.put(key, attribute);
 	}
 
 	

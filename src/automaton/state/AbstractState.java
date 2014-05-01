@@ -25,13 +25,13 @@ public class AbstractState implements State {
 		System.out.println("\n - -- --- " + name + " --- -- - ");
 		
 		System.out.println("Wait for event");
-		Event event = automaton.receiveEvent();
-		System.out.println("Event received: " + event);
+		Event inputEvent = automaton.receiveEvent();
+		System.out.println("Event received: " + inputEvent);
 		//TODO: Manage error
 		
 		System.out.println("Check transition");
-		if(transitions.containsKey(event)) {
-			Transition transition = transitions.get(event);
+		if(transitions.containsKey(inputEvent)) {
+			Transition transition = transitions.get(inputEvent);
 			System.out.println("Transition: " + transition);
 			
 			Collection<Action> actions = transition.getActions();
@@ -40,12 +40,12 @@ public class AbstractState implements State {
 			
 			for(Action action : actions) {
 				System.out.println("Execute action: " + action.toString());
-				action.execute(automaton);
+				action.execute(inputEvent);
 			}
 			
-			for(Event e : events) {
-				System.out.println("Send event: " + e.toString());
-				e.send(); // ?
+			for(Event outputEvent : events) {
+				System.out.println("Send event: " + outputEvent.toString());
+				outputEvent.send(); // ?
 			}
 			
 			System.out.println("Next state: " + nextState);

@@ -1,6 +1,6 @@
 package oftp.monitor;
 
-import oftp.automaton.event.MonitorEvent;
+import oftp.automaton.event.monitor.MonitorEvent;
 import pattern.publish.subscribe.Publisher;
 import automaton.event.Event;
 

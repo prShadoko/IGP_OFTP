@@ -3,11 +3,12 @@ package automaton;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import pattern.publish.subscribe.Publisher;
 import pattern.publish.subscribe.Subscriber;
 import automaton.event.Event;
 import automaton.state.State;
 
-public abstract class AbstractAutomaton implements Automaton, Subscriber<Event> {
+public abstract class AbstractAutomaton extends Publisher<Event> implements Automaton, Subscriber<Event> {
 
 	Thread mainThread;
 
@@ -19,11 +20,19 @@ public abstract class AbstractAutomaton implements Automaton, Subscriber<Event> 
 		setState(state);
 	}
 
+	protected abstract void setUp();
+
+	protected abstract void tearDown();
+	
 	@Override
 	public void run() {
+		setUp();
+		
 		while (null != state) {
 			state.run(this);
 		}
+		
+		tearDown();
 	}
 
 	@Override

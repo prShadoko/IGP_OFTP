@@ -1,7 +1,8 @@
 package automaton.event;
 
 
+
 public interface Event {
 	
-	void send();
+	Object getAttribute(String key);
 }

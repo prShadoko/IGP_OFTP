@@ -1,8 +1,8 @@
 package automaton.action;
 
-import automaton.Automaton;
+import automaton.event.Event;
 
 public interface Action {
 
-	void execute(Automaton automaton);
+	void execute(Event inputEvent);
 }

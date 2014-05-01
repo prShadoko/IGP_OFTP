@@ -1,4 +1,4 @@
-package oftp.automaton.event;
+package oftp.automaton.event.monitor;
 
 import automaton.event.AbstractEvent;
 
@@ -6,12 +6,6 @@ public class MonitorEvent extends AbstractEvent {
 
 	public MonitorEvent(String name) {
 		super(name);
-	}
-	
-	@Override
-	public void send() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

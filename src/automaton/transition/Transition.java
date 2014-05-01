@@ -3,6 +3,7 @@ package automaton.transition;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import automaton.action.Action;
@@ -22,8 +23,8 @@ public class Transition {
 		predicate = null;
 
 		actions = new HashMap<>();
-		actions.put(true, new ArrayList<Action>());
-		actions.put(false, new ArrayList<Action>());
+		actions.put(true, new LinkedList<Action>());
+		actions.put(false, new LinkedList<Action>());
 
 		outputEvents = new HashMap<>();
 		outputEvents.put(true, new ArrayList<Event>());

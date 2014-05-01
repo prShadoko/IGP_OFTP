@@ -3,10 +3,9 @@ package oftp.automaton.state;
 import automaton.state.AbstractState;
 
 
-public class Idle extends AbstractState {
+public class IdleState extends AbstractState {
 
-	public Idle() {
+	public IdleState(String name) {
 		super("IDLE");
 	}
-
 }
