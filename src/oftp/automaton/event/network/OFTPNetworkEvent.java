@@ -1,3 +1,4 @@
+package oftp.automaton.event.network;
 //package oftp.automaton.event.network;
 //
 //import automaton.event.network.NetworkEvent;

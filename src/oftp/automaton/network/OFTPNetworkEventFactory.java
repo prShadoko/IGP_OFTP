@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
+
 import automaton.event.network.NetworkArchetype;
 import automaton.event.network.NetworkEvent;
 import automaton.event.network.NetworkField;

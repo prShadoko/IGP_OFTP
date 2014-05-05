@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-org.jboss.ide.eclipse.as.core.singledeployable.deployableList=
+org.jboss.ide.eclipse.as.core.singledeployable.deployableList=src/automaton/event/network/NetworkEvent.java\nsrc/oftp/automaton/event/network\n

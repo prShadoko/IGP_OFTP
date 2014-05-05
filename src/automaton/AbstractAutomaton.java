@@ -31,7 +31,7 @@ public abstract class AbstractAutomaton extends Publisher<Event> implements Auto
 	@Override
 	public void run() {
 		setUp();
-
+		
 		while (null != state) {
 			state.run(this);
 		}

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import automaton.Automaton;
 import automaton.action.Action;
-import automaton.event.AbstractEvent;
 import automaton.event.Event;
 import automaton.transition.Transition;
 
