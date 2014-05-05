@@ -5,7 +5,7 @@ import automaton.state.AbstractState;
 
 public class IdleState extends AbstractState {
 
-	public IdleState(String name) {
+	public IdleState() {
 		super("IDLE");
 	}
 }

@@ -16,7 +16,6 @@ public class Transition {
 	Predicate predicate;
 
 	Map<Boolean, Collection<Action>> actions;
-	Map<Boolean, Collection<Event>> outputEvents;
 	Map<Boolean, State> nextStates;
 
 	public Transition() {
@@ -25,10 +24,6 @@ public class Transition {
 		actions = new HashMap<>();
 		actions.put(true, new LinkedList<Action>());
 		actions.put(false, new LinkedList<Action>());
-
-		outputEvents = new HashMap<>();
-		outputEvents.put(true, new ArrayList<Event>());
-		outputEvents.put(false, new ArrayList<Event>());
 
 		nextStates = new HashMap<>();
 	}
@@ -53,22 +48,9 @@ public class Transition {
 		actions.get(predicate).add(action);
 	}
 
-	public void addOutputEvent(Event event) {
-		addOutputEvent(true, event);
-	}
-
-	public void addOutputEvent(Boolean predicate, Event event) {
-		outputEvents.get(predicate).add(event);
-	}
-
 	@SuppressWarnings("unchecked")
 	public Collection<Action> getActions() {
 		return (Collection<Action>) get(actions);
-	}
-
-	@SuppressWarnings("unchecked")
-	public Collection<Event> getOutputEvents() {
-		return (Collection<Event>) get(outputEvents);
 	}
 
 	public State getNextState() {

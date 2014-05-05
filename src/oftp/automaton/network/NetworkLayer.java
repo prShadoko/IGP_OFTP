@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 
-import oftp.automaton.event.network.NetworkEvent;
 import pattern.publish.subscribe.Publisher;
 import pattern.publish.subscribe.Subscriber;
 import automaton.event.Event;
+import automaton.event.network.NetworkEvent;
+import automaton.tools.NetworkTools;
 
 public class NetworkLayer extends Publisher<Event> implements Runnable, Subscriber<Event> {
 
 	private Socket socket;
-	private NetworkEventFactory eventFactory;
-	
+	private OFTPNetworkEventFactory eventFactory = new OFTPNetworkEventFactory();
+
 	private OutputStream out;
 
 	public NetworkLayer(Socket socket) {
@@ -29,16 +29,22 @@ public class NetworkLayer extends Publisher<Event> implements Runnable, Subscrib
 			out = socket.getOutputStream();
 
 			while (!socket.isClosed()) {
-				ArrayList<Integer> packet = new ArrayList<>();
+				StringBuilder packet = new StringBuilder();
 
 				int read = in.read();
-				while (Network.EOT != read && -1 == read) {
-					packet.add(read);
-					read = in.read();
+				if(-1 == read) {
+					close();
+				} else {
+					while (NetworkTools.EOT != read && -1 != read) {
+						packet.append((char) read);
+						read = in.read();
+					}
+					
+					NetworkEvent event = eventFactory.build(packet.toString());
+					if (null != event) {
+						publish(event);
+					}
 				}
-
-				 NetworkEvent event = eventFactory.build(packet);
-				 publish(event);
 			}
 
 		} catch (IOException e) {
@@ -50,24 +56,24 @@ public class NetworkLayer extends Publisher<Event> implements Runnable, Subscrib
 	@Override
 	public void inform(final Event event) {
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				send(event);
 			}
 		}).start();
 	}
-	
+
 	public void send(Event event) {
 		try {
-			out.write((byte[]) event.getAttribute("toByte"));
-			out.write(Network.EOT);
+			out.write((byte[]) event.getAttribute(NetworkEvent.TO_BYTES));
+			out.write(NetworkTools.EOT);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void close() throws IOException {
 		socket.close();
 	}

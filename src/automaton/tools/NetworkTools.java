@@ -1,8 +1,6 @@
-package oftp.automaton.network;
+package automaton.tools;
 
-public class Network {
-
-	public static final int LISTEN_PORT = 101010;
+public class NetworkTools {
 	
 	public static final char EOT = 4;
 	public static final char CR = 13;

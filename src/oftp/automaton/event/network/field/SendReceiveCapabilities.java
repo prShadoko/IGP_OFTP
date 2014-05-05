@@ -1,4 +1,4 @@
-package oftp.automaton.event.network;
+package oftp.automaton.event.network.field;
 
 public class SendReceiveCapabilities {
 

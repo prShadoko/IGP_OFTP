@@ -13,47 +13,44 @@ import automaton.transition.Transition;
 public class AbstractState implements State {
 
 	private String name;
-	
+
 	private Map<Event, Transition> transitions = new HashMap<>();
-	
+
 	public AbstractState(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public void run(Automaton automaton) {
 		System.out.println("\n - -- --- " + name + " --- -- - ");
-		
+
 		System.out.println("Wait for event");
 		Event inputEvent = automaton.receiveEvent();
 		System.out.println("Event received: " + inputEvent);
-		//TODO: Manage error
-		
+		// TODO: Manage error
+
 		System.out.println("Check transition");
-		if(transitions.containsKey(inputEvent)) {
+		if (transitions.containsKey(inputEvent)) {
 			Transition transition = transitions.get(inputEvent);
 			System.out.println("Transition: " + transition);
-			
+
 			Collection<Action> actions = transition.getActions();
-			Collection<Event> events = transition.getOutputEvents();
 			State nextState = transition.getNextState();
-			
-			for(Action action : actions) {
+
+			for (Action action : actions) {
 				System.out.println("Execute action: " + action.toString());
 				action.execute(inputEvent);
 			}
-			
-			for(Event outputEvent : events) {
-				System.out.println("Send event: " + outputEvent.toString());
-				outputEvent.send(); // ?
-			}
-			
+
+			System.out.println("Send events");
+			automaton.sendOutputEvents();
+
 			System.out.println("Next state: " + nextState);
 			automaton.setState(nextState);
 		} else {
 			System.out.println("No transition found");
 		}
-		
+
 	}
 
 	@Override

@@ -2,15 +2,22 @@ package oftp.automaton;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.Set;
+import java.net.Socket;
 
-import oftp.automaton.event.network.NetworkEvent;
+import oftp.automaton.action.InitSocketAction;
+import oftp.automaton.action.SendSSRMAction;
+import oftp.automaton.event.monitor.FConnectRequestEvent;
+import oftp.automaton.event.monitor.NetworkConnectionIndicationEvent;
 import oftp.automaton.network.NetworkLayer;
-import pattern.publish.subscribe.Publisher;
-import pattern.publish.subscribe.Subscriber;
+import oftp.automaton.state.AcceptorNetworkConnectionOnly;
+import oftp.automaton.state.IdleState;
+import oftp.automaton.state.InitiatorWaitForReadyMessageState;
 import automaton.AbstractAutomaton;
+import automaton.action.Action;
 import automaton.event.Event;
+import automaton.event.network.NetworkEvent;
 import automaton.state.State;
+import automaton.transition.Transition;
 
 public class OFTPAutomaton extends AbstractAutomaton {
 
@@ -18,9 +25,8 @@ public class OFTPAutomaton extends AbstractAutomaton {
 	private ServerSocket serverSocket;
 	private NetworkLayer networkLayer;
 
-	public OFTPAutomaton(State state, int listenPort) {
+	public OFTPAutomaton(State state) {
 		super(state);
-		this.listenPort = listenPort;
 	}
 
 	@Override
@@ -45,20 +51,29 @@ public class OFTPAutomaton extends AbstractAutomaton {
 				e.printStackTrace();
 			}
 		}
-		try {
-			networkLayer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			networkLayer.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	public NetworkLayer getNetworkLayer() {
 		return networkLayer;
 	}
 
-	public void setNetworkLayer(NetworkLayer networkLayer) {
-		this.networkLayer = networkLayer;
+	public void setSocket(Socket socket) {
+		if(null != networkLayer) {
+			try {
+				networkLayer.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		this.networkLayer = new NetworkLayer(socket);
 		networkLayer.subscribe(Event.class, this);
 		this.subscribe(NetworkEvent.class, networkLayer);
 		new Thread(networkLayer).start();
@@ -72,4 +87,27 @@ public class OFTPAutomaton extends AbstractAutomaton {
 		this.serverSocket = serverSocket;
 	}
 
+	public static OFTPAutomaton build() {
+		
+		State idle = new IdleState();
+		OFTPAutomaton oftp = new OFTPAutomaton(idle);
+
+		Action initSocketAction = new InitSocketAction(oftp);
+		Action sendSSRMAction = new SendSSRMAction(oftp);
+//		Action sendSSIDAction = new SendSSIDAction(oftp);
+		
+		Transition nConIndANcOnlyTransition = new Transition();
+		nConIndANcOnlyTransition.addAction(initSocketAction);
+		nConIndANcOnlyTransition.addAction(sendSSRMAction);
+		nConIndANcOnlyTransition.setNextState(new AcceptorNetworkConnectionOnly());
+		
+		Transition fConReqIWfRmTransition = new Transition();
+		fConReqIWfRmTransition.addAction(initSocketAction);
+		fConReqIWfRmTransition.setNextState(new InitiatorWaitForReadyMessageState());
+
+		idle.addTranstion(new NetworkConnectionIndicationEvent(), nConIndANcOnlyTransition);
+		idle.addTranstion(new FConnectRequestEvent(), fConReqIWfRmTransition);
+		
+		return oftp;
+	}
 }

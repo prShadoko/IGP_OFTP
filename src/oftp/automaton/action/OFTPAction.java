@@ -2,7 +2,6 @@ package oftp.automaton.action;
 
 import oftp.automaton.OFTPAutomaton;
 import automaton.action.Action;
-import automaton.event.Event;
 
 public abstract class OFTPAction implements Action {
 

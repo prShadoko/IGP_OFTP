@@ -25,7 +25,7 @@ public abstract class AbstractEvent implements Event {
 		return attributes.get(key);
 	}
 
-	protected void setAttribute(String key, Object attribute) {
+	public void setAttribute(String key, Object attribute) {
 		attributes.put(key, attribute);
 	}
 

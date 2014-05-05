@@ -1,5 +1,7 @@
 package automaton;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -14,6 +16,8 @@ public abstract class AbstractAutomaton extends Publisher<Event> implements Auto
 
 	private State state;
 
+	private Collection<Event> outputEvents = new ArrayList<>();
+
 	private Queue<Event> queue = new ConcurrentLinkedQueue<Event>();
 
 	public AbstractAutomaton(State state) {
@@ -23,21 +27,35 @@ public abstract class AbstractAutomaton extends Publisher<Event> implements Auto
 	protected abstract void setUp();
 
 	protected abstract void tearDown();
-	
+
 	@Override
 	public void run() {
 		setUp();
-		
+
 		while (null != state) {
 			state.run(this);
 		}
-		
+
 		tearDown();
 	}
 
 	@Override
 	public void setState(State state) {
 		this.state = state;
+	}
+
+	@Override
+	public void addOutputEvent(Event event) {
+		outputEvents.add(event);
+	}
+
+	@Override
+	public void sendOutputEvents() {
+		for (Event event : outputEvents) {
+			System.out.println("Send event: " + event.toString());
+			publish(event);
+		}
+		outputEvents.clear();
 	}
 
 	@Override
@@ -76,8 +94,10 @@ public abstract class AbstractAutomaton extends Publisher<Event> implements Auto
 	@Override
 	public void inform(Event event) {
 		queue.add(event);
-		synchronized (mainThread) {
-			mainThread.notifyAll();
+		if (null != mainThread) {
+			synchronized (mainThread) {
+				mainThread.notifyAll();
+			}
 		}
 	}
 }
