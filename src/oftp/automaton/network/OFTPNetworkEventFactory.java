@@ -1,10 +1,10 @@
 package oftp.automaton.network;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
-
 import automaton.event.network.NetworkArchetype;
 import automaton.event.network.NetworkEvent;
 import automaton.event.network.NetworkField;
@@ -16,9 +16,15 @@ public class OFTPNetworkEventFactory {
 	public OFTPNetworkEventFactory() {
 		
 	}
-	
+
 	public void addArchetype(OFTPNetworkArchetype archetype) {
 		archetypes.put(archetype.getCommandCode().getExpectedValue(), archetype);
+	}
+	
+	public void addArchetypes(Collection<OFTPNetworkArchetype> archetypes) {
+		for(OFTPNetworkArchetype archetype : archetypes) {
+			addArchetype(archetype);
+		}
 	}
 	
 	public NetworkEvent build(String packet) {
@@ -30,12 +36,12 @@ public class OFTPNetworkEventFactory {
 			event = build(packet, archetype);
 		}
 
-		System.out.println("event: " + event);
 		return event;
 	}
 
 	public NetworkEvent build(String packet, NetworkArchetype archetype) {
 		NetworkEvent event = null;
+		System.out.println("archetype: "+ archetype.getName());
 		
 		if(packet.length() == archetype.getLength()) {
 			event = new NetworkEvent(archetype);

@@ -14,12 +14,13 @@ import automaton.tools.NetworkTools;
 public class NetworkLayer extends Publisher<Event> implements Runnable, Subscriber<Event> {
 
 	private Socket socket;
-	private OFTPNetworkEventFactory eventFactory = new OFTPNetworkEventFactory();
+	private OFTPNetworkEventFactory eventFactory;
 
 	private OutputStream out;
 
-	public NetworkLayer(Socket socket) {
+	public NetworkLayer(Socket socket, OFTPNetworkEventFactory eventFactory) {
 		this.socket = socket;
+		this.eventFactory = eventFactory;
 	}
 
 	@Override

@@ -3,15 +3,19 @@ package oftp.automaton;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Collection;
 
 import oftp.automaton.action.InitSocketAction;
 import oftp.automaton.action.SendSSRMAction;
 import oftp.automaton.event.monitor.FConnectRequestEvent;
 import oftp.automaton.event.monitor.NetworkConnectionIndicationEvent;
+import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
+import oftp.automaton.network.OFTPNetworkEventFactory;
 import oftp.automaton.state.AcceptorNetworkConnectionOnly;
 import oftp.automaton.state.IdleState;
 import oftp.automaton.state.InitiatorWaitForReadyMessageState;
+import oftp.service.OFTPNetworkArchetypeProviderService;
 import automaton.AbstractAutomaton;
 import automaton.action.Action;
 import automaton.event.Event;
@@ -24,9 +28,15 @@ public class OFTPAutomaton extends AbstractAutomaton {
 	private int listenPort;
 	private ServerSocket serverSocket;
 	private NetworkLayer networkLayer;
+	private OFTPNetworkEventFactory networkEventFactory = new OFTPNetworkEventFactory();
+	
+	private OFTPNetworkArchetypeProviderService archtypeProviderService = new OFTPNetworkArchetypeProviderService();
 
 	public OFTPAutomaton(State state) {
 		super(state);
+		
+		Collection<OFTPNetworkArchetype> archetypes = archtypeProviderService.getArchetype();
+		networkEventFactory.addArchetypes(archetypes);
 	}
 
 	@Override
@@ -73,7 +83,7 @@ public class OFTPAutomaton extends AbstractAutomaton {
 			}
 		}
 		
-		this.networkLayer = new NetworkLayer(socket);
+		this.networkLayer = new NetworkLayer(socket, networkEventFactory);
 		networkLayer.subscribe(Event.class, this);
 		this.subscribe(NetworkEvent.class, networkLayer);
 		new Thread(networkLayer).start();
