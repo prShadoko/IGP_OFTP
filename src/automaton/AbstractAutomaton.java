@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import automaton.event.Event;
 import automaton.event.EventLayer;
+import automaton.exception.AutomatonException;
 import automaton.state.State;
 
 public abstract class AbstractAutomaton extends EventLayer implements Automaton {
@@ -20,27 +21,26 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 	private Queue<Event<?>> queue = new ConcurrentLinkedQueue<Event<?>>();
 
 	public AbstractAutomaton(State state) {
-		setState(state);
+		this.state = state;
 	}
 
-	protected abstract void setUp();
+	protected abstract void setUp() throws AutomatonException;
 
 	protected abstract void tearDown();
 
 	@Override
 	public void run() {
-		setUp();
-		
-		while (null != state) {
-			state.run(this);
+		try {
+			setUp();
+			
+			while (null != state) {
+				state = state.run(this);
+			}
+		} catch (AutomatonException e) {
+			e.printStackTrace();
+		} finally {
+			tearDown();
 		}
-
-		tearDown();
-	}
-
-	@Override
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 				sleeper.start();
 				sleeper.join();
 			} catch (InterruptedException e) {
-				System.out.println(e.getMessage());
+				System.out.println("Sleeper join error : " + e.getMessage());
 			}
 			event = queue.poll();
 		}

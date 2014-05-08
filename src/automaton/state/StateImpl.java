@@ -8,6 +8,7 @@ import automaton.Automaton;
 import automaton.action.Action;
 import automaton.event.Archetype;
 import automaton.event.Event;
+import automaton.exception.AutomatonException;
 import automaton.transition.Transition;
 
 public class StateImpl implements State {
@@ -21,36 +22,42 @@ public class StateImpl implements State {
 	}
 
 	@Override
-	public void run(Automaton automaton) {
+	public State run(Automaton automaton) {
 		System.out.println("\n - -- --- " + name + " --- -- - ");
+		State nextState = null;
 
 		System.out.println("Wait for event");
 		Event<?> inputEvent = automaton.receiveEvent();
 		System.out.println("Event received: " + inputEvent);
-		// TODO: Manage error
 
-		System.out.println("Check transition");
-		if (transitions.containsKey(inputEvent.getArchetype())) {
-			Transition transition = transitions.get(inputEvent.getArchetype());
-			System.out.println("Transition: " + transition);
+		try {
+			System.out.println("Check transition");
+			if (null != inputEvent && transitions.containsKey(inputEvent.getArchetype())) {
+				Transition transition = transitions.get(inputEvent.getArchetype());
+				System.out.println("Transition: " + transition);
 
-			Collection<Action> actions = transition.getActions();
-			State nextState = transition.getNextState();
+				Collection<Action> actions = transition.getActions();
 
-			for (Action action : actions) {
-				System.out.println("Execute action: " + action.toString());
-				action.execute(inputEvent);
+				System.out.println("Execute actions");
+				for (Action action : actions) {
+					System.out.println("action: " + action.toString());
+					action.execute(inputEvent);
+				}
+
+				System.out.println("Send events");
+				automaton.sendOutputEvents();
+
+				System.out.println("Next state: " + nextState);
+				nextState = transition.getNextState();
+			} else {
+				System.out.println("No transition found");
+				nextState = this;
 			}
-
-			System.out.println("Send events");
-			automaton.sendOutputEvents();
-
-			System.out.println("Next state: " + nextState);
-			automaton.setState(nextState);
-		} else {
-			System.out.println("No transition found");
+		} catch (AutomatonException e) {
+			e.printStackTrace();
 		}
 
+		return nextState;
 	}
 
 	@Override

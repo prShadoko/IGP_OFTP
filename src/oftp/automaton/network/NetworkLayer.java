@@ -48,7 +48,7 @@ public class NetworkLayer extends EventLayer implements Runnable {
 			}
 
 		} catch (IOException e) {
-			// TODO Do publish error event ?
+			System.out.println("Socket may be closed.");
 			e.printStackTrace();
 		}
 	}
@@ -59,21 +59,21 @@ public class NetworkLayer extends EventLayer implements Runnable {
 
 			@Override
 			public void run() {
-				send(event);
+				try {
+					send(event);
+				} catch (IOException e) {
+					System.out.println("Socket may be closed.");
+					e.printStackTrace();
+				}
 			}
 		}).start();
 	}
 
-	public void send(Event<?> event) {
-		try {
-			System.out.println("out: " + out);
-			System.out.println("event: " + event);
-			out.write(event.getAttribute(NetworkEvent.TO_BYTES));
-			out.write(NetworkTools.EOT);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void send(Event<?> event) throws IOException {
+		System.out.println("out: " + out);
+		System.out.println("event: " + event);
+		out.write(event.getAttribute(NetworkEvent.TO_BYTES));
+		out.write(NetworkTools.EOT);
 	}
 
 	public void close() throws IOException {

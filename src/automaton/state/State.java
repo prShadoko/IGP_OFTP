@@ -6,7 +6,7 @@ import automaton.transition.Transition;
 
 public interface State {
 
-	void run(Automaton automaton);
+	State run(Automaton automaton);
 	
 	void addTranstion(Archetype<?> archetype, Transition transition);
 }

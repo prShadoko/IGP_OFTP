@@ -20,6 +20,7 @@ import automaton.AbstractAutomaton;
 import automaton.action.Action;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
+import automaton.exception.AutomatonException;
 import automaton.state.State;
 import automaton.transition.Transition;
 
@@ -40,15 +41,12 @@ public class OFTPAutomaton extends AbstractAutomaton {
 	}
 
 	@Override
-	protected void setUp() {
+	protected void setUp() throws AutomatonException {
 		try {
 			serverSocket = new ServerSocket(listenPort);
-
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new AutomatonException("Error while socket initializations",e);
 		}
-
 	}
 
 	@Override
@@ -57,16 +55,9 @@ public class OFTPAutomaton extends AbstractAutomaton {
 			try {
 				serverSocket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-//		try {
-//			networkLayer.close();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 	public NetworkLayer getNetworkLayer() {
@@ -78,8 +69,7 @@ public class OFTPAutomaton extends AbstractAutomaton {
 			try {
 				networkLayer.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				new AutomatonException("Error while closing network layer.", e).printStackTrace();
 			}
 		}
 		
