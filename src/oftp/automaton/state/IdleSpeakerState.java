@@ -1,9 +1,9 @@
 package oftp.automaton.state;
 
-import automaton.state.AbstractState;
+import automaton.state.StateImpl;
 
 
-public class IdleSpeakerState extends AbstractState {
+public class IdleSpeakerState extends StateImpl {
 
 	public IdleSpeakerState(String name) {
 		super("IDLESP");

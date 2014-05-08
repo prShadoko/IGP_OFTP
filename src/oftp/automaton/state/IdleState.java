@@ -7,5 +7,6 @@ public class IdleState extends StateImpl {
 
 	public IdleState() {
 		super("IDLE");
+//		addTranstion();
 	}
 }
