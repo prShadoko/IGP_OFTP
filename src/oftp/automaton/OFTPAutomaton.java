@@ -12,9 +12,9 @@ import oftp.automaton.event.monitor.NetworkConnectionIndicationEvent;
 import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OFTPNetworkEventFactory;
-import oftp.automaton.state.AcceptorNetworkConnectionOnly;
-import oftp.automaton.state.IdleState;
-import oftp.automaton.state.InitiatorWaitForReadyMessageState;
+import oftp.automaton.state.AcceptorNetworkConnectionOnlyState;
+import oftp.automaton.state.InitiatorWaitingForSsidState;
+import oftp.automaton.state.InitiatorWaitingForReadyMessageState;
 import oftp.service.OFTPNetworkArchetypeProviderService;
 import automaton.AbstractAutomaton;
 import automaton.action.Action;
@@ -99,7 +99,7 @@ public class OFTPAutomaton extends AbstractAutomaton {
 
 	public static OFTPAutomaton build() {
 		
-		State idle = new IdleState();
+		State idle = new InitiatorWaitingForSsidState();
 		OFTPAutomaton oftp = new OFTPAutomaton(idle);
 
 		Action initSocketAction = new InitSocketAction(oftp);
@@ -109,11 +109,11 @@ public class OFTPAutomaton extends AbstractAutomaton {
 		Transition nConIndANcOnlyTransition = new Transition();
 		nConIndANcOnlyTransition.addAction(initSocketAction);
 		nConIndANcOnlyTransition.addAction(sendSSRMAction);
-		nConIndANcOnlyTransition.setNextState(new AcceptorNetworkConnectionOnly());
+		nConIndANcOnlyTransition.setNextState(new AcceptorNetworkConnectionOnlyState());
 		
 		Transition fConReqIWfRmTransition = new Transition();
 		fConReqIWfRmTransition.addAction(initSocketAction);
-		fConReqIWfRmTransition.setNextState(new InitiatorWaitForReadyMessageState());
+		fConReqIWfRmTransition.setNextState(new InitiatorWaitingForReadyMessageState());
 
 		idle.addTranstion(new NetworkConnectionIndicationEvent(), nConIndANcOnlyTransition);
 		idle.addTranstion(new FConnectRequestEvent(), fConReqIWfRmTransition);
