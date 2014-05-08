@@ -3,16 +3,15 @@ package automaton.event;
 import java.util.HashMap;
 import java.util.Map;
 
-public /*abstract*/ class AbstractEvent<A extends Archetype<?>> implements Event<A> {
+public class EventImpl<A extends Archetype<?>> implements Event<A> {
 
 	private A archetype;
 	private Map<Field<?>, Object> attributes = new HashMap<>();
 
-	public AbstractEvent(A archetype) {
+	public EventImpl(A archetype) {
 		setArchetype(archetype);
 		init();
 	}
-
 
 	private void init() {
 		for (Field<?> field : getArchetype().getFields()) {

@@ -1,9 +1,9 @@
 package oftp.automaton.state;
 
-import automaton.state.AbstractState;
+import automaton.state.StateImpl;
 
 
-public class IdleState extends AbstractState {
+public class IdleState extends StateImpl {
 
 	public IdleState() {
 		super("IDLE");

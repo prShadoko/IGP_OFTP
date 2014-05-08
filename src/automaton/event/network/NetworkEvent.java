@@ -1,10 +1,10 @@
 package automaton.event.network;
 
-import automaton.event.AbstractEvent;
+import automaton.event.EventImpl;
 import automaton.event.Field;
 import automaton.tools.NetworkTools;
 
-public class NetworkEvent extends AbstractEvent<NetworkArchetype> {
+public class NetworkEvent extends EventImpl<NetworkArchetype> {
 
 	public static final NetworkField<byte[]> TO_BYTES = new NetworkField<>("toBytes", 0);
 

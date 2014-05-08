@@ -10,13 +10,13 @@ import automaton.event.Archetype;
 import automaton.event.Event;
 import automaton.transition.Transition;
 
-public class AbstractState implements State {
+public class StateImpl implements State {
 
 	private String name;
 
 	private Map<Archetype<?>, Transition> transitions = new HashMap<>();
 
-	public AbstractState(String name) {
+	public StateImpl(String name) {
 		this.name = name;
 	}
 
