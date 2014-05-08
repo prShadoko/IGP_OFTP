@@ -1,8 +1,8 @@
 package oftp.automaton.state;
 
-import automaton.state.AbstractState;
+import automaton.state.StateImpl;
 
-public class AcceptorNetworkConnectionOnlyState extends AbstractState {
+public class AcceptorNetworkConnectionOnlyState extends StateImpl {
 
 	public AcceptorNetworkConnectionOnlyState() {
 		super("A_NC_ONLY");

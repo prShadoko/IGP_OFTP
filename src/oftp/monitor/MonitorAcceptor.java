@@ -5,12 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import oftp.automaton.OFTPAutomaton;
+import oftp.automaton.event.monitor.AbstractSocketInitialisationArchetype;
 import oftp.automaton.event.monitor.MonitorEvent;
-import oftp.automaton.event.monitor.NetworkConnectionIndicationEvent;
-import pattern.publish.subscribe.Publisher;
+import oftp.automaton.event.monitor.NetworkConnectionIndicationArchetype;
 import automaton.event.Event;
+import automaton.event.EventLayer;
 
-public class MonitorAcceptor extends Publisher<Event> implements Runnable {
+public class MonitorAcceptor extends EventLayer implements Runnable {
 
 	public static final int LISTEN_PORT = 10101;
 	
@@ -28,8 +29,8 @@ public class MonitorAcceptor extends Publisher<Event> implements Runnable {
 			Socket socket = server.accept();
 			server.close();
 			
-			NetworkConnectionIndicationEvent nConInd = new NetworkConnectionIndicationEvent();
-			nConInd.setSocket(socket);
+			MonitorEvent nConInd = new MonitorEvent(new NetworkConnectionIndicationArchetype());
+			nConInd.putAttribute(AbstractSocketInitialisationArchetype.SOCKET, socket);
 			
 			publish(nConInd);
 			
@@ -46,5 +47,11 @@ public class MonitorAcceptor extends Publisher<Event> implements Runnable {
 	public static void main(String[] args) {
 		MonitorAcceptor monitor = new MonitorAcceptor();
 		monitor.run();
+	}
+
+	@Override
+	public void inform(Event<?> publication) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -7,10 +7,10 @@ import java.util.Map;
 
 public abstract class Publisher<T> {
 
-	Map<Class<? extends T>, Collection<Subscriber<T>>> subscribers;
+	Map<Class<?>, Collection<Subscriber<T>>> subscribers;
 
 	public Publisher() {
-		this.subscribers = new HashMap<Class<? extends T>, Collection<Subscriber<T>>>();
+		this.subscribers = new HashMap<Class<?>, Collection<Subscriber<T>>>();
 	}
 
 	public void publish(T publication) {
@@ -25,7 +25,7 @@ public abstract class Publisher<T> {
 		}
 	}
 
-	public void subscribe(Class<? extends T> publicationType, Subscriber<T> subscriber) {
+	public void subscribe(Class<?> publicationType, Subscriber<T> subscriber) {
 		if (!subscribers.containsKey(publicationType)) {
 			subscribers.put(publicationType, new HashSet<Subscriber<T>>());
 		}

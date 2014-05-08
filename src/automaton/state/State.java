@@ -1,12 +1,12 @@
 package automaton.state;
 
 import automaton.Automaton;
-import automaton.event.Event;
+import automaton.event.Archetype;
 import automaton.transition.Transition;
 
 public interface State {
 
-	void run(Automaton automaton);
+	State run(Automaton automaton);
 	
-	void addTranstion(Event event, Transition transition);
+	void addTranstion(Archetype<?> archetype, Transition transition);
 }

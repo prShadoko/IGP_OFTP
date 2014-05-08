@@ -1,37 +1,22 @@
 package automaton.event.network;
 
-public class NetworkField<T> {
+import automaton.event.Field;
 
-	private String name;
+public class NetworkField<T> extends Field<T> {
+
 	private int length;
-	private T expectedValue;
 
 	public NetworkField(String name, int length) {
-		super();
-		this.name = name;
+		super(name);
 		this.length = length;
 	}
 
 	public NetworkField(String name, int length, T expectedValue) {
-		super();
-		this.name = name;
+		super(name, expectedValue);
 		this.length = length;
-		this.expectedValue = expectedValue;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public int getLength() {
 		return length;
-	}
-	
-	public T getExpectedValue() {
-		return expectedValue;
-	}
-	
-	public boolean hasExpectedValue() {
-		return (null == expectedValue) ? false : true;
 	}
 }

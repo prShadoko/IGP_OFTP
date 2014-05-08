@@ -1,8 +1,8 @@
 package oftp.automaton.state;
 
-import automaton.state.AbstractState;
+import automaton.state.StateImpl;
 
-public class InitiatorWaitingForReadyMessageState extends AbstractState {
+public class InitiatorWaitingForReadyMessageState extends StateImpl {
 
 	public InitiatorWaitingForReadyMessageState() {
 		super("I_WF_RM");

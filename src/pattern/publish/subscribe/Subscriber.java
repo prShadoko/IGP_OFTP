@@ -1,6 +1,6 @@
 package pattern.publish.subscribe;
 
-public interface Subscriber<T> {
+public interface Subscriber<P> {
 
-	void inform(T publication);
+	void inform(P publication);
 }

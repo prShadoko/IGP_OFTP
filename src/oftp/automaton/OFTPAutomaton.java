@@ -7,8 +7,8 @@ import java.util.Collection;
 
 import oftp.automaton.action.InitSocketAction;
 import oftp.automaton.action.SendSSRMAction;
-import oftp.automaton.event.monitor.FConnectRequestEvent;
-import oftp.automaton.event.monitor.NetworkConnectionIndicationEvent;
+import oftp.automaton.event.monitor.FConnectRequestArchetype;
+import oftp.automaton.event.monitor.NetworkConnectionIndicationArchetype;
 import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OFTPNetworkEventFactory;
@@ -20,6 +20,7 @@ import automaton.AbstractAutomaton;
 import automaton.action.Action;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
+import automaton.exception.AutomatonException;
 import automaton.state.State;
 import automaton.transition.Transition;
 
@@ -40,15 +41,12 @@ public class OFTPAutomaton extends AbstractAutomaton {
 	}
 
 	@Override
-	protected void setUp() {
+	protected void setUp() throws AutomatonException {
 		try {
 			serverSocket = new ServerSocket(listenPort);
-
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new AutomatonException("Error while socket initializations",e);
 		}
-
 	}
 
 	@Override
@@ -57,16 +55,9 @@ public class OFTPAutomaton extends AbstractAutomaton {
 			try {
 				serverSocket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-//		try {
-//			networkLayer.close();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 	public NetworkLayer getNetworkLayer() {
@@ -78,8 +69,7 @@ public class OFTPAutomaton extends AbstractAutomaton {
 			try {
 				networkLayer.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				new AutomatonException("Error while closing network layer.", e).printStackTrace();
 			}
 		}
 		
@@ -115,8 +105,8 @@ public class OFTPAutomaton extends AbstractAutomaton {
 		fConReqIWfRmTransition.addAction(initSocketAction);
 		fConReqIWfRmTransition.setNextState(new InitiatorWaitingForReadyMessageState());
 
-		idle.addTranstion(new NetworkConnectionIndicationEvent(), nConIndANcOnlyTransition);
-		idle.addTranstion(new FConnectRequestEvent(), fConReqIWfRmTransition);
+		idle.addTranstion(new NetworkConnectionIndicationArchetype(), nConIndANcOnlyTransition);
+		idle.addTranstion(new FConnectRequestArchetype(), fConReqIWfRmTransition);
 		
 		return oftp;
 	}

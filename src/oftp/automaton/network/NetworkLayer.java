@@ -5,13 +5,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import pattern.publish.subscribe.Publisher;
-import pattern.publish.subscribe.Subscriber;
 import automaton.event.Event;
+import automaton.event.EventLayer;
 import automaton.event.network.NetworkEvent;
 import automaton.tools.NetworkTools;
 
-public class NetworkLayer extends Publisher<Event> implements Runnable, Subscriber<Event> {
+public class NetworkLayer extends EventLayer implements Runnable {
 
 	private Socket socket;
 	private OFTPNetworkEventFactory eventFactory;
@@ -33,14 +32,14 @@ public class NetworkLayer extends Publisher<Event> implements Runnable, Subscrib
 				StringBuilder packet = new StringBuilder();
 
 				int read = in.read();
-				if(-1 == read) {
+				if (-1 == read) {
 					close();
 				} else {
 					while (NetworkTools.EOT != read && -1 != read) {
 						packet.append((char) read);
 						read = in.read();
 					}
-					
+
 					NetworkEvent event = eventFactory.build(packet.toString());
 					if (null != event) {
 						publish(event);
@@ -49,30 +48,32 @@ public class NetworkLayer extends Publisher<Event> implements Runnable, Subscrib
 			}
 
 		} catch (IOException e) {
-			// TODO Do publish error event ?
+			System.out.println("Socket may be closed.");
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void inform(final Event event) {
+	public void inform(final Event<?> event) {
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				send(event);
+				try {
+					send(event);
+				} catch (IOException e) {
+					System.out.println("Socket may be closed.");
+					e.printStackTrace();
+				}
 			}
 		}).start();
 	}
 
-	public void send(Event event) {
-		try {
-			out.write((byte[]) event.getAttribute(NetworkEvent.TO_BYTES));
-			out.write(NetworkTools.EOT);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void send(Event<?> event) throws IOException {
+		System.out.println("out: " + out);
+		System.out.println("event: " + event);
+		out.write(event.getAttribute(NetworkEvent.TO_BYTES));
+		out.write(NetworkTools.EOT);
 	}
 
 	public void close() throws IOException {

@@ -5,53 +5,52 @@ import java.util.Collection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import pattern.publish.subscribe.Publisher;
-import pattern.publish.subscribe.Subscriber;
 import automaton.event.Event;
+import automaton.event.EventLayer;
+import automaton.exception.AutomatonException;
 import automaton.state.State;
 
-public abstract class AbstractAutomaton extends Publisher<Event> implements Automaton, Subscriber<Event> {
+public abstract class AbstractAutomaton extends EventLayer implements Automaton {
 
 	Thread mainThread;
 
 	private State state;
 
-	private Collection<Event> outputEvents = new ArrayList<>();
+	private Collection<Event<?>> outputEvents = new ArrayList<>();
 
-	private Queue<Event> queue = new ConcurrentLinkedQueue<Event>();
+	private Queue<Event<?>> queue = new ConcurrentLinkedQueue<Event<?>>();
 
 	public AbstractAutomaton(State state) {
-		setState(state);
+		this.state = state;
 	}
 
-	protected abstract void setUp();
+	protected abstract void setUp() throws AutomatonException;
 
 	protected abstract void tearDown();
 
 	@Override
 	public void run() {
-		setUp();
-		
-		while (null != state) {
-			state.run(this);
+		try {
+			setUp();
+			
+			while (null != state) {
+				state = state.run(this);
+			}
+		} catch (AutomatonException e) {
+			e.printStackTrace();
+		} finally {
+			tearDown();
 		}
-
-		tearDown();
 	}
 
 	@Override
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	@Override
-	public void addOutputEvent(Event event) {
+	public void addOutputEvent(Event<?> event) {
 		outputEvents.add(event);
 	}
 
 	@Override
 	public void sendOutputEvents() {
-		for (Event event : outputEvents) {
+		for (Event<?> event : outputEvents) {
 			System.out.println("Send event: " + event.toString());
 			publish(event);
 		}
@@ -59,10 +58,10 @@ public abstract class AbstractAutomaton extends Publisher<Event> implements Auto
 	}
 
 	@Override
-	public Event receiveEvent() {
+	public Event<?> receiveEvent() {
 		mainThread = Thread.currentThread();
 
-		Event event = queue.poll();
+		Event<?> event = queue.poll();
 
 		while (null == event) {
 			try {
@@ -84,7 +83,7 @@ public abstract class AbstractAutomaton extends Publisher<Event> implements Auto
 				sleeper.start();
 				sleeper.join();
 			} catch (InterruptedException e) {
-				System.out.println(e.getMessage());
+				System.out.println("Sleeper join error : " + e.getMessage());
 			}
 			event = queue.poll();
 		}
@@ -92,7 +91,7 @@ public abstract class AbstractAutomaton extends Publisher<Event> implements Auto
 	}
 
 	@Override
-	public void inform(Event event) {
+	public void inform(Event<?> event) {
 		queue.add(event);
 		if (null != mainThread) {
 			synchronized (mainThread) {
