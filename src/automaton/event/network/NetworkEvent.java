@@ -1,50 +1,40 @@
 package automaton.event.network;
 
 import automaton.event.AbstractEvent;
+import automaton.event.Field;
 import automaton.tools.NetworkTools;
 
-public class NetworkEvent extends AbstractEvent {
-	
-	public static final String TO_BYTES = "toBytes";
-	
-	private NetworkArchetype archetype;
-	
+public class NetworkEvent extends AbstractEvent<NetworkArchetype> {
+
+	public static final NetworkField<byte[]> TO_BYTES = new NetworkField<>("toBytes", 0);
+
 	public NetworkEvent(NetworkArchetype archetype) {
-		super(archetype.getName());
-		this.archetype = archetype;
-		init();
-	}
-	
-	private void init() {
-		for(NetworkField<?> field : archetype.getFields()) {
-			if(field.hasExpectedValue()) {
-				this.setAttribute(field.getName(), field.getExpectedValue());
-			}
-		}
+		super(archetype);
 	}
 
 	@Override
-	public Object getAttribute(String key) {
-		
-		if(TO_BYTES.equals(key)) {
-			setAttribute(key, this.toBytes());
+	public <T> T getAttribute(Field<T> field) {
+
+		if (TO_BYTES.equals(field)) {
+			putAttribute(field, this.toBytes());
 		}
-		
-		return super.getAttribute(key);
+
+		return super.getAttribute(field);
 	}
-	
+
 	public byte[] toBytes() {
 		StringBuilder bytes = new StringBuilder();
-		
-		for(NetworkField<?> field : archetype.getFields()) {
-			Object attribute = getAttribute(field.getName());
+
+		for (NetworkField<?> field : getArchetype().getFields()) {
+
+			Object attribute = getAttribute(field);
 			String attributeStr = "";
-			if(null != attribute) {
+			if (null != attribute) {
 				attributeStr = attribute.toString();
 			}
 			bytes.append(NetworkTools.formatString(attributeStr, field.getLength(), ' '));
 		}
-		
+
 		return bytes.toString().getBytes();
 	}
 

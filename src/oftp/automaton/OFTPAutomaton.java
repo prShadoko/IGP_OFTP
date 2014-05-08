@@ -7,8 +7,8 @@ import java.util.Collection;
 
 import oftp.automaton.action.InitSocketAction;
 import oftp.automaton.action.SendSSRMAction;
-import oftp.automaton.event.monitor.FConnectRequestEvent;
-import oftp.automaton.event.monitor.NetworkConnectionIndicationEvent;
+import oftp.automaton.event.monitor.FConnectRequestArchetype;
+import oftp.automaton.event.monitor.NetworkConnectionIndicationArchetype;
 import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OFTPNetworkEventFactory;
@@ -115,8 +115,8 @@ public class OFTPAutomaton extends AbstractAutomaton {
 		fConReqIWfRmTransition.addAction(initSocketAction);
 		fConReqIWfRmTransition.setNextState(new InitiatorWaitForReadyMessageState());
 
-		idle.addTranstion(new NetworkConnectionIndicationEvent(), nConIndANcOnlyTransition);
-		idle.addTranstion(new FConnectRequestEvent(), fConReqIWfRmTransition);
+		idle.addTranstion(new NetworkConnectionIndicationArchetype(), nConIndANcOnlyTransition);
+		idle.addTranstion(new FConnectRequestArchetype(), fConReqIWfRmTransition);
 		
 		return oftp;
 	}

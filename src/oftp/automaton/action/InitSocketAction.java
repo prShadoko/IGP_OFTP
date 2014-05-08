@@ -3,6 +3,7 @@ package oftp.automaton.action;
 import java.net.Socket;
 
 import oftp.automaton.OFTPAutomaton;
+import oftp.automaton.event.monitor.AbstractSocketInitialisationArchetype;
 import automaton.event.Event;
 
 public class InitSocketAction extends OFTPAction {
@@ -12,9 +13,8 @@ public class InitSocketAction extends OFTPAction {
 	}
 
 	@Override
-	public void execute(Event inputEvent) {
-		Socket socket = (Socket) inputEvent.getAttribute("socket");
-		
+	public void execute(Event<?> inputEvent) {
+		Socket socket = inputEvent.getAttribute(AbstractSocketInitialisationArchetype.SOCKET);
 		automaton.setSocket(socket);
 	}
 

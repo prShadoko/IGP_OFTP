@@ -1,6 +1,11 @@
 package automaton.event;
 
-public interface Event {
+
+public interface Event<A extends Archetype<?>> {
 	
-	Object getAttribute(String key);
+	<T> T getAttribute(Field<T> field);
+	
+	void putAttribute(Field<?> field, Object attr);
+	
+	A getArchetype();
 }

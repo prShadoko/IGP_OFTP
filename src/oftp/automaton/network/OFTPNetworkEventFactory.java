@@ -56,7 +56,7 @@ public class OFTPNetworkEventFactory {
 					}
 				}
 
-				event.setAttribute(field.getName(), sub);
+				event.putAttribute(field, sub);
 				
 				pos += field.getLength();
 			}

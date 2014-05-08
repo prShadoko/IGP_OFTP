@@ -1,35 +1,20 @@
 package automaton.event.network;
 
-import java.util.LinkedList;
+import automaton.event.Archetype;
 
-public class NetworkArchetype {
-	
-	private String name;
-	private LinkedList<NetworkField<?>> fields = new LinkedList<>();
-	
+public class NetworkArchetype extends Archetype<NetworkField<?>> {
+
 	public NetworkArchetype(String name) {
-		this.name = name;
+		super(name);
 	}
-	
-	public void addField(NetworkField<?> field) {
-		fields.add(field);
-	}
-	
-	public LinkedList<NetworkField<?>> getFields() {
-		return fields;
-	}
-	
+
 	public int getLength() {
 		int length = 0;
-		
-		for(NetworkField<?> field : fields) {
+
+		for (NetworkField<?> field : getFields()) {
 			length += field.getLength();
 		}
-		
+
 		return length;
-	}
-	
-	public String getName() {
-		return name;
 	}
 }

@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import automaton.action.Action;
-import automaton.event.Event;
 import automaton.predicate.Predicate;
 import automaton.state.State;
 

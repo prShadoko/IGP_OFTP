@@ -3,60 +3,47 @@ package automaton.event;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractEvent implements Event {
+public /*abstract*/ class AbstractEvent<A extends Archetype<?>> implements Event<A> {
 
-	private String name;
-	private Map<String, Object> attributes = new HashMap<>();
+	private A archetype;
+	private Map<Field<?>, Object> attributes = new HashMap<>();
 
-	public AbstractEvent(String name) {
-		setName(name);
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
+	public AbstractEvent(A archetype) {
+		setArchetype(archetype);
+		init();
 	}
 
-	@Override
-	public Object getAttribute(String key) {
-		return attributes.get(key);
-	}
 
-	public void setAttribute(String key, Object attribute) {
-		attributes.put(key, attribute);
-	}
-
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+	private void init() {
+		for (Field<?> field : getArchetype().getFields()) {
+			if (field.hasExpectedValue()) {
+				this.putAttribute(field, field.getExpectedValue());
+			}
+		}
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AbstractEvent other = (AbstractEvent) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public A getArchetype() {
+		return archetype;
+	}
+
+	public void setArchetype(A archetype) {
+		this.archetype = archetype;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public <T> T getAttribute(Field<T> field) {
+		return (T) attributes.get(field);
+	}
+
+	@Override
+	public void putAttribute(Field<?> field, Object attr) {
+		attributes.put(field, attr);
 	}
 	
 	@Override
 	public String toString() {
-		return getName();
+		return archetype.getName();
 	}
 }

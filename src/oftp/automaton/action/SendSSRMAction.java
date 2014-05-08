@@ -12,8 +12,7 @@ public class SendSSRMAction extends OFTPAction {
 	}
 
 	@Override
-	public void execute(Event inputEvent) {
-		
+	public void execute(Event<?> inputEvent) {
 		automaton.addOutputEvent(new NetworkEvent(new StartSessionReadyMessageArchetype()));
 	}
 
