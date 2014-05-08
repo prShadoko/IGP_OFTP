@@ -32,7 +32,10 @@ public class NetworkEvent extends EventImpl<NetworkArchetype> {
 			if (null != attribute) {
 				attributeStr = attribute.toString();
 			}
-			bytes.append(NetworkTools.formatString(attributeStr, field.getLength(), ' '));
+			if(field.getLength() > 0) {
+				attributeStr = NetworkTools.formatString(attributeStr, field.getLength(), ' ');
+			}
+			bytes.append(attributeStr);
 		}
 
 		return bytes.toString().getBytes();
