@@ -4,7 +4,7 @@ import oftp.automaton.event.network.OFTPNetworkField;
 import oftp.automaton.event.network.field.CommandCode;
 import automaton.event.network.NetworkField;
 
-public class StartSessionIDArchetype extends OFTPNetworkArchetype {
+public class StartSessionArchetype extends OFTPNetworkArchetype {
 
 	public static final String NAME = "SSID";
 
@@ -20,7 +20,7 @@ public class StartSessionIDArchetype extends OFTPNetworkArchetype {
 	public static final NetworkField<String> 	RESERVED 					= new NetworkField<>("SSIDRSV1", 	5);
 	public static final NetworkField<String> 	USER_DATA 					= new NetworkField<>("SSIDUSER",	8);
 
-	public StartSessionIDArchetype() {
+	public StartSessionArchetype() {
 		super(NAME, CommandCode.SSID);
 
 		addField(LEVEL);

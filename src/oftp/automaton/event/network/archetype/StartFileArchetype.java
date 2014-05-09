@@ -3,7 +3,7 @@ package oftp.automaton.event.network.archetype;
 import automaton.event.network.NetworkField;
 import oftp.automaton.event.network.field.CommandCode;
 
-public class StartFileIDArchetype extends OFTPNetworkArchetype {
+public class StartFileArchetype extends OFTPNetworkArchetype {
 
 	public static final String NAME = "SFID";
 
@@ -19,7 +19,7 @@ public class StartFileIDArchetype extends OFTPNetworkArchetype {
 	public static NetworkField<Integer> 	FILE_SIZE 					= new NetworkField<>("SFIDFSIZ",  7);
 	public static NetworkField<Integer> 	RESTART_POSITION 			= new NetworkField<>("SFIDREST",  9);
 	
-	public StartFileIDArchetype() {
+	public StartFileArchetype() {
 		super(NAME, CommandCode.SFID);
 
 		addField(VIRTUAL_FILE_DATA_SET_NAME);

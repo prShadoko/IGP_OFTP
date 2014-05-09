@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
-import oftp.automaton.event.network.archetype.StartSessionIDArchetype;
+import oftp.automaton.event.network.archetype.StartSessionArchetype;
 import oftp.automaton.event.network.archetype.StartSessionReadyMessageArchetype;
 
 public class OFTPNetworkArchetypeProviderService {
@@ -14,7 +14,7 @@ public class OFTPNetworkArchetypeProviderService {
 		Collection<OFTPNetworkArchetype> list = new ArrayList<OFTPNetworkArchetype>();
 		
 		list.add(new StartSessionReadyMessageArchetype());		
-		list.add(new StartSessionIDArchetype());
+		list.add(new StartSessionArchetype());
 		
 		return list;
 
