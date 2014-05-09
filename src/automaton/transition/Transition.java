@@ -27,16 +27,19 @@ public class Transition {
 		nextStates = new HashMap<>();
 	}
 
-	public void setPredicate(Predicate predicate) {
+	public Transition setPredicate(Predicate predicate) {
 		this.predicate = predicate;
+		return this;
 	}
 
-	public void setNextState(State nextState) {
+	public Transition setNextState(State nextState) {
 		setNextState(true, nextState);
+		return this;
 	}
 
-	public void setNextState(Boolean predicate, State nextState) {
+	public Transition setNextState(Boolean predicate, State nextState) {
 		nextStates.put(predicate, nextState);
+		return this;
 	}
 
 	public void addAction(Action action) {
