@@ -33,7 +33,9 @@ public class StateImpl implements State {
 		try {
 			System.out.println("Check transition");
 			if (null != inputEvent && transitions.containsKey(inputEvent.getArchetype())) {
-				Transition transition = transitions.get(inputEvent.getArchetype());
+				Transition transition = transitions.get(inputEvent.getArchetype())
+						.compile(inputEvent);
+				
 				System.out.println("Transition: " + transition);
 
 				Collection<Action> actions = transition.getActions();

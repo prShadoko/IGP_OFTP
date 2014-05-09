@@ -1,6 +1,12 @@
 package oftp.automaton.state;
 
 import oftp.automaton.OftpAutomaton;
+import oftp.automaton.action.UserErrorAction;
+import oftp.automaton.event.monitor.FConnectRequestArchetype;
+import oftp.automaton.event.network.archetype.StartSessionArchetype;
+import oftp.automaton.predicate.IncompatibleCapModePredicate;
+import automaton.predicate.Predicate;
+import automaton.transition.Transition;
 
 public class AcceptorNetworkConnectionOnlyState extends OftpAbstractState {
 
@@ -8,6 +14,17 @@ public class AcceptorNetworkConnectionOnlyState extends OftpAbstractState {
 	
 	public AcceptorNetworkConnectionOnlyState(OftpAutomaton oftp) {
 		super(oftp, NAME);
+		
+		Predicate incompatibleCapMode = new IncompatibleCapModePredicate(oftp);
+		
+		Transition t1 = new Transition();
+			
+		Transition userErrorTransition = new Transition()
+			.addAction(new UserErrorAction(oftp))
+			.setNextState(new IdleState(oftp));
+
+		this.addTranstion(new StartSessionArchetype(), t1);
+		this.addTranstion(new FConnectRequestArchetype(), userErrorTransition);
 	}
 
 

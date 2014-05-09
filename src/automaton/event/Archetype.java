@@ -56,17 +56,4 @@ public class Archetype<F extends Field<?>> {
 			return false;
 		return true;
 	}
-	
-//	@SuppressWarnings("unchecked")
-//	public <F extends Field<?>> LinkedList<F> getFields(Class<F> type) {
-//		LinkedList<F> typedFields = new LinkedList<>();
-//		for(Field<?> field : fields) {
-//			if(field.getClass().isAssignableFrom(type)) {
-//				typedFields.add((F)field);
-//			}
-//		}
-//		return typedFields;
-//	}
-
-	
 }

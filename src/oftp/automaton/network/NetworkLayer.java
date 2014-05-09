@@ -70,8 +70,6 @@ public class NetworkLayer extends EventLayer implements Runnable {
 	}
 
 	public void send(Event<?> event) throws IOException {
-		System.out.println("out: " + out);
-		System.out.println("event: " + event);
 		out.write(event.getAttribute(NetworkEvent.TO_BYTES));
 		out.write(NetworkTools.EOT);
 	}

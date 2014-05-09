@@ -15,7 +15,7 @@ public class InitSocketAction extends OftpAction {
 	@Override
 	public void execute(Event<?> inputEvent) {
 		Socket socket = inputEvent.getAttribute(AbstractSocketInitialisationArchetype.SOCKET);
-		automaton.setSocket(socket);
+		oftp.setSocket(socket);
 	}
 
 }

@@ -7,15 +7,17 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import automaton.action.Action;
+import automaton.event.Event;
 import automaton.predicate.Predicate;
 import automaton.state.State;
 
 public class Transition {
 
-	Predicate predicate;
+	private Predicate predicate;
+	private Boolean predicateResult = true;
 
-	Map<Boolean, Collection<Action>> actions;
-	Map<Boolean, State> nextStates;
+	private Map<Boolean, Collection<Action>> actions;
+	private Map<Boolean, State> nextStates;
 
 	public Transition() {
 		predicate = null;
@@ -25,6 +27,12 @@ public class Transition {
 		actions.put(false, new LinkedList<Action>());
 
 		nextStates = new HashMap<>();
+	}
+	
+	public Transition compile(Event<?> inputEvent) {
+		predicateResult = predicate.check(inputEvent);
+		
+		return this;
 	}
 
 	public Transition setPredicate(Predicate predicate) {
@@ -51,7 +59,7 @@ public class Transition {
 		actions.get(predicate).add(action);
 		return this;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public Collection<Action> getActions() {
 		return (Collection<Action>) get(actions);
@@ -65,7 +73,7 @@ public class Transition {
 		Object result = new ArrayList<>();
 
 		if (null != predicate) {
-			result = predicatedMap.get(predicate.check());
+			result = predicatedMap.get(predicateResult);
 		} else {
 			result = predicatedMap.get(true);
 		}

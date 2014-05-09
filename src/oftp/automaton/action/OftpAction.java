@@ -5,14 +5,14 @@ import automaton.action.Action;
 
 public abstract class OftpAction implements Action {
 
-	protected OftpAutomaton automaton;
+	protected OftpAutomaton oftp;
 	
 	public OftpAction(OftpAutomaton automaton) {
-		this.automaton = automaton;
+		this.oftp = automaton;
 	}
 
 	public OftpAutomaton getAutomaton() {
-		return automaton;
+		return oftp;
 	}
 
 }
