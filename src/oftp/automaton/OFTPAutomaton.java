@@ -1,28 +1,20 @@
 package oftp.automaton;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Collection;
-
-import oftp.automaton.action.InitSocketAction;
-import oftp.automaton.action.SendSSRMAction;
-import oftp.automaton.event.monitor.FConnectRequestArchetype;
-import oftp.automaton.event.monitor.NetworkConnectionIndicationArchetype;
-import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
-import oftp.automaton.network.NetworkLayer;
-import oftp.automaton.network.OFTPNetworkEventFactory;
-import oftp.automaton.state.AcceptorNetworkConnectionOnlyState;
-import oftp.automaton.state.InitiatorWaitingForSsidState;
-import oftp.automaton.state.InitiatorWaitingForReadyMessageState;
-import oftp.service.OFTPNetworkArchetypeProviderService;
 import automaton.AbstractAutomaton;
-import automaton.action.Action;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
 import automaton.exception.AutomatonException;
 import automaton.state.State;
-import automaton.transition.Transition;
+import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
+import oftp.automaton.network.NetworkLayer;
+import oftp.automaton.network.OFTPNetworkEventFactory;
+import oftp.automaton.state.IdleState;
+import oftp.service.OFTPNetworkArchetypeProviderService;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Collection;
 
 public class OFTPAutomaton extends AbstractAutomaton {
 
@@ -30,31 +22,40 @@ public class OFTPAutomaton extends AbstractAutomaton {
 	private ServerSocket serverSocket;
 	private NetworkLayer networkLayer;
 	private OFTPNetworkEventFactory networkEventFactory = new OFTPNetworkEventFactory();
-	
+
 	private OFTPNetworkArchetypeProviderService archtypeProviderService = new OFTPNetworkArchetypeProviderService();
 
-	public OFTPAutomaton(State state) {
-		super(state);
-		
+	public OFTPAutomaton() {
+		super();
+
 		Collection<OFTPNetworkArchetype> archetypes = archtypeProviderService.getArchetype();
 		networkEventFactory.addArchetypes(archetypes);
+	}
+
+	public static OFTPAutomaton build() {
+
+		OFTPAutomaton oftp = new OFTPAutomaton();
+		State idle = new IdleState(oftp);
+
+
+		return oftp;
 	}
 
 	@Override
 	protected void setUp() throws AutomatonException {
 		try {
 			serverSocket = new ServerSocket(listenPort);
-		} catch (IOException e) {
-			throw new AutomatonException("Error while socket initializations",e);
+		} catch(IOException e) {
+			throw new AutomatonException("Error while socket initializations", e);
 		}
 	}
 
 	@Override
 	protected void tearDown() {
-		if (!serverSocket.isClosed()) {
+		if(!serverSocket.isClosed()) {
 			try {
 				serverSocket.close();
-			} catch (IOException e) {
+			} catch(IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -68,11 +69,11 @@ public class OFTPAutomaton extends AbstractAutomaton {
 		if(null != networkLayer) {
 			try {
 				networkLayer.close();
-			} catch (IOException e) {
+			} catch(IOException e) {
 				new AutomatonException("Error while closing network layer.", e).printStackTrace();
 			}
 		}
-		
+
 		this.networkLayer = new NetworkLayer(socket, networkEventFactory);
 		networkLayer.subscribe(Event.class, this);
 		this.subscribe(NetworkEvent.class, networkLayer);
@@ -85,29 +86,5 @@ public class OFTPAutomaton extends AbstractAutomaton {
 
 	public void setServerSocket(ServerSocket serverSocket) {
 		this.serverSocket = serverSocket;
-	}
-
-	public static OFTPAutomaton build() {
-		
-		State idle = new InitiatorWaitingForSsidState();
-		OFTPAutomaton oftp = new OFTPAutomaton(idle);
-
-		Action initSocketAction = new InitSocketAction(oftp);
-		Action sendSSRMAction = new SendSSRMAction(oftp);
-//		Action sendSSIDAction = new SendSSIDAction(oftp);
-		
-		Transition nConIndANcOnlyTransition = new Transition();
-		nConIndANcOnlyTransition.addAction(initSocketAction);
-		nConIndANcOnlyTransition.addAction(sendSSRMAction);
-		nConIndANcOnlyTransition.setNextState(new AcceptorNetworkConnectionOnlyState());
-		
-		Transition fConReqIWfRmTransition = new Transition();
-		fConReqIWfRmTransition.addAction(initSocketAction);
-		fConReqIWfRmTransition.setNextState(new InitiatorWaitingForReadyMessageState());
-
-		idle.addTranstion(new NetworkConnectionIndicationArchetype(), nConIndANcOnlyTransition);
-		idle.addTranstion(new FConnectRequestArchetype(), fConReqIWfRmTransition);
-		
-		return oftp;
 	}
 }

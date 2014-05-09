@@ -1,14 +1,14 @@
 package automaton;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import automaton.event.Event;
 import automaton.event.EventLayer;
 import automaton.exception.AutomatonException;
 import automaton.state.State;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class AbstractAutomaton extends EventLayer implements Automaton {
 
@@ -20,8 +20,7 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 
 	private Queue<Event<?>> queue = new ConcurrentLinkedQueue<Event<?>>();
 
-	public AbstractAutomaton(State state) {
-		this.state = state;
+	public AbstractAutomaton() {
 	}
 
 	protected abstract void setUp() throws AutomatonException;
@@ -32,11 +31,11 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 	public void run() {
 		try {
 			setUp();
-			
-			while (null != state) {
+
+			while(null != state) {
 				state = state.run(this);
 			}
-		} catch (AutomatonException e) {
+		} catch(AutomatonException e) {
 			e.printStackTrace();
 		} finally {
 			tearDown();
@@ -50,7 +49,7 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 
 	@Override
 	public void sendOutputEvents() {
-		for (Event<?> event : outputEvents) {
+		for(Event<?> event : outputEvents) {
 			System.out.println("Send event: " + event.toString());
 			publish(event);
 		}
@@ -63,7 +62,7 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 
 		Event<?> event = queue.poll();
 
-		while (null == event) {
+		while(null == event) {
 			try {
 				final Thread currentThread = Thread.currentThread();
 
@@ -71,10 +70,10 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 					@Override
 					public void run() {
 						try {
-							synchronized (currentThread) {
+							synchronized(currentThread) {
 								currentThread.wait();
 							}
-						} catch (InterruptedException e) {
+						} catch(InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
@@ -82,7 +81,7 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 
 				sleeper.start();
 				sleeper.join();
-			} catch (InterruptedException e) {
+			} catch(InterruptedException e) {
 				System.out.println("Sleeper join error : " + e.getMessage());
 			}
 			event = queue.poll();
@@ -93,10 +92,14 @@ public abstract class AbstractAutomaton extends EventLayer implements Automaton 
 	@Override
 	public void inform(Event<?> event) {
 		queue.add(event);
-		if (null != mainThread) {
-			synchronized (mainThread) {
+		if(null != mainThread) {
+			synchronized(mainThread) {
 				mainThread.notifyAll();
 			}
 		}
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 }
