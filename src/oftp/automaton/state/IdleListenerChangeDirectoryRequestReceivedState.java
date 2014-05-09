@@ -1,11 +1,13 @@
 package oftp.automaton.state;
 
-import automaton.state.StateImpl;
+import oftp.automaton.OftpAutomaton;
 
 
-public class IdleListenerChangeDirectoryRequestReceivedState extends StateImpl {
+public class IdleListenerChangeDirectoryRequestReceivedState extends OftpAbstractState {
 
-	public IdleListenerChangeDirectoryRequestReceivedState(String name) {
-		super("IDLELICD");
+	public static final String NAME = "IDLELICD";
+	
+	public IdleListenerChangeDirectoryRequestReceivedState(OftpAutomaton oftp) {
+		super(oftp, NAME);
 	}
 }

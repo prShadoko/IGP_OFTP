@@ -1,42 +1,42 @@
 package oftp.automaton;
 
-import automaton.AbstractAutomaton;
-import automaton.event.Event;
-import automaton.event.network.NetworkEvent;
-import automaton.exception.AutomatonException;
-import automaton.state.State;
-import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
-import oftp.automaton.network.NetworkLayer;
-import oftp.automaton.network.OFTPNetworkEventFactory;
-import oftp.automaton.state.IdleState;
-import oftp.service.OFTPNetworkArchetypeProviderService;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collection;
 
-public class OFTPAutomaton extends AbstractAutomaton {
+import oftp.automaton.event.network.archetype.OftpNetworkArchetype;
+import oftp.automaton.network.NetworkLayer;
+import oftp.automaton.network.OftpNetworkEventFactory;
+import oftp.automaton.state.IdleState;
+import oftp.service.OftpNetworkArchetypeProviderService;
+import automaton.AbstractAutomaton;
+import automaton.event.Event;
+import automaton.event.network.NetworkEvent;
+import automaton.exception.AutomatonException;
+import automaton.state.State;
+
+public class OftpAutomaton extends AbstractAutomaton {
 
 	private int listenPort;
 	private ServerSocket serverSocket;
 	private NetworkLayer networkLayer;
-	private OFTPNetworkEventFactory networkEventFactory = new OFTPNetworkEventFactory();
+	private OftpNetworkEventFactory networkEventFactory = new OftpNetworkEventFactory();
 
-	private OFTPNetworkArchetypeProviderService archtypeProviderService = new OFTPNetworkArchetypeProviderService();
+	private OftpNetworkArchetypeProviderService archtypeProviderService = new OftpNetworkArchetypeProviderService();
 
-	public OFTPAutomaton() {
+	public OftpAutomaton() {
 		super();
 
-		Collection<OFTPNetworkArchetype> archetypes = archtypeProviderService.getArchetype();
+		Collection<OftpNetworkArchetype> archetypes = archtypeProviderService.getArchetype();
 		networkEventFactory.addArchetypes(archetypes);
 	}
 
-	public static OFTPAutomaton build() {
+	public static OftpAutomaton build() {
 
-		OFTPAutomaton oftp = new OFTPAutomaton();
+		OftpAutomaton oftp = new OftpAutomaton();
 		State idle = new IdleState(oftp);
-
+		oftp.setState(idle);
 
 		return oftp;
 	}

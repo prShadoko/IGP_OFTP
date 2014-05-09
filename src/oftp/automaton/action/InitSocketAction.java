@@ -2,13 +2,13 @@ package oftp.automaton.action;
 
 import java.net.Socket;
 
-import oftp.automaton.OFTPAutomaton;
+import oftp.automaton.OftpAutomaton;
 import oftp.automaton.event.monitor.AbstractSocketInitialisationArchetype;
 import automaton.event.Event;
 
-public class InitSocketAction extends OFTPAction {
+public class InitSocketAction extends OftpAction {
 
-	public InitSocketAction(OFTPAutomaton automaton) {
+	public InitSocketAction(OftpAutomaton automaton) {
 		super(automaton);
 	}
 

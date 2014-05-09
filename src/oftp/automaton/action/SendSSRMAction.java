@@ -1,13 +1,13 @@
 package oftp.automaton.action;
 
-import oftp.automaton.OFTPAutomaton;
+import oftp.automaton.OftpAutomaton;
 import oftp.automaton.event.network.archetype.StartSessionReadyMessageArchetype;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
 
-public class SendSSRMAction extends OFTPAction {
+public class SendSSRMAction extends OftpAction {
 
-	public SendSSRMAction(OFTPAutomaton automaton) {
+	public SendSSRMAction(OftpAutomaton automaton) {
 		super(automaton);
 	}
 

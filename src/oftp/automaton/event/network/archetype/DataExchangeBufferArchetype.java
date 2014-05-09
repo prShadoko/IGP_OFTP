@@ -4,7 +4,7 @@ import automaton.event.network.NetworkField;
 import oftp.automaton.event.network.field.AnswerReason;
 import oftp.automaton.event.network.field.CommandCode;
 
-public class DataExchangeBufferArchetype extends OFTPNetworkArchetype {
+public class DataExchangeBufferArchetype extends OftpNetworkArchetype {
 
 	public static final String NAME = "DATA";
 

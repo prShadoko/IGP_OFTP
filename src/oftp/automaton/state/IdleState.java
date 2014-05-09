@@ -1,31 +1,32 @@
 package oftp.automaton.state;
 
-import automaton.action.Action;
-import automaton.state.StateImpl;
-import automaton.transition.Transition;
-import oftp.automaton.OFTPAutomaton;
+import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.InitSocketAction;
 import oftp.automaton.action.SendSSRMAction;
 import oftp.automaton.event.monitor.FConnectRequestArchetype;
 import oftp.automaton.event.monitor.NetworkConnectionIndicationArchetype;
+import automaton.action.Action;
+import automaton.transition.Transition;
 
 
-public class IdleState extends StateImpl {
+public class IdleState extends OftpAbstractState {
 
-	public IdleState(OFTPAutomaton oftp) {
-		super("IDLE");
+	public static final String NAME = "IDLE";
+	
+	public IdleState(OftpAutomaton oftp) {
+		super(oftp, NAME);
 
 		Action initSocketAction = new InitSocketAction(oftp);
 		Action sendSSRMAction = new SendSSRMAction(oftp);
 
 		Transition fConReqIWfRmTransition = new Transition();
 		fConReqIWfRmTransition.addAction(initSocketAction);
-		fConReqIWfRmTransition.setNextState(new InitiatorWaitingForReadyMessageState());
+		fConReqIWfRmTransition.setNextState(new InitiatorWaitingForReadyMessageState(oftp));
 
 		Transition nConIndANcOnlyTransition = new Transition();
 		nConIndANcOnlyTransition.addAction(initSocketAction);
 		nConIndANcOnlyTransition.addAction(sendSSRMAction);
-		nConIndANcOnlyTransition.setNextState(new AcceptorNetworkConnectionOnlyState());
+		nConIndANcOnlyTransition.setNextState(new AcceptorNetworkConnectionOnlyState(oftp));
 
 		addTranstion(new FConnectRequestArchetype(), fConReqIWfRmTransition);
 		addTranstion(new NetworkConnectionIndicationArchetype(), nConIndANcOnlyTransition);

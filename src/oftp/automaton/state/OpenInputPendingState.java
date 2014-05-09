@@ -1,11 +1,13 @@
 package oftp.automaton.state;
 
-import automaton.state.StateImpl;
+import oftp.automaton.OftpAutomaton;
 
 
-public class OpenInputPendingState extends StateImpl {
+public class OpenInputPendingState extends OftpAbstractState {
 
-	public OpenInputPendingState(String name) {
-		super("OPIP");
+	public static final String NAME = "OPIP";
+	
+	public OpenInputPendingState(OftpAutomaton oftp) {
+		super(oftp, NAME);
 	}
 }

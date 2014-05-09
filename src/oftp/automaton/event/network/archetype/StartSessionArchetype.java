@@ -1,10 +1,10 @@
 package oftp.automaton.event.network.archetype;
 
-import oftp.automaton.event.network.OFTPNetworkField;
+import oftp.automaton.event.network.OftpNetworkField;
 import oftp.automaton.event.network.field.CommandCode;
 import automaton.event.network.NetworkField;
 
-public class StartSessionArchetype extends OFTPNetworkArchetype {
+public class StartSessionArchetype extends OftpNetworkArchetype {
 
 	public static final String NAME = "SSID";
 
@@ -34,6 +34,6 @@ public class StartSessionArchetype extends OFTPNetworkArchetype {
 		addField(CREDIT);
 		addField(RESERVED);
 		addField(USER_DATA);
-		addField(OFTPNetworkField.CR);
+		addField(OftpNetworkField.CR);
 	}
 }

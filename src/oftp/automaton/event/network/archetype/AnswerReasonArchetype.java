@@ -2,7 +2,7 @@ package oftp.automaton.event.network.archetype;
 
 import oftp.automaton.event.network.field.factory.AnswerReasonFactory;
 
-public class AnswerReasonArchetype extends OFTPNetworkArchetype {
+public class AnswerReasonArchetype extends OftpNetworkArchetype {
 
 	AnswerReasonFactory factory;
 	

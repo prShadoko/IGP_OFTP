@@ -1,11 +1,14 @@
 package oftp.automaton.state;
 
-import automaton.state.StateImpl;
+import oftp.automaton.OftpAutomaton;
 
 
-public class InitiatorWaitingForSsidState extends StateImpl {
+public class InitiatorWaitingForSsidState extends OftpAbstractState {
 
-	public InitiatorWaitingForSsidState() {
-		super("I_WF_SSID");
+	public static final String NAME = "I_WF_SSID";
+	
+	public InitiatorWaitingForSsidState(OftpAutomaton oftp) {
+		super(oftp, NAME);
+		
 	}
 }

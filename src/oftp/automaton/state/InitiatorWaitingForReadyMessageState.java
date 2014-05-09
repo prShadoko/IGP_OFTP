@@ -1,11 +1,13 @@
 package oftp.automaton.state;
 
-import automaton.state.StateImpl;
+import oftp.automaton.OftpAutomaton;
 
-public class InitiatorWaitingForReadyMessageState extends StateImpl {
+public class InitiatorWaitingForReadyMessageState extends OftpAbstractState {
 
-	public InitiatorWaitingForReadyMessageState() {
-		super("I_WF_RM");
+	public static final String NAME = "I_WF_RM";
+	
+	public InitiatorWaitingForReadyMessageState(OftpAutomaton oftp) {
+		super(oftp, NAME);
 	}
 
 }

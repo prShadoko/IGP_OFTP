@@ -1,11 +1,13 @@
 package oftp.automaton.state;
 
-import automaton.state.StateImpl;
+import oftp.automaton.OftpAutomaton;
 
 
-public class IdleSpeakerChangeDirectoryIndicationSentState extends StateImpl {
+public class IdleSpeakerChangeDirectoryIndicationSentState extends OftpAbstractState {
 
-	public IdleSpeakerChangeDirectoryIndicationSentState(String name) {
-		super("IDLESPCD");
+	public static final String NAME = "IDLESPCD";
+	
+	public IdleSpeakerChangeDirectoryIndicationSentState(OftpAutomaton oftp) {
+		super(oftp, NAME);
 	}
 }

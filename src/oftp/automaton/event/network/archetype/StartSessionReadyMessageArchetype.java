@@ -1,10 +1,10 @@
 package oftp.automaton.event.network.archetype;
 
 import automaton.event.network.NetworkField;
-import oftp.automaton.event.network.OFTPNetworkField;
+import oftp.automaton.event.network.OftpNetworkField;
 import oftp.automaton.event.network.field.CommandCode;
 
-public class StartSessionReadyMessageArchetype extends OFTPNetworkArchetype {
+public class StartSessionReadyMessageArchetype extends OftpNetworkArchetype {
 
 	public static final String NAME = "SSRM";
 
@@ -15,6 +15,6 @@ public class StartSessionReadyMessageArchetype extends OFTPNetworkArchetype {
 		super(NAME, CommandCode.SSRM);
 		
 		addField(READY_MESSAGE);
-		addField(OFTPNetworkField.CR);
+		addField(OftpNetworkField.CR);
 	}
 }

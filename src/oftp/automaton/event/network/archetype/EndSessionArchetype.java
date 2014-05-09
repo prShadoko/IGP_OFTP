@@ -1,6 +1,6 @@
 package oftp.automaton.event.network.archetype;
 
-import oftp.automaton.event.network.OFTPNetworkField;
+import oftp.automaton.event.network.OftpNetworkField;
 import oftp.automaton.event.network.field.AnswerReason;
 import oftp.automaton.event.network.field.CommandCode;
 import oftp.automaton.event.network.field.factory.EndSessionAnswerReasonFactory;
@@ -16,7 +16,7 @@ public class EndSessionArchetype extends AnswerReasonArchetype {
 		super(NAME, CommandCode.ESID, new EndSessionAnswerReasonFactory());
 		
 		addField(REASON_CODE);
-		addField(OFTPNetworkField.CR);
+		addField(OftpNetworkField.CR);
 	}
 
 }

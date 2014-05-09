@@ -1,11 +1,13 @@
 package oftp.automaton.state;
 
-import automaton.state.StateImpl;
+import oftp.automaton.OftpAutomaton;
 
 
-public class IdleSpeakerState extends StateImpl {
+public class IdleSpeakerState extends OftpAbstractState {
 
-	public IdleSpeakerState(String name) {
-		super("IDLESP");
+	public static final String NAME = "IDLESP";
+	
+	public IdleSpeakerState(OftpAutomaton oftp) {
+		super(oftp, NAME);
 	}
 }

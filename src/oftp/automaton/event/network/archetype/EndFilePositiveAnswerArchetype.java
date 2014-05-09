@@ -3,7 +3,7 @@ package oftp.automaton.event.network.archetype;
 import automaton.event.network.NetworkField;
 import oftp.automaton.event.network.field.CommandCode;
 
-public class EndFilePositiveAnswerArchetype extends OFTPNetworkArchetype {
+public class EndFilePositiveAnswerArchetype extends OftpNetworkArchetype {
 
 	public static final String NAME = "EFPA";
 

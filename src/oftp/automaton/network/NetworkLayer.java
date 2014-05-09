@@ -13,11 +13,11 @@ import automaton.tools.NetworkTools;
 public class NetworkLayer extends EventLayer implements Runnable {
 
 	private Socket socket;
-	private OFTPNetworkEventFactory eventFactory;
+	private OftpNetworkEventFactory eventFactory;
 
 	private OutputStream out;
 
-	public NetworkLayer(Socket socket, OFTPNetworkEventFactory eventFactory) {
+	public NetworkLayer(Socket socket, OftpNetworkEventFactory eventFactory) {
 		this.socket = socket;
 		this.eventFactory = eventFactory;
 	}

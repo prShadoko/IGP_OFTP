@@ -4,25 +4,25 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import oftp.automaton.event.network.archetype.OFTPNetworkArchetype;
+import oftp.automaton.event.network.archetype.OftpNetworkArchetype;
 import automaton.event.network.NetworkArchetype;
 import automaton.event.network.NetworkEvent;
 import automaton.event.network.NetworkField;
 
-public class OFTPNetworkEventFactory {
+public class OftpNetworkEventFactory {
 
 	private Map<Character, NetworkArchetype> archetypes = new HashMap<>();
 	
-	public OFTPNetworkEventFactory() {
+	public OftpNetworkEventFactory() {
 		
 	}
 
-	public void addArchetype(OFTPNetworkArchetype archetype) {
+	public void addArchetype(OftpNetworkArchetype archetype) {
 		archetypes.put(archetype.getCommandCode().getExpectedValue(), archetype);
 	}
 	
-	public void addArchetypes(Collection<OFTPNetworkArchetype> archetypes) {
-		for(OFTPNetworkArchetype archetype : archetypes) {
+	public void addArchetypes(Collection<OftpNetworkArchetype> archetypes) {
+		for(OftpNetworkArchetype archetype : archetypes) {
 			addArchetype(archetype);
 		}
 	}

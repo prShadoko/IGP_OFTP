@@ -1,11 +1,13 @@
 package oftp.automaton.state;
 
-import automaton.state.StateImpl;
+import oftp.automaton.OftpAutomaton;
 
-public class AcceptorNetworkConnectionOnlyState extends StateImpl {
+public class AcceptorNetworkConnectionOnlyState extends OftpAbstractState {
 
-	public AcceptorNetworkConnectionOnlyState() {
-		super("A_NC_ONLY");
+	public static final String NAME = "A_NC_ONLY";
+	
+	public AcceptorNetworkConnectionOnlyState(OftpAutomaton oftp) {
+		super(oftp, NAME);
 	}
 
 

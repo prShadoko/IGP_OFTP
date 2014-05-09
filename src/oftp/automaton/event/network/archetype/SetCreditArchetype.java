@@ -3,7 +3,7 @@ package oftp.automaton.event.network.archetype;
 import automaton.event.network.NetworkField;
 import oftp.automaton.event.network.field.CommandCode;
 
-public class SetCreditArchetype extends OFTPNetworkArchetype {
+public class SetCreditArchetype extends OftpNetworkArchetype {
 
 	public static final String NAME = "CDT";
 	
