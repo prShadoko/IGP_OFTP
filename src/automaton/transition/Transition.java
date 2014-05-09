@@ -42,12 +42,14 @@ public class Transition {
 		return this;
 	}
 
-	public void addAction(Action action) {
+	public Transition addAction(Action action) {
 		addAction(true, action);
+		return this;
 	}
 
-	public void addAction(Boolean predicate, Action action) {
+	public Transition addAction(Boolean predicate, Action action) {
 		actions.get(predicate).add(action);
+		return this;
 	}
 
 	@SuppressWarnings("unchecked")
