@@ -4,14 +4,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import oftp.automaton.event.network.archetype.OftpNetworkArchetype;
+import oftp.automaton.CommandCode;
+import oftp.automaton.archetype.network.OftpNetworkArchetype;
 import automaton.event.network.NetworkArchetype;
 import automaton.event.network.NetworkEvent;
 import automaton.event.network.NetworkField;
 
 public class OftpNetworkEventFactory {
 
-	private Map<Character, NetworkArchetype> archetypes = new HashMap<>();
+	private Map<CommandCode, NetworkArchetype> archetypes = new HashMap<>();
 	
 	public OftpNetworkEventFactory() {
 		

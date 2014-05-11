@@ -3,9 +3,11 @@ package oftp.monitor;
 import java.io.IOException;
 import java.net.Socket;
 
+import oftp.automaton.CapabilityInit;
+import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
-import oftp.automaton.event.monitor.FConnectRequestArchetype;
-import oftp.automaton.event.monitor.MonitorEvent;
+import oftp.automaton.archetype.monitor.MonitorEvent;
+import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
 import automaton.event.Event;
 import automaton.event.EventLayer;
 
@@ -14,15 +16,15 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 	public void run() {
 		try {
 			
-			OftpAutomaton oftp = OftpAutomaton.build();
+			OftpAutomaton oftp = OftpAutomaton.build(false, CapabilityInit.BOTH, CapabilityMode.BOTH, 999999, 999);
 			this.subscribe(MonitorEvent.class, oftp);
 			
 			Thread oftpThread = new Thread(oftp);
 			oftpThread.start();
 
 			Socket socket = new Socket("localhost", MonitorAcceptor.LISTEN_PORT);
-			MonitorEvent fConReq = new MonitorEvent(new FConnectRequestArchetype());
-			fConReq.putAttribute(FConnectRequestArchetype.SOCKET, socket);
+			MonitorEvent fConReq = new MonitorEvent(new FConnectionRequestArchetype());
+			fConReq.putAttribute(FConnectionRequestArchetype.SOCKET, socket);
 			
 			publish(fConReq);
 			

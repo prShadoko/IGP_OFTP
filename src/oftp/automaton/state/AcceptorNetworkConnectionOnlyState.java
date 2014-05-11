@@ -2,8 +2,8 @@ package oftp.automaton.state;
 
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.UserErrorAction;
-import oftp.automaton.event.monitor.FConnectRequestArchetype;
-import oftp.automaton.event.network.archetype.StartSessionArchetype;
+import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
+import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.automaton.predicate.IncompatibleCapModePredicate;
 import automaton.predicate.Predicate;
 import automaton.transition.Transition;
@@ -24,7 +24,7 @@ public class AcceptorNetworkConnectionOnlyState extends OftpAbstractState {
 			.setNextState(new IdleState(oftp));
 
 		this.addTranstion(new StartSessionArchetype(), t1);
-		this.addTranstion(new FConnectRequestArchetype(), userErrorTransition);
+		this.addTranstion(new FConnectionRequestArchetype(), userErrorTransition);
 	}
 
 

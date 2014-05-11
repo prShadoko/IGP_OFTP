@@ -3,8 +3,8 @@ package oftp.automaton.state;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.InitSocketAction;
 import oftp.automaton.action.SendSSRMAction;
-import oftp.automaton.event.monitor.FConnectRequestArchetype;
-import oftp.automaton.event.monitor.NetworkConnectionIndicationArchetype;
+import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
+import oftp.automaton.archetype.monitor.input.NetworkConnectionIndicationArchetype;
 import automaton.action.Action;
 import automaton.transition.Transition;
 
@@ -28,7 +28,7 @@ public class IdleState extends OftpAbstractState {
 		nConIndANcOnlyTransition.addAction(sendSSRMAction);
 		nConIndANcOnlyTransition.setNextState(new AcceptorNetworkConnectionOnlyState(oftp));
 
-		addTranstion(new FConnectRequestArchetype(), fConReqIWfRmTransition);
+		addTranstion(new FConnectionRequestArchetype(), fConReqIWfRmTransition);
 		addTranstion(new NetworkConnectionIndicationArchetype(), nConIndANcOnlyTransition);
 	}
 }

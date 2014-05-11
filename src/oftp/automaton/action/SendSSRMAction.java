@@ -1,7 +1,7 @@
 package oftp.automaton.action;
 
 import oftp.automaton.OftpAutomaton;
-import oftp.automaton.event.network.archetype.StartSessionReadyMessageArchetype;
+import oftp.automaton.archetype.network.StartSessionReadyMessageArchetype;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Collection;
 
-import oftp.automaton.event.network.archetype.OftpNetworkArchetype;
+import oftp.automaton.archetype.network.OftpNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OftpNetworkEventFactory;
 import oftp.automaton.state.IdleState;
@@ -39,21 +39,39 @@ public class OftpAutomaton extends AbstractAutomaton {
 
 	// Local OFTP constants
 	boolean capCompression;
-	char capInit;
-	char capMode;
+	CapabilityInit capInit;
+	CapabilityMode capMode;
 	int maximumBufferSize;
 	int maximumWindow;
 
-	public OftpAutomaton() {
+	public OftpAutomaton(boolean capCompression, CapabilityInit capInit, CapabilityMode capMode, int maximumBufferSize, int maximumWindow) {
 		super();
+
+		this.capCompression = capCompression;
+		this.capInit = capInit;
+		this.capMode = capMode;
+		
+		if (maximumWindow < 128) {
+			maximumWindow = 128;
+		} else if (maximumWindow >= 100000) {
+			maximumWindow = 99999;
+		}
+		this.maximumBufferSize = maximumBufferSize;
+		
+		if (maximumWindow < 0) {
+			maximumWindow = 0;
+		} else if (maximumWindow >= 1000) {
+			maximumWindow = 999;
+		}
+		this.maximumWindow = maximumWindow;
 
 		Collection<OftpNetworkArchetype> archetypes = archtypeProviderService.getArchetype();
 		networkEventFactory.addArchetypes(archetypes);
 	}
 
-	public static OftpAutomaton build() {
+	public static OftpAutomaton build(boolean capCompression, CapabilityInit capInit, CapabilityMode capMode, int maximumBufferSize, int maximumWindow) {
 
-		OftpAutomaton oftp = new OftpAutomaton();
+		OftpAutomaton oftp = new OftpAutomaton(capCompression, capInit, capMode, maximumBufferSize, maximumWindow);
 		State idle = new IdleState(oftp);
 		oftp.setState(idle);
 
@@ -189,14 +207,14 @@ public class OftpAutomaton extends AbstractAutomaton {
 		return capCompression;
 	}
 
-	public char getCapInit() {
+	public CapabilityInit getCapInit() {
 		return capInit;
 	}
 
-	public char getCapMode() {
+	public CapabilityMode getCapMode() {
 		return capMode;
 	}
-	
+
 	public int getMaximumBufferSize() {
 		return maximumBufferSize;
 	}

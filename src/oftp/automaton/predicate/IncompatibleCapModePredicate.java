@@ -3,7 +3,7 @@ package oftp.automaton.predicate;
 import automaton.event.Event;
 import automaton.event.network.NetworkField;
 import oftp.automaton.OftpAutomaton;
-import oftp.automaton.event.network.archetype.StartSessionArchetype;
+import oftp.automaton.archetype.network.StartSessionArchetype;
 
 
 public class IncompatibleCapModePredicate extends OftpPredicate {

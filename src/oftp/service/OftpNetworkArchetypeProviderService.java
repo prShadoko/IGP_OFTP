@@ -3,9 +3,9 @@ package oftp.service;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import oftp.automaton.event.network.archetype.OftpNetworkArchetype;
-import oftp.automaton.event.network.archetype.StartSessionArchetype;
-import oftp.automaton.event.network.archetype.StartSessionReadyMessageArchetype;
+import oftp.automaton.archetype.network.OftpNetworkArchetype;
+import oftp.automaton.archetype.network.StartSessionArchetype;
+import oftp.automaton.archetype.network.StartSessionReadyMessageArchetype;
 
 public class OftpNetworkArchetypeProviderService {
 	

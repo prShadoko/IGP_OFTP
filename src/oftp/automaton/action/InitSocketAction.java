@@ -3,7 +3,7 @@ package oftp.automaton.action;
 import java.net.Socket;
 
 import oftp.automaton.OftpAutomaton;
-import oftp.automaton.event.monitor.AbstractSocketInitialisationArchetype;
+import oftp.automaton.archetype.monitor.input.AbstractSocketInitialisationArchetype;
 import automaton.event.Event;
 
 public class InitSocketAction extends OftpAction {

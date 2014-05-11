@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import oftp.automaton.CapabilityInit;
+import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
-import oftp.automaton.event.monitor.AbstractSocketInitialisationArchetype;
-import oftp.automaton.event.monitor.MonitorEvent;
-import oftp.automaton.event.monitor.NetworkConnectionIndicationArchetype;
+import oftp.automaton.archetype.monitor.MonitorEvent;
+import oftp.automaton.archetype.monitor.input.AbstractSocketInitialisationArchetype;
+import oftp.automaton.archetype.monitor.input.NetworkConnectionIndicationArchetype;
 import automaton.event.Event;
 import automaton.event.EventLayer;
 
@@ -18,7 +20,7 @@ public class MonitorAcceptor extends EventLayer implements Runnable {
 	@Override
 	public void run() {
 		try {
-			OftpAutomaton oftp = OftpAutomaton.build();
+			OftpAutomaton oftp = OftpAutomaton.build(false, CapabilityInit.BOTH, CapabilityMode.BOTH, 999999, 999);
 			this.subscribe(MonitorEvent.class, oftp);
 			
 			Thread oftpThread = new Thread(oftp);
