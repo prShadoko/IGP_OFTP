@@ -1,19 +1,19 @@
 package oftp.automaton;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Collection;
-
-import oftp.automaton.archetype.network.OftpNetworkArchetype;
-import oftp.automaton.network.NetworkLayer;
-import oftp.automaton.network.OftpNetworkEventFactory;
-import oftp.automaton.state.IdleState;
-import oftp.service.OftpNetworkArchetypeProviderService;
 import automaton.AbstractAutomaton;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
 import automaton.exception.AutomatonException;
 import automaton.state.State;
+import oftp.automaton.archetype.network.OftpNetworkArchetype;
+import oftp.automaton.network.NetworkLayer;
+import oftp.automaton.network.OftpNetworkEventFactory;
+import oftp.automaton.state.IdleState;
+import oftp.service.OftpNetworkArchetypeProviderService;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Collection;
 
 public class OftpAutomaton extends AbstractAutomaton {
 
@@ -26,14 +26,14 @@ public class OftpAutomaton extends AbstractAutomaton {
 	int bufferSize;
 	// Called-addr Address Used to build O.F_CONNECT_IND.Called-addr
 	// Calling-addr Address To build O.F_CONNECT_IND.Calling-addr
-	boolean compression;
+	YesNo compression;
 	int creditListener;
 	int creditSpeaker;
 	String id;
-	char mode;
+	CapabilityMode mode;
 	String password;
 	Event<?> requestBuffer;
-	boolean restart;
+	YesNo restart;
 	int restartPosition;
 	int window;
 
@@ -132,11 +132,11 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.bufferSize = bufferSize;
 	}
 
-	public boolean isCompression() {
+	public YesNo isCompression() {
 		return compression;
 	}
 
-	public void setCompression(boolean compression) {
+	public void setCompression(YesNo compression) {
 		this.compression = compression;
 	}
 
@@ -164,11 +164,11 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.id = id;
 	}
 
-	public char getMode() {
+	public CapabilityMode getMode() {
 		return mode;
 	}
 
-	public void setMode(char mode) {
+	public void setMode(CapabilityMode mode) {
 		this.mode = mode;
 	}
 
@@ -188,11 +188,11 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.requestBuffer = requestBuffer;
 	}
 
-	public boolean isRestart() {
+	public YesNo isRestart() {
 		return restart;
 	}
 
-	public void setRestart(boolean restart) {
+	public void setRestart(YesNo restart) {
 		this.restart = restart;
 	}
 
