@@ -5,9 +5,9 @@ import oftp.automaton.archetype.network.StartSessionReadyMessageArchetype;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
 
-public class SendSSRMAction extends OftpAction {
+public class CreateSsrmAction extends OftpAction {
 
-	public SendSSRMAction(OftpAutomaton automaton) {
+	public CreateSsrmAction(OftpAutomaton automaton) {
 		super(automaton);
 	}
 

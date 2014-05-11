@@ -88,6 +88,15 @@ public class OftpAutomaton extends AbstractAutomaton {
 
 	}
 
+	public void closeNetworkLayer() {
+		try {
+			networkLayer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public NetworkLayer getNetworkLayer() {
 		return networkLayer;
 	}

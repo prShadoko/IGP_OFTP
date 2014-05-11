@@ -7,8 +7,8 @@ public abstract class OftpAction implements Action {
 
 	protected OftpAutomaton oftp;
 	
-	public OftpAction(OftpAutomaton automaton) {
-		this.oftp = automaton;
+	public OftpAction(OftpAutomaton oftp) {
+		this.oftp = oftp;
 	}
 
 	public OftpAutomaton getAutomaton() {
