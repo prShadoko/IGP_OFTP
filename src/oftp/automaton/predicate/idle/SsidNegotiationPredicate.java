@@ -3,7 +3,6 @@ package oftp.automaton.predicate.idle;
 import automaton.event.Event;
 import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
-import oftp.automaton.YesNo;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.automaton.predicate.OftpPredicate;
 
@@ -37,13 +36,15 @@ public class SsidNegotiationPredicate extends OftpPredicate {
 
 		int initiatorBufferSize = oftp.getBufferSize();
 		int acceptorBufferSize = inputEvent.getAttribute(StartSessionArchetype.EXCHANGE_BUFFER_SIZE);
-		if(initiatorBufferSize < acceptorBufferSize || acceptorBufferSize < 128) {
+		if(initiatorBufferSize < acceptorBufferSize) {
 			return false;
 		}
 
-		int initiatorCredit = oftp.getCreditSpeaker();
+		int initiatorCredit = oftp.getMaximumWindow();
 		int acceptorCredit = inputEvent.getAttribute(StartSessionArchetype.CREDIT);
-		//TODO
+		if(initiatorCredit < acceptorCredit) {
+			return false;
+		}
 
 		return true;
 	}
