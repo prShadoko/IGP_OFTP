@@ -1,6 +1,8 @@
 package oftp.automaton.state;
 
 import automaton.transition.Transition;
+import oftp.automaton.AbortOrigin;
+import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.CreateSsidAction;
 import oftp.automaton.action.UserErrorAction;
@@ -18,7 +20,7 @@ public class InitiatorWaitingForReadyMessageState extends OftpAbstractState {
 				.addAction(new CreateSsidAction(oftp))
 				.setNextState(new InitiatorWaitingForSsidState(oftp));
 		Transition userErrorTransition = new Transition()
-				.addAction(new UserErrorAction(oftp))
+				.addAction(new UserErrorAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
 				.setNextState(new IdleState(oftp));
 
 		this.addTranstion(new StartSessionReadyMessageArchetype(), t1);
