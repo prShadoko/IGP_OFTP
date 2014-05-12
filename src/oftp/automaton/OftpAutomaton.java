@@ -1,22 +1,23 @@
 package oftp.automaton;
 
-import automaton.AbstractAutomaton;
-import automaton.event.Event;
-import automaton.event.network.NetworkEvent;
-import automaton.exception.AutomatonException;
-import automaton.state.State;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Collection;
+
 import oftp.automaton.archetype.network.OftpNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OftpNetworkEventFactory;
 import oftp.automaton.state.IdleState;
 import oftp.service.OftpNetworkArchetypeProviderService;
-
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Collection;
+import automaton.AbstractAutomaton;
+import automaton.event.Event;
+import automaton.event.network.NetworkEvent;
+import automaton.exception.AutomatonException;
 
 public class OftpAutomaton extends AbstractAutomaton {
 
+	private IdleState idle;
+	
 	private NetworkLayer networkLayer;
 	private OftpNetworkEventFactory networkEventFactory = new OftpNetworkEventFactory();
 
@@ -72,8 +73,7 @@ public class OftpAutomaton extends AbstractAutomaton {
 	public static OftpAutomaton build(boolean capCompression, CapabilityInit capInit, CapabilityMode capMode, int maximumBufferSize, int maximumWindow) {
 
 		OftpAutomaton oftp = new OftpAutomaton(capCompression, capInit, capMode, maximumBufferSize, maximumWindow);
-		State idle = new IdleState(oftp);
-		oftp.setState(idle);
+		oftp.setState(oftp.getIdleState().init());
 
 		return oftp;
 	}
@@ -95,6 +95,13 @@ public class OftpAutomaton extends AbstractAutomaton {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public IdleState getIdleState() {
+		if(null == idle) {
+			idle = new IdleState(this);
+		}
+		return idle;
 	}
 
 	public NetworkLayer getNetworkLayer() {

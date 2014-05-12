@@ -2,10 +2,10 @@ package oftp.automaton.archetype.monitor.input;
 
 import java.net.Socket;
 
-import automaton.event.Archetype;
+import oftp.automaton.archetype.monitor.MonitorArchetype;
 import automaton.event.Field;
 
-public class AbstractSocketInitialisationArchetype extends Archetype<Field<?>> {
+public class AbstractSocketInitialisationArchetype extends MonitorArchetype {
 
 	public static final Field<Socket> SOCKET = new Field<>("socket");
 	

@@ -20,6 +20,9 @@ public class IdleState extends OftpAbstractState {
 	
 	public IdleState(OftpAutomaton oftp) {
 		super(oftp, NAME);
+	}
+	
+	public IdleState init() {
 
 		Predicate p3 = new IsInitiatorPredicate(oftp);
 		
@@ -35,12 +38,15 @@ public class IdleState extends OftpAbstractState {
 			.setPredicate(p3)
 			.addAction(true, createNetworkDisconnectionRequestEventAction)
 			.addAction(createNetworkDisconnectionRequestEventAction)
-			.setNextState(true, new IdleState(oftp))
+			.setNextState(true, this)
 			.addAction(false, initSocketAction)
 			.addAction(false, createSsrmEventAction)
 			.setNextState(false, new AcceptorNetworkConnectionOnlyState(oftp));
 
 		addTranstion(new FConnectionRequestArchetype(), fConReqIWfRmTransition);
 		addTranstion(new NetworkConnectionIndicationArchetype(), b);
+		
+		return this;
+		
 	}
 }

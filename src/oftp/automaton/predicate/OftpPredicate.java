@@ -8,7 +8,6 @@ public abstract class OftpPredicate implements Predicate {
 	protected OftpAutomaton oftp;
 
 	public OftpPredicate(OftpAutomaton oftp) {
-		super();
 		this.oftp = oftp;
 	}
 }
