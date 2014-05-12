@@ -20,7 +20,7 @@ public class InitiatorWaitingForSsidState extends OftpAbstractState {
 
 		Transition t1 = new Transition() //D:P2
 				.setPredicate(new SsidNegotiationPredicate(oftp))
-				.addAction(true, new InitializeSessionAction(oftp))
+				.addAction(true, new InitializeInitiatorSessionAction(oftp))
 				.setNextState(true, new IdleSpeakerState(oftp))
 				.addAction(false, new EndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
 				.addAction(false, new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))

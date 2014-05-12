@@ -5,9 +5,9 @@ import automaton.exception.ActionExecutionExeption;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 
-public class InitializeSessionAction extends OftpAction {
+public class InitializeInitiatorSessionAction extends OftpAction {
 
-	public InitializeSessionAction(OftpAutomaton oftp) {
+	public InitializeInitiatorSessionAction(OftpAutomaton oftp) {
 		super(oftp);
 	}
 
