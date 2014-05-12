@@ -1,17 +1,17 @@
 package oftp.monitor;
 
-import automaton.event.Archetype;
-import automaton.event.Event;
-import automaton.event.EventLayer;
+import java.io.IOException;
+import java.net.Socket;
+
 import oftp.automaton.CapabilityInit;
 import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
 import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
-
-import java.io.IOException;
-import java.net.Socket;
+import automaton.event.Archetype;
+import automaton.event.Event;
+import automaton.event.EventLayer;
 
 public class MonitorInitiator extends EventLayer implements Runnable {
 
@@ -47,7 +47,7 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		MonitorInitiator monitor = new MonitorInitiator(args[0]);
+		MonitorInitiator monitor = new MonitorInitiator("localhost");
 		monitor.run();
 	}
 

@@ -29,10 +29,10 @@ public class AcceptorWaitingForConnectionResponseState extends OftpAbstractState
 			.setPredicate(p2)
 			.addAction(true, new InitializeAcceptorSessionAction(oftp))
 			.addAction(true, new CreateSsidAction(oftp))
-			.setNextState(new IdleListenerState(oftp))
-			.addAction(new CreateEndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
+			.setNextState(true, new IdleListenerState(oftp))
+			.addAction(false, new CreateEndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
 			.addAction(false, new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))
-			.setNextState(oftp.getIdleState());
+			.setNextState(false, oftp.getIdleState());
 
 		addTranstion(new StartSessionArchetype(), f);
 		addTranstion(new FConnectionResponseArchetype(), g);
