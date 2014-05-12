@@ -1,18 +1,18 @@
 package oftp.automaton;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Collection;
-
+import automaton.AbstractAutomaton;
+import automaton.event.Event;
+import automaton.event.network.NetworkEvent;
+import automaton.exception.AutomatonException;
 import oftp.automaton.archetype.network.OftpNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OftpNetworkEventFactory;
 import oftp.automaton.state.IdleState;
 import oftp.service.OftpNetworkArchetypeProviderService;
-import automaton.AbstractAutomaton;
-import automaton.event.Event;
-import automaton.event.network.NetworkEvent;
-import automaton.exception.AutomatonException;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Collection;
 
 public class OftpAutomaton extends AbstractAutomaton {
 
@@ -21,7 +21,7 @@ public class OftpAutomaton extends AbstractAutomaton {
 	private NetworkLayer networkLayer;
 	private OftpNetworkEventFactory networkEventFactory = new OftpNetworkEventFactory();
 
-	private OftpNetworkArchetypeProviderService archtypeProviderService = new OftpNetworkArchetypeProviderService();
+	private OftpNetworkArchetypeProviderService archetypeProviderService = new OftpNetworkArchetypeProviderService();
 
 	// Local OFTP variables
 	int bufferSize;
@@ -66,7 +66,7 @@ public class OftpAutomaton extends AbstractAutomaton {
 		}
 		this.maximumWindow = maximumWindow;
 
-		Collection<OftpNetworkArchetype> archetypes = archtypeProviderService.getArchetype();
+		Collection<OftpNetworkArchetype> archetypes = archetypeProviderService.getArchetype();
 		networkEventFactory.addArchetypes(archetypes);
 	}
 
