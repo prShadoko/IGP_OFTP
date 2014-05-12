@@ -22,11 +22,10 @@ public class CreateSsidAction extends OftpAction {
 //		event.putAttribute(StartSessionArchetype.COMPRESSION_INDICATION,    );
 //		event.putAttribute(StartSessionArchetype.RESTART_INDICATION,        );
 //		event.putAttribute(StartSessionArchetype.SPECIAL_LOGIC_INDICATION,  );
-		event.putAttribute(StartSessionArchetype.CREDIT,                    oftp.getCreditSpeaker());
+		event.putAttribute(StartSessionArchetype.CREDIT,                    oftp.getMaximumWindow());
 //		event.putAttribute(StartSessionArchetype.RESERVED,                  );
 //		event.putAttribute(StartSessionArchetype.USER_DATA,                 );
 
 		oftp.addOutputEvent(event);
 	}
-
 }
