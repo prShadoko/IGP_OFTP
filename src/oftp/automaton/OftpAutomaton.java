@@ -27,14 +27,14 @@ public class OftpAutomaton extends AbstractAutomaton {
 	int bufferSize;
 	String calledAddresse;
 	String callingAddresse;
-	boolean compression;
+	boolean compressionEnabled;
 	int creditListener;
 	int creditSpeaker;
 	String id;
 	CapabilityMode mode;
 	String password;
 	Event<?> requestBuffer;
-	YesNo restart;
+	boolean restartEnabled;
 	int restartPosition;
 	int window;
 
@@ -139,12 +139,12 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.bufferSize = bufferSize;
 	}
 
-	public boolean isCompression() {
-		return compression;
+	public boolean isCompressionEnabled() {
+		return compressionEnabled;
 	}
 
-	public void setCompression(boolean compression) {
-		this.compression = compression;
+	public void setCompressionEnabled(boolean compressionEnabled) {
+		this.compressionEnabled = compressionEnabled;
 	}
 
 	public int getCreditListener() {
@@ -195,12 +195,12 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.requestBuffer = requestBuffer;
 	}
 
-	public YesNo isRestart() {
-		return restart;
+	public boolean isRestartEnabled() {
+		return restartEnabled;
 	}
 
-	public void setRestart(YesNo restart) {
-		this.restart = restart;
+	public void setRestartEnabled(boolean restartEnabled) {
+		this.restartEnabled = restartEnabled;
 	}
 
 	public int getRestartPosition() {
