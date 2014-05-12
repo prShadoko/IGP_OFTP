@@ -21,7 +21,7 @@ public class AcceptorNetworkConnectionOnlyState extends OftpAbstractState {
 			
 		Transition userErrorTransition = new Transition()
 			.addAction(new UserErrorAction(oftp))
-			.setNextState(new IdleState(oftp));
+			.setNextState(oftp.getIdleState());
 
 		this.addTranstion(new StartSessionArchetype(), t1);
 		this.addTranstion(new FConnectionRequestArchetype(), userErrorTransition);

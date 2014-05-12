@@ -13,10 +13,11 @@ import automaton.AbstractAutomaton;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
 import automaton.exception.AutomatonException;
-import automaton.state.State;
 
 public class OftpAutomaton extends AbstractAutomaton {
 
+	private IdleState idle;
+	
 	private NetworkLayer networkLayer;
 	private OftpNetworkEventFactory networkEventFactory = new OftpNetworkEventFactory();
 
@@ -72,8 +73,7 @@ public class OftpAutomaton extends AbstractAutomaton {
 	public static OftpAutomaton build(boolean capCompression, CapabilityInit capInit, CapabilityMode capMode, int maximumBufferSize, int maximumWindow) {
 
 		OftpAutomaton oftp = new OftpAutomaton(capCompression, capInit, capMode, maximumBufferSize, maximumWindow);
-		State idle = new IdleState(oftp);
-		oftp.setState(idle);
+		oftp.setState(oftp.getIdleState().init());
 
 		return oftp;
 	}
@@ -95,6 +95,13 @@ public class OftpAutomaton extends AbstractAutomaton {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public IdleState getIdleState() {
+		if(null == idle) {
+			idle = new IdleState(this);
+		}
+		return idle;
 	}
 
 	public NetworkLayer getNetworkLayer() {
