@@ -1,17 +1,24 @@
 package oftp.monitor;
 
-import java.io.IOException;
-import java.net.Socket;
-
+import automaton.event.Event;
+import automaton.event.EventLayer;
 import oftp.automaton.CapabilityInit;
 import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
-import automaton.event.Event;
-import automaton.event.EventLayer;
+
+import java.io.IOException;
+import java.net.Socket;
 
 public class MonitorInitiator extends EventLayer implements Runnable {
+
+	private String ip;
+
+	public MonitorInitiator(String ip) {
+		this.ip = ip;
+	}
+
 	@Override
 	public void run() {
 		try {
@@ -22,24 +29,21 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 			Thread oftpThread = new Thread(oftp);
 			oftpThread.start();
 
-			Socket socket = new Socket("localhost", MonitorAcceptor.LISTEN_PORT);
+			Socket socket = new Socket(ip, MonitorAcceptor.LISTEN_PORT);
 			MonitorEvent fConReq = new MonitorEvent(new FConnectionRequestArchetype());
 			fConReq.putAttribute(FConnectionRequestArchetype.SOCKET, socket);
 			
 			publish(fConReq);
 			
 			oftpThread.join();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
+		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) {
-		MonitorInitiator monitor = new MonitorInitiator();
+		MonitorInitiator monitor = new MonitorInitiator(args[0]);
 		monitor.run();
 	}
 
