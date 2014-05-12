@@ -8,12 +8,12 @@ import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.input.FAbortRequestArchetype;
 
-public class CreateFAbortRequestAction extends OftpAction {
-	
+public class CreateFAbortIndicationAction extends OftpAction {
+
 	private AnswerReason reason;
 	private AbortOrigin origin;
-	
-	public CreateFAbortRequestAction(OftpAutomaton oftp, AnswerReason reason, AbortOrigin origin) {
+
+	public CreateFAbortIndicationAction(OftpAutomaton oftp, AnswerReason reason, AbortOrigin origin) {
 		super(oftp);
 		this.reason = reason;
 		this.origin = origin;
