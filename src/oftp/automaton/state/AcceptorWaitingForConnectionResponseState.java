@@ -1,5 +1,7 @@
 package oftp.automaton.state;
 
+import automaton.predicate.Predicate;
+import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
@@ -10,8 +12,6 @@ import oftp.automaton.action.awfconrs.CreateEndSessionAction;
 import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.automaton.predicate.idle.SsidNegotiationPredicate;
-import automaton.predicate.Predicate;
-import automaton.transition.Transition;
 
 public class AcceptorWaitingForConnectionResponseState extends OftpAbstractState {
 
@@ -34,8 +34,8 @@ public class AcceptorWaitingForConnectionResponseState extends OftpAbstractState
 			.addAction(false, new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))
 			.setNextState(oftp.getIdleState());
 
-		addTranstion(new StartSessionArchetype(), f);
-		addTranstion(new FConnectionResponseArchetype(), g);
+		addTransition(new StartSessionArchetype(), f);
+		addTransition(new FConnectionResponseArchetype(), g);
 	}
 
 

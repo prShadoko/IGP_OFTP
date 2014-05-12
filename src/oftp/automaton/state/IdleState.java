@@ -1,5 +1,8 @@
 package oftp.automaton.state;
 
+import automaton.action.Action;
+import automaton.predicate.Predicate;
+import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
@@ -11,9 +14,6 @@ import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
 import oftp.automaton.archetype.monitor.input.NetworkConnectionIndicationArchetype;
 import oftp.automaton.predicate.idle.IsInitiatorPredicate;
 import oftp.automaton.predicate.idle.IsModeCompatiblePredicate;
-import automaton.action.Action;
-import automaton.predicate.Predicate;
-import automaton.transition.Transition;
 
 
 public class IdleState extends OftpAbstractState {
@@ -51,8 +51,8 @@ public class IdleState extends OftpAbstractState {
 			.addAction(false, createSsrmEventAction)
 			.setNextState(false, new AcceptorNetworkConnectionOnlyState(oftp));
 
-		addTranstion(new FConnectionRequestArchetype(), a);
-		addTranstion(new NetworkConnectionIndicationArchetype(), b);
+		addTransition(new FConnectionRequestArchetype(), a);
+		addTransition(new NetworkConnectionIndicationArchetype(), b);
 		
 		return this;
 		
