@@ -32,6 +32,8 @@ public class CreateFConnectionIndicationAction extends OftpAction {
 				inputEvent.getAttribute(StartSessionArchetype.RESTART_INDICATION).toBoolean());
 		
 		oftp.addOutputEvent(event);
+		
+		oftp.setSsid(inputEvent);
 	}
 
 }

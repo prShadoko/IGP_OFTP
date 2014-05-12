@@ -23,6 +23,8 @@ public class OftpAutomaton extends AbstractAutomaton {
 
 	private OftpNetworkArchetypeProviderService archetypeProviderService = new OftpNetworkArchetypeProviderService();
 
+	private Event<?> ssid;
+	
 	// Local OFTP variables
 	int bufferSize;
 	String calledAddresse;
@@ -254,6 +256,13 @@ public class OftpAutomaton extends AbstractAutomaton {
 	public void setCallingAddresse(String callingAddresse) {
 		this.callingAddresse = callingAddresse;
 	}
+
+	public void setSsid(Event<?> ssid) {
+		this.ssid = ssid;
+	}
 	
+	public Event<?> getSsid() {
+		return ssid;
+	}
 	
 }

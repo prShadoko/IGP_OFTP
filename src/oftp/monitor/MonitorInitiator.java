@@ -1,12 +1,15 @@
 package oftp.monitor;
 
-import automaton.event.Event;
-import automaton.event.EventLayer;
+import java.io.IOException;
+import java.net.Socket;
+
 import oftp.automaton.CapabilityInit;
 import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
+import automaton.event.Event;
+import automaton.event.EventLayer;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -32,6 +35,8 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 			Socket socket = new Socket(ip, MonitorAcceptor.LISTEN_PORT);
 			MonitorEvent fConReq = new MonitorEvent(new FConnectionRequestArchetype());
 			fConReq.putAttribute(FConnectionRequestArchetype.SOCKET, socket);
+			fConReq.putAttribute(FConnectionRequestArchetype.MODE, CapabilityMode.BOTH);
+			fConReq.putAttribute(FConnectionRequestArchetype.RESTART, false);
 			
 			publish(fConReq);
 			

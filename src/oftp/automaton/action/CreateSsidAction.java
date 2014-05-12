@@ -7,8 +7,8 @@ import oftp.automaton.archetype.network.StartSessionArchetype;
 
 public class CreateSsidAction extends OftpAction {
 
-	public CreateSsidAction(OftpAutomaton automaton) {
-		super(automaton);
+	public CreateSsidAction(OftpAutomaton oftp) {
+		super(oftp);
 	}
 
 	@Override
