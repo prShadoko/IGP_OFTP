@@ -26,7 +26,7 @@ public class SetModeFromFConnectionRequestAction extends OftpAction {
 		}
 		oftp.setPassword(inputEvent.getAttribute(FConnectionRequestArchetype.PASSWORD));
 		oftp.setId(inputEvent.getAttribute(FConnectionRequestArchetype.ID));
-		oftp.setRestartEnabled(inputEvent.getAttribute(FConnectionRequestArchetype.RESTART).toBoolean());
+		oftp.setRestartEnabled(inputEvent.getAttribute(FConnectionRequestArchetype.RESTART));
 		oftp.setBufferSize(oftp.getMaximumBufferSize());
 		oftp.setCompressionEnabled(oftp.isCapCompression());
 	}

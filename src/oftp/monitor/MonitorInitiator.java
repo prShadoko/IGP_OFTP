@@ -22,9 +22,11 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 			Thread oftpThread = new Thread(oftp);
 			oftpThread.start();
 
-			Socket socket = new Socket("localhost", MonitorAcceptor.LISTEN_PORT);
+			Socket socket = new Socket("192.168.0.11", MonitorAcceptor.LISTEN_PORT);
 			MonitorEvent fConReq = new MonitorEvent(new FConnectionRequestArchetype());
 			fConReq.putAttribute(FConnectionRequestArchetype.SOCKET, socket);
+			fConReq.putAttribute(FConnectionRequestArchetype.MODE, CapabilityMode.BOTH);
+			fConReq.putAttribute(FConnectionRequestArchetype.RESTART, false);
 			
 			publish(fConReq);
 			
