@@ -132,7 +132,7 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.bufferSize = bufferSize;
 	}
 
-	public YesNo isCompression() {
+	public YesNo getCompression() {
 		return compression;
 	}
 
@@ -188,7 +188,7 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.requestBuffer = requestBuffer;
 	}
 
-	public YesNo isRestart() {
+	public YesNo getRestart() {
 		return restart;
 	}
 
