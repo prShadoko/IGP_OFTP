@@ -25,16 +25,16 @@ public class OftpAutomaton extends AbstractAutomaton {
 
 	// Local OFTP variables
 	int bufferSize;
-	// Called-addr Address Used to build O.F_CONNECT_IND.Called-addr
-	// Calling-addr Address To build O.F_CONNECT_IND.Calling-addr
-	YesNo compression;
+	String calledAddresse;
+	String callingAddresse;
+	boolean compressionEnabled;
 	int creditListener;
 	int creditSpeaker;
 	String id;
 	CapabilityMode mode;
 	String password;
 	Event<?> requestBuffer;
-	YesNo restart;
+	boolean restartEnabled;
 	int restartPosition;
 	int window;
 
@@ -139,12 +139,12 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.bufferSize = bufferSize;
 	}
 
-	public YesNo getCompression() {
-		return compression;
+	public boolean isCompressionEnabled() {
+		return compressionEnabled;
 	}
 
-	public void setCompression(YesNo compression) {
-		this.compression = compression;
+	public void setCompressionEnabled(boolean compressionEnabled) {
+		this.compressionEnabled = compressionEnabled;
 	}
 
 	public int getCreditListener() {
@@ -195,12 +195,12 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.requestBuffer = requestBuffer;
 	}
 
-	public YesNo getRestart() {
-		return restart;
+	public boolean isRestartEnabled() {
+		return restartEnabled;
 	}
 
-	public void setRestart(YesNo restart) {
-		this.restart = restart;
+	public void setRestartEnabled(boolean restartEnabled) {
+		this.restartEnabled = restartEnabled;
 	}
 
 	public int getRestartPosition() {
@@ -238,4 +238,22 @@ public class OftpAutomaton extends AbstractAutomaton {
 	public int getMaximumWindow() {
 		return maximumWindow;
 	}
+
+	public String getCalledAddresse() {
+		return calledAddresse;
+	}
+
+	public void setCalledAddresse(String calledAddresse) {
+		this.calledAddresse = calledAddresse;
+	}
+
+	public String getCallingAddresse() {
+		return callingAddresse;
+	}
+
+	public void setCallingAddresse(String callingAddresse) {
+		this.callingAddresse = callingAddresse;
+	}
+	
+	
 }

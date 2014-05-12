@@ -1,7 +1,8 @@
-package oftp.automaton.predicate;
+package oftp.automaton.predicate.idle;
 
 import oftp.automaton.CapabilityInit;
 import oftp.automaton.OftpAutomaton;
+import oftp.automaton.predicate.OftpPredicate;
 import automaton.event.Event;
 
 public class IsInitiatorPredicate extends OftpPredicate {
@@ -13,7 +14,7 @@ public class IsInitiatorPredicate extends OftpPredicate {
 	@Override
 	public boolean check(Event<?> inputEvent) {
 		CapabilityInit capInit = oftp.getCapInit();
-		boolean check = capInit.equals(CapabilityInit.INITIATOR) || capInit.equals(CapabilityInit.BOTH);
+		boolean check = capInit.equals(CapabilityInit.INITIATOR);
 				
 		return check;
 	}

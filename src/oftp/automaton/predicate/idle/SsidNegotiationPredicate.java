@@ -1,10 +1,11 @@
-package oftp.automaton.predicate;
+package oftp.automaton.predicate.idle;
 
 import automaton.event.Event;
 import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.YesNo;
 import oftp.automaton.archetype.network.StartSessionArchetype;
+import oftp.automaton.predicate.OftpPredicate;
 
 public class SsidNegotiationPredicate extends OftpPredicate {
 
@@ -22,15 +23,15 @@ public class SsidNegotiationPredicate extends OftpPredicate {
 			return false;
 		}
 
-		YesNo initiatorRestart = oftp.getRestart();
-		YesNo acceptorRestart = inputEvent.getAttribute(StartSessionArchetype.RESTART_INDICATION);
-		if(initiatorRestart == YesNo.NO && acceptorRestart == YesNo.YES) {
+		boolean initiatorRestart = oftp.isRestartEnabled();
+		boolean acceptorRestart = inputEvent.getAttribute(StartSessionArchetype.RESTART_INDICATION).toBoolean();
+		if(!initiatorRestart && acceptorRestart) {
 			return false;
 		}
 
-		YesNo initiatorCompression = oftp.getCompression();
-		YesNo acceptorCompression = inputEvent.getAttribute(StartSessionArchetype.COMPRESSION_INDICATION);
-		if(initiatorCompression == YesNo.NO && acceptorCompression == YesNo.YES) {
+		boolean initiatorCompression = oftp.isCompressionEnabled();
+		boolean acceptorCompression = inputEvent.getAttribute(StartSessionArchetype.COMPRESSION_INDICATION).toBoolean();
+		if(!initiatorCompression && acceptorCompression) {
 			return false;
 		}
 
@@ -40,8 +41,9 @@ public class SsidNegotiationPredicate extends OftpPredicate {
 			return false;
 		}
 
-		int initiatorCredit = oftp.getCredit
+		int initiatorCredit = oftp.getCreditSpeaker();
 		int acceptorCredit = inputEvent.getAttribute(StartSessionArchetype.CREDIT);
+		//TODO
 
 		return true;
 	}

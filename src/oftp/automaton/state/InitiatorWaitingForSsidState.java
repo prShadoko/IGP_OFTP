@@ -8,7 +8,7 @@ import oftp.automaton.action.*;
 import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.network.EndSessionArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
-import oftp.automaton.predicate.SsidNegotiationPredicate;
+import oftp.automaton.predicate.idle.SsidNegotiationPredicate;
 
 
 public class InitiatorWaitingForSsidState extends OftpAbstractState {

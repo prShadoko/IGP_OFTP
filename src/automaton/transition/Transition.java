@@ -20,7 +20,12 @@ public class Transition {
 	private Map<Boolean, State> nextStates;
 
 	public Transition() {
-		predicate = null;
+		predicate = new Predicate() {
+			@Override
+			public boolean check(Event<?> inputEvent) {
+				return true;
+			}
+		};
 
 		actions = new HashMap<>();
 		actions.put(true, new LinkedList<Action>());
@@ -33,6 +38,10 @@ public class Transition {
 		predicateResult = predicate.check(inputEvent);
 		
 		return this;
+	}
+	
+	public boolean isPredicateChecked() {
+		return predicateResult;
 	}
 
 	public Transition setPredicate(Predicate predicate) {
