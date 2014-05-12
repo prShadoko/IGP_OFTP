@@ -28,6 +28,7 @@ public class MonitorAcceptor extends EventLayer implements Runnable {
 		try {
 			oftp = OftpAutomaton.build(false, CapabilityInit.BOTH, CapabilityMode.BOTH, 999999, 999);
 			this.subscribe(MonitorEvent.class, oftp);
+			oftp.subscribe(MonitorEvent.class, this);
 			
 			Thread oftpThread = new Thread(oftp);
 			oftpThread.start();
@@ -62,6 +63,8 @@ public class MonitorAcceptor extends EventLayer implements Runnable {
 		Archetype<?> archetype = inputEvent.getArchetype();
 		Event<?> event = null;
 		if(archetype.equals(new FAbortIndicationArchetype())) {
+			System.out.println("Monitor: ABORT");
+			System.out.println("Monitor: Reason="+inputEvent.getAttribute(FAbortIndicationArchetype.REASON));
 			oftp.closeNetworkLayer();
 		}
 		else if(archetype.equals(new FConnectionIndicationArchetype())) {

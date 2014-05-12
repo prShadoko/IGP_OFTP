@@ -19,4 +19,9 @@ public class NetworkField<T> extends Field<T> {
 	public int getLength() {
 		return length;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public T fromString(String str) {
+		return (T) str;
+	}
 }

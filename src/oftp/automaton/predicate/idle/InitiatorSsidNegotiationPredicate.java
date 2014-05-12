@@ -6,9 +6,9 @@ import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.automaton.predicate.OftpPredicate;
 
-public class SsidNegotiationPredicate extends OftpPredicate {
+public class InitiatorSsidNegotiationPredicate extends OftpPredicate {
 
-	public SsidNegotiationPredicate(OftpAutomaton oftp) {
+	public InitiatorSsidNegotiationPredicate(OftpAutomaton oftp) {
 		super(oftp);
 	}
 

@@ -8,7 +8,7 @@ import oftp.automaton.action.*;
 import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.network.EndSessionArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
-import oftp.automaton.predicate.idle.SsidNegotiationPredicate;
+import oftp.automaton.predicate.idle.InitiatorSsidNegotiationPredicate;
 
 
 public class InitiatorWaitingForSsidState extends OftpAbstractState {
@@ -19,7 +19,7 @@ public class InitiatorWaitingForSsidState extends OftpAbstractState {
 		super(oftp, NAME);
 
 		Transition t1 = new Transition() //D:P2
-				.setPredicate(new SsidNegotiationPredicate(oftp))
+				.setPredicate(new InitiatorSsidNegotiationPredicate(oftp))
 				.addAction(true, new InitializeInitiatorSessionAction(oftp))
 				.setNextState(true, new IdleSpeakerState(oftp))
 				.addAction(false, new EndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
