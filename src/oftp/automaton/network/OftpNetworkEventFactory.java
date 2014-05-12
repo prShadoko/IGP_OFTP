@@ -31,7 +31,7 @@ public class OftpNetworkEventFactory {
 	public NetworkEvent build(String packet) {
 		NetworkEvent event = null;
 		
-		NetworkArchetype archetype = archetypes.get(packet.charAt(0));
+		NetworkArchetype archetype = archetypes.get(CommandCode.fromChar(packet.charAt(0)));
 		
 		if(null != archetype) {
 			event = build(packet, archetype);
@@ -42,7 +42,6 @@ public class OftpNetworkEventFactory {
 
 	public NetworkEvent build(String packet, NetworkArchetype archetype) {
 		NetworkEvent event = null;
-		System.out.println("archetype: "+ archetype.getName());
 		
 		if(packet.length() == archetype.getLength()) {
 			event = new NetworkEvent(archetype);
@@ -57,7 +56,7 @@ public class OftpNetworkEventFactory {
 					}
 				}
 
-				event.putAttribute(field, sub);
+				event.putAttribute(field, field.fromString(sub));
 				
 				pos += field.getLength();
 			}

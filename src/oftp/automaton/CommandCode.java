@@ -26,4 +26,17 @@ public enum CommandCode {
 	public String toString() {
 		return code + "";
 	}
+	
+	public char toChar() {
+		return code;
+	}
+
+	public static CommandCode fromChar(char c) {
+		for(CommandCode code : values()) {
+			if(c == code.toChar()) {
+				return code;
+			}
+		}
+		return null;
+	}
 }
