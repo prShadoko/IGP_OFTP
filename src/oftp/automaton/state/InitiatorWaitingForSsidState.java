@@ -31,7 +31,7 @@ public class InitiatorWaitingForSsidState extends OftpAbstractState {
 		Transition userErrorTransition = new Transition()
 				.addAction(new UserErrorAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
 				.setNextState(new IdleState(oftp));
-//
+
 		this.addTranstion(new StartSessionArchetype(), t1);
 		this.addTranstion(new EndSessionArchetype(EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE), t2);
 		this.addTranstion(new FConnectionResponseArchetype(), userErrorTransition);
