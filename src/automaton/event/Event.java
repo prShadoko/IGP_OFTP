@@ -8,4 +8,6 @@ public interface Event<A extends Archetype<?>> {
 	void putAttribute(Field<?> field, Object attr);
 	
 	A getArchetype();
+	
+	boolean is(Archetype<?> archetype);
 }

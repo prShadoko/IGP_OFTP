@@ -25,9 +25,9 @@ public class OftpAutomaton extends AbstractAutomaton {
 
 	// Local OFTP variables
 	int bufferSize;
-	// Called-addr Address Used to build O.F_CONNECT_IND.Called-addr
-	// Calling-addr Address To build O.F_CONNECT_IND.Calling-addr
-	YesNo compression;
+	String calledAddresse;
+	String callingAddresse;
+	boolean compression;
 	int creditListener;
 	int creditSpeaker;
 	String id;
@@ -139,11 +139,11 @@ public class OftpAutomaton extends AbstractAutomaton {
 		this.bufferSize = bufferSize;
 	}
 
-	public YesNo isCompression() {
+	public boolean isCompression() {
 		return compression;
 	}
 
-	public void setCompression(YesNo compression) {
+	public void setCompression(boolean compression) {
 		this.compression = compression;
 	}
 
@@ -238,4 +238,22 @@ public class OftpAutomaton extends AbstractAutomaton {
 	public int getMaximumWindow() {
 		return maximumWindow;
 	}
+
+	public String getCalledAddresse() {
+		return calledAddresse;
+	}
+
+	public void setCalledAddresse(String calledAddresse) {
+		this.calledAddresse = calledAddresse;
+	}
+
+	public String getCallingAddresse() {
+		return callingAddresse;
+	}
+
+	public void setCallingAddresse(String callingAddresse) {
+		this.callingAddresse = callingAddresse;
+	}
+	
+	
 }

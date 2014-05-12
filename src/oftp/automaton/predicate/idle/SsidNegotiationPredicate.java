@@ -1,8 +1,9 @@
-package oftp.automaton.predicate;
+package oftp.automaton.predicate.idle;
 
 import automaton.event.Event;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.network.StartSessionArchetype;
+import oftp.automaton.predicate.OftpPredicate;
 
 public class SsidNegotiationPredicate extends OftpPredicate {
 

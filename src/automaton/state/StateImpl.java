@@ -35,8 +35,9 @@ public class StateImpl implements State {
 			if (null != inputEvent && transitions.containsKey(inputEvent.getArchetype())) {
 				Transition transition = transitions.get(inputEvent.getArchetype())
 						.compile(inputEvent);
-				
+
 				System.out.println("Transition: " + transition);
+				System.out.println("Predicate: " + transition.isPredicateChecked());
 
 				Collection<Action> actions = transition.getActions();
 
@@ -49,8 +50,8 @@ public class StateImpl implements State {
 				System.out.println("Send events");
 				automaton.sendOutputEvents();
 
-				System.out.println("Next state: " + nextState);
 				nextState = transition.getNextState();
+				System.out.println("Next state: " + nextState);
 			} else {
 				System.out.println("No transition found");
 				nextState = this;

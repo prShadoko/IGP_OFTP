@@ -1,10 +1,14 @@
 package oftp.automaton.state;
 
+import oftp.automaton.AbortOrigin;
+import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.UserErrorAction;
+import oftp.automaton.action.anconly.CreateFConnectionIndicationAction;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
-import oftp.automaton.predicate.IncompatibleCapModePredicate;
+import oftp.automaton.predicate.anconly.IncompatibleSsidAndCapModePredicate;
+import automaton.action.Action;
 import automaton.predicate.Predicate;
 import automaton.transition.Transition;
 
@@ -15,16 +19,22 @@ public class AcceptorNetworkConnectionOnlyState extends OftpAbstractState {
 	public AcceptorNetworkConnectionOnlyState(OftpAutomaton oftp) {
 		super(oftp, NAME);
 		
-		Predicate incompatibleCapMode = new IncompatibleCapModePredicate(oftp);
+		Predicate p4 = new IncompatibleSsidAndCapModePredicate(oftp);
 		
-		Transition t1 = new Transition();
+		Action createFConnectionIndication = new CreateFConnectionIndicationAction(oftp);
+
+		Transition e = new Transition()
+			.setPredicate(p4)
+			.setNextState(true, oftp.getIdleState())
+			.addAction(false, createFConnectionIndication)
+			.setNextState(false, new AcceptorWaitingForConnectionResponseState(oftp));
 			
-		Transition userErrorTransition = new Transition()
-			.addAction(new UserErrorAction(oftp))
+		Transition u = new Transition()
+			.addAction(new UserErrorAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
 			.setNextState(oftp.getIdleState());
 
-		this.addTranstion(new StartSessionArchetype(), t1);
-		this.addTranstion(new FConnectionRequestArchetype(), userErrorTransition);
+		this.addTranstion(new StartSessionArchetype(), e);
+		this.addTranstion(new FConnectionRequestArchetype(), u);
 	}
 
 

@@ -45,4 +45,9 @@ public class EventImpl<A extends Archetype<?>> implements Event<A> {
 	public String toString() {
 		return archetype.getName();
 	}
+
+	@Override
+	public boolean is(Archetype<?> archetype) {
+		return this.archetype.equals(archetype);
+	}
 }
