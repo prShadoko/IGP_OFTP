@@ -23,8 +23,8 @@ public class InitiatorWaitingForReadyMessageState extends OftpAbstractState {
 				.addAction(new UserErrorAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
 				.setNextState(new IdleState(oftp));
 
-		this.addTranstion(new StartSessionReadyMessageArchetype(), t1);
-		this.addTranstion(new FConnectionResponseArchetype(), userErrorTransition);
+		this.addTransition(new StartSessionReadyMessageArchetype(), t1);
+		this.addTransition(new FConnectionResponseArchetype(), userErrorTransition);
 	}
 
 }

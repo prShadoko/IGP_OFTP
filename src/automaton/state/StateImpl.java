@@ -1,15 +1,15 @@
 package automaton.state;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import automaton.Automaton;
 import automaton.action.Action;
 import automaton.event.Archetype;
 import automaton.event.Event;
 import automaton.exception.AutomatonException;
 import automaton.transition.Transition;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StateImpl implements State {
 
@@ -64,7 +64,7 @@ public class StateImpl implements State {
 	}
 
 	@Override
-	public void addTranstion(Archetype<?> archetype, Transition transition) {
+	public void addTransition(Archetype<?> archetype, Transition transition) {
 		transitions.put(archetype, transition);
 	}
 

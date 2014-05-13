@@ -7,7 +7,7 @@ public class EndSessionAnswerReason extends AnswerReasonFactory {
     public static final AnswerReason NORMAL_SESSION_TERMINATED         = new AnswerReason(0, "Normal session termination");
     public static final AnswerReason COMMAND_NOT_RECOGNISED            = new AnswerReason(1, "Command not recognised");
     public static final AnswerReason PROTOCOL_VIOLATION                = new AnswerReason(2, "Protocol violation");
-    public static final AnswerReason UNKNOWN_USER_COSE                 = new AnswerReason(3, "User code not known");
+    public static final AnswerReason UNKNOWN_USER_CODE                 = new AnswerReason(3, "User code not known");
     public static final AnswerReason INVALID_PASSWORD                  = new AnswerReason(4, "Invalid password");
     public static final AnswerReason LOCAL_SITE_EMERGENCY_CLOSE_DOWN   = new AnswerReason(5, "Local site emergency close down");
     public static final AnswerReason INVALID_DATA                      = new AnswerReason(6, "Command contained invalid data");
@@ -21,7 +21,7 @@ public class EndSessionAnswerReason extends AnswerReasonFactory {
 		addReason(NORMAL_SESSION_TERMINATED);
 		addReason(COMMAND_NOT_RECOGNISED);
 		addReason(PROTOCOL_VIOLATION);
-		addReason(UNKNOWN_USER_COSE);
+		addReason(UNKNOWN_USER_CODE);
 		addReason(INVALID_PASSWORD);
 		addReason(LOCAL_SITE_EMERGENCY_CLOSE_DOWN);
 		addReason(INVALID_DATA);

@@ -1,10 +1,13 @@
 package oftp.automaton.state;
 
+import automaton.predicate.Predicate;
+import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.CreateFAbortIndicationAction;
 import oftp.automaton.action.CreateSsidAction;
+import oftp.automaton.action.InitializeInitiatorSessionAction;
 import oftp.automaton.action.awfconrs.CreateEndSessionAction;
 import oftp.automaton.action.awfconrs.InitializeAcceptorSessionAction;
 import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
@@ -18,7 +21,7 @@ public class AcceptorWaitingForConnectionResponseState extends OftpAbstractState
 	public static final String NAME = "A_WF_CONRS";
 	
 	public AcceptorWaitingForConnectionResponseState(OftpAutomaton oftp) {
-		super(oftp, NAME);	
+		super(oftp, NAME);
 
 		Transition f = new Transition()
 			.addAction(new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
@@ -34,8 +37,8 @@ public class AcceptorWaitingForConnectionResponseState extends OftpAbstractState
 			.addAction(false, new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))
 			.setNextState(false, oftp.getIdleState());
 
-		addTranstion(new StartSessionArchetype(), f);
-		addTranstion(new FConnectionResponseArchetype(), g);
+		addTransition(new StartSessionArchetype(), f);
+		addTransition(new FConnectionResponseArchetype(), g);
 	}
 
 

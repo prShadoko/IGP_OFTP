@@ -4,7 +4,11 @@ import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
-import oftp.automaton.action.*;
+import oftp.automaton.action.CreateFAbortIndicationAction;
+import oftp.automaton.action.CreateFAbortRequestAction;
+import oftp.automaton.action.InitializeInitiatorSessionAction;
+import oftp.automaton.action.UserErrorAction;
+import oftp.automaton.action.awfconrs.CreateEndSessionAction;
 import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.network.EndSessionArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
@@ -22,7 +26,7 @@ public class InitiatorWaitingForSsidState extends OftpAbstractState {
 				.setPredicate(new InitiatorSsidNegotiationPredicate(oftp))
 				.addAction(true, new InitializeInitiatorSessionAction(oftp))
 				.setNextState(true, new IdleSpeakerState(oftp))
-				.addAction(false, new EndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
+				.addAction(false, new CreateEndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
 				.addAction(false, new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))
 				.setNextState(false, new IdleState(oftp));//TODO: Etat intermediaire WF_NDISC ?
 		Transition t2 = new Transition() //F
@@ -32,8 +36,8 @@ public class InitiatorWaitingForSsidState extends OftpAbstractState {
 				.addAction(new UserErrorAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
 				.setNextState(new IdleState(oftp));
 
-		this.addTranstion(new StartSessionArchetype(), t1);
-		this.addTranstion(new EndSessionArchetype(EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE), t2);
-		this.addTranstion(new FConnectionResponseArchetype(), userErrorTransition);
+		this.addTransition(new StartSessionArchetype(), t1);
+		this.addTransition(new EndSessionArchetype(EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE), t2);
+		this.addTransition(new FConnectionResponseArchetype(), userErrorTransition);
 	}
 }

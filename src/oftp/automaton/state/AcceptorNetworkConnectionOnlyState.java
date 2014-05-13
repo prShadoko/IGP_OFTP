@@ -1,5 +1,8 @@
 package oftp.automaton.state;
 
+import automaton.action.Action;
+import automaton.predicate.Predicate;
+import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
@@ -8,9 +11,6 @@ import oftp.automaton.action.anconly.CreateFConnectionIndicationAction;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.automaton.predicate.anconly.IncompatibleSsidAndCapModePredicate;
-import automaton.action.Action;
-import automaton.predicate.Predicate;
-import automaton.transition.Transition;
 
 public class AcceptorNetworkConnectionOnlyState extends OftpAbstractState {
 
@@ -33,8 +33,8 @@ public class AcceptorNetworkConnectionOnlyState extends OftpAbstractState {
 			.addAction(new UserErrorAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
 			.setNextState(oftp.getIdleState());
 
-		this.addTranstion(new StartSessionArchetype(), e);
-		this.addTranstion(new FConnectionRequestArchetype(), u);
+		this.addTransition(new StartSessionArchetype(), e);
+		this.addTransition(new FConnectionRequestArchetype(), u);
 	}
 
 

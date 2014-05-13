@@ -8,5 +8,5 @@ public interface State {
 
 	State run(Automaton automaton);
 	
-	void addTranstion(Archetype<?> archetype, Transition transition);
+	void addTransition(Archetype<?> archetype, Transition transition);
 }
