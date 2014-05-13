@@ -32,7 +32,7 @@ public class AcceptorWaitingForConnectionResponseState extends OftpAbstractState
 			.setPredicate(p2)
 			.addAction(true, new InitializeAcceptorSessionAction(oftp))
 			.addAction(true, new CreateSsidAction(oftp))
-			.setNextState(true, new IdleListenerState(oftp))
+			.setNextState(true, oftp.getIdleListenerState())
 			.addAction(false, new CreateEndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
 			.addAction(false, new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))
 			.setNextState(false, oftp.getIdleState());

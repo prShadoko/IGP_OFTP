@@ -7,6 +7,7 @@ import automaton.exception.AutomatonException;
 import oftp.automaton.archetype.network.OftpNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OftpNetworkEventFactory;
+import oftp.automaton.state.IdleListenerState;
 import oftp.automaton.state.IdleState;
 import oftp.service.OftpNetworkArchetypeProviderService;
 
@@ -17,6 +18,7 @@ import java.util.Collection;
 public class OftpAutomaton extends AbstractAutomaton {
 
 	private IdleState idle;
+	private IdleListenerState idleli;
 	
 	private NetworkLayer networkLayer;
 	private OftpNetworkEventFactory networkEventFactory = new OftpNetworkEventFactory();
@@ -75,8 +77,10 @@ public class OftpAutomaton extends AbstractAutomaton {
 	public static OftpAutomaton build(boolean capCompression, CapabilityInit capInit, CapabilityMode capMode, int maximumBufferSize, int maximumWindow) {
 
 		OftpAutomaton oftp = new OftpAutomaton(capCompression, capInit, capMode, maximumBufferSize, maximumWindow);
-		oftp.setState(oftp.getIdleState().init());
-
+		oftp.setState(oftp.getIdleState());
+		oftp.getIdleState().init();
+		oftp.getIdleListenerState().init();
+		
 		return oftp;
 	}
 
@@ -104,6 +108,13 @@ public class OftpAutomaton extends AbstractAutomaton {
 			idle = new IdleState(this);
 		}
 		return idle;
+	}
+	
+	public IdleListenerState getIdleListenerState() {
+		if(null == idleli) {
+			idleli = new IdleListenerState(this);
+		}
+		return idleli;
 	}
 
 	public NetworkLayer getNetworkLayer() {

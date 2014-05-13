@@ -19,4 +19,13 @@ public enum FileFormat {
 	public String toString() {
 		return format + "";
 	}
+	
+	public static FileFormat fromChar(char c) {
+		for(FileFormat f : values()) {
+			if(c == f.toChar()) {
+				return f;
+			}
+		}
+		return null;
+	}
 }

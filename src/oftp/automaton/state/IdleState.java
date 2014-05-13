@@ -24,7 +24,7 @@ public class IdleState extends OftpAbstractState {
 		super(oftp, NAME);
 	}
 	
-	public IdleState init() {
+	public void init() {
 
 		Predicate p1 = new IsModeCompatiblePredicate(oftp);
 		Predicate p3 = new IsInitiatorPredicate(oftp);
@@ -53,8 +53,6 @@ public class IdleState extends OftpAbstractState {
 
 		addTransition(new FConnectionRequestArchetype(), a);
 		addTransition(new NetworkConnectionIndicationArchetype(), b);
-		
-		return this;
 		
 	}
 }

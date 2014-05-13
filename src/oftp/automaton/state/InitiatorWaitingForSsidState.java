@@ -1,6 +1,5 @@
 package oftp.automaton.state;
 
-import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
@@ -9,10 +8,12 @@ import oftp.automaton.action.CreateFAbortRequestAction;
 import oftp.automaton.action.InitializeInitiatorSessionAction;
 import oftp.automaton.action.UserErrorAction;
 import oftp.automaton.action.awfconrs.CreateEndSessionAction;
+import oftp.automaton.action.iwfssid.CreateFConnectionConfirmationAction;
 import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.network.EndSessionArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.automaton.predicate.idle.InitiatorSsidNegotiationPredicate;
+import automaton.transition.Transition;
 
 
 public class InitiatorWaitingForSsidState extends OftpAbstractState {
@@ -25,6 +26,7 @@ public class InitiatorWaitingForSsidState extends OftpAbstractState {
 		Transition t1 = new Transition() //D:P2
 				.setPredicate(new InitiatorSsidNegotiationPredicate(oftp))
 				.addAction(true, new InitializeInitiatorSessionAction(oftp))
+				.addAction(true, new CreateFConnectionConfirmationAction(oftp))
 				.setNextState(true, new IdleSpeakerState(oftp))
 				.addAction(false, new CreateEndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
 				.addAction(false, new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))

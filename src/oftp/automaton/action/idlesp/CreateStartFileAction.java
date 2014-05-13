@@ -24,9 +24,9 @@ public class CreateStartFileAction extends OftpAction {
 		Event<?> event = new NetworkEvent(new StartFileArchetype());
 
 		Date now = new Date();
-		char fileFormat = inputEvent.getAttribute(FStartFileRequestArchetype.RECORD_FORMAT);
+		FileFormat fileFormat = inputEvent.getAttribute(FStartFileRequestArchetype.RECORD_FORMAT);
 		int maximumRecordSize = 0;
-		if(fileFormat != FileFormat.TEXT.toChar() && fileFormat != FileFormat.UNSTRUCTURED_BINARY_FILE.toChar()) {
+		if(fileFormat != FileFormat.TEXT && fileFormat != FileFormat.UNSTRUCTURED_BINARY_FILE) {
 			maximumRecordSize = inputEvent.getAttribute(FStartFileRequestArchetype.RECORD_SIZE);
 		}
 

@@ -1,7 +1,9 @@
 package oftp.automaton.archetype.network;
 
-import automaton.event.network.NetworkField;
 import oftp.automaton.CommandCode;
+import oftp.automaton.network.FileFormatNetworkField;
+import oftp.automaton.network.IntegerNetworkField;
+import automaton.event.network.NetworkField;
 
 public class StartFileArchetype extends OftpNetworkArchetype {
 
@@ -14,10 +16,10 @@ public class StartFileArchetype extends OftpNetworkArchetype {
 	public static NetworkField<String> 		USER_DATA 					= new NetworkField<>("SFIDUSER",  8, "        ");
 	public static NetworkField<String> 		DESTINATION 				= new NetworkField<>("SFIDDEST",  25);
 	public static NetworkField<String> 		ORIGINATOR 					= new NetworkField<>("SFIDORIG",  25);
-	public static NetworkField<Character> 	FILE_FORMAT 				= new NetworkField<>("SFIDFMT",   1);
-	public static NetworkField<Integer> 	MAXIMUM_RECORD_SIZE 		= new NetworkField<>("SFIDLRECL", 5);
-	public static NetworkField<Integer> 	FILE_SIZE 					= new NetworkField<>("SFIDFSIZ",  7);
-	public static NetworkField<Integer> 	RESTART_POSITION 			= new NetworkField<>("SFIDREST",  9);
+	public static FileFormatNetworkField 	FILE_FORMAT 				= new FileFormatNetworkField("SFIDFMT");
+	public static IntegerNetworkField 	MAXIMUM_RECORD_SIZE 		= new IntegerNetworkField("SFIDLRECL", 5);
+	public static IntegerNetworkField 	FILE_SIZE 					= new IntegerNetworkField("SFIDFSIZ",  7);
+	public static IntegerNetworkField 	RESTART_POSITION 			= new IntegerNetworkField("SFIDREST",  9);
 	
 	public StartFileArchetype() {
 		super(NAME, CommandCode.SFID);
