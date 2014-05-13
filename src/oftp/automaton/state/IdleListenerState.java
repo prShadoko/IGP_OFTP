@@ -27,6 +27,6 @@ public class IdleListenerState extends OftpAbstractState {
 			.addAction(false, new CreateStartFileIndicationAction(oftp))
 			.setNextState(false, new OpenInputPendingState(oftp));
 		
-		addTranstion(new StartFileArchetype(), a);
+		addTransition(new StartFileArchetype(), a);
 	}
 }

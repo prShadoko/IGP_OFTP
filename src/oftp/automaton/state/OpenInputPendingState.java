@@ -25,7 +25,7 @@ public class OpenInputPendingState extends OftpAbstractState {
 			.addAction(true, new CreateStartFileNegativeAnswerAction(oftp))
 			.setNextState(true, new IdleListenerState(oftp));
 
-		addTranstion(new PositiveFStartFileResponseArchetype(), h1);
-		addTranstion(new NegativeFStartFileResponseArchetype(), h2);
+		addTransition(new PositiveFStartFileResponseArchetype(), h1);
+		addTransition(new NegativeFStartFileResponseArchetype(), h2);
 	}
 }
