@@ -12,6 +12,10 @@ public enum FileFormat {
 		this.format = format;
 	}
 
+	public char toChar() {
+		return format;
+	}
+
 	public String toString() {
 		return format + "";
 	}
