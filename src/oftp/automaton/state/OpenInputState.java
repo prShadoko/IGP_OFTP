@@ -1,8 +1,12 @@
 package oftp.automaton.state;
 
 import oftp.automaton.OftpAutomaton;
+import oftp.automaton.action.CreateFAbortIndicationAction;
+import oftp.automaton.action.opi.CreateFCloseFileIndicationAction;
 import oftp.automaton.action.opi.CreateFDataIndicationAction;
 import oftp.automaton.archetype.network.DataExchangeBufferArchetype;
+import oftp.automaton.archetype.network.EndFileArchetype;
+import oftp.automaton.archetype.network.EndSessionArchetype;
 import automaton.transition.Transition;
 
 
@@ -12,11 +16,21 @@ public class OpenInputState extends OftpAbstractState {
 	
 	public OpenInputState(OftpAutomaton oftp) {
 		super(oftp, NAME);
-		
+
+		Transition d = new Transition()
+			.addAction(new CreateFAbortIndicationAction(oftp))
+			.setNextState(oftp.getIdleState());
+
 		Transition i = new Transition()
 			.addAction(new CreateFDataIndicationAction(oftp))
 			.setNextState(this);
 		
+		Transition j = new Transition()
+			.addAction(new CreateFCloseFileIndicationAction(oftp))
+			.setNextState(new CloseInputPendingState(oftp));
+
+		addTransition(new EndSessionArchetype(), d);
 		addTransition(new DataExchangeBufferArchetype(), i);
+		addTransition(new EndFileArchetype(), j);
 	}
 }

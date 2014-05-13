@@ -10,7 +10,14 @@ public class EndSessionArchetype extends AnswerReasonArchetype {
 
 	public static final String NAME = "ESID";
 	
-//	public static final NetworkField<AnswerReason> REASON_CODE = new NetworkField<>("ESIDREAS", 2);
+	public static final NetworkField<AnswerReason> REASON_CODE = new NetworkField<>("ESIDREAS", 2);
+
+	public EndSessionArchetype() {
+		super(NAME, CommandCode.ESID, new EndSessionAnswerReason());
+		
+		addField(REASON_CODE);
+		addField(OftpNetworkField.CR);
+	}
 
 	public EndSessionArchetype(int expectedReasonCode) {
 		super(NAME, CommandCode.ESID, new EndSessionAnswerReason());

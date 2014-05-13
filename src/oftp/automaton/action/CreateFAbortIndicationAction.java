@@ -7,6 +7,7 @@ import oftp.automaton.AnswerReason;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.input.FAbortRequestArchetype;
+import oftp.automaton.archetype.network.EndSessionArchetype;
 
 public class CreateFAbortIndicationAction extends OftpAction {
 
@@ -19,12 +20,23 @@ public class CreateFAbortIndicationAction extends OftpAction {
 		this.origin = origin;
 	}
 
+	public CreateFAbortIndicationAction(OftpAutomaton oftp) {
+		super(oftp);
+		this.reason = null;
+		this.origin = null;
+	}
+
 	@Override
 	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
-		
 		Event<?> event = new MonitorEvent(new FAbortRequestArchetype());
-		event.putAttribute(FAbortRequestArchetype.REASON, this.reason);
-		event.putAttribute(FAbortRequestArchetype.ABORT_ORIGIN, this.origin);
+
+		if (this.reason != null) {
+			event.putAttribute(FAbortRequestArchetype.REASON, this.reason);
+			event.putAttribute(FAbortRequestArchetype.ABORT_ORIGIN, this.origin);
+		} else {
+			event.putAttribute(FAbortRequestArchetype.REASON, inputEvent.getAttribute(EndSessionArchetype.REASON_CODE));
+			event.putAttribute(FAbortRequestArchetype.ABORT_ORIGIN, AbortOrigin.DISTANT);
+		}
 		
 		oftp.addOutputEvent(event);
 	}
