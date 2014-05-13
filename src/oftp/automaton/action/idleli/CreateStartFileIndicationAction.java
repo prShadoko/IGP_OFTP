@@ -1,4 +1,4 @@
-package oftp.automaton.state;
+package oftp.automaton.action.idleli;
 
 import automaton.event.Event;
 import automaton.exception.ActionExecutionExeption;

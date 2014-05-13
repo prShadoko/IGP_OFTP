@@ -9,7 +9,7 @@ public class YesNoNetworkField extends NetworkField<YesNo> {
 		super(name, 1, expectedValue);
 	}
 
-	public YesNoNetworkField(String name, int length) {
+	public YesNoNetworkField(String name) {
 		super(name, 1);
 	}
 

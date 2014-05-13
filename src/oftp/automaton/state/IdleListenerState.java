@@ -4,6 +4,7 @@ import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.CreateFAbortIndicationAction;
+import oftp.automaton.action.idleli.CreateStartFileIndicationAction;
 import oftp.automaton.archetype.network.StartFileArchetype;
 import oftp.automaton.predicate.idleli.InvalidStartFileCommandPredicate;
 import automaton.predicate.Predicate;
