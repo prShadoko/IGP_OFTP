@@ -1,5 +1,6 @@
 package oftp.automaton.state;
 
+import automaton.transition.Transition;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.CreateFAbortIndicationAction;
 import oftp.automaton.action.opi.CreateFCloseFileIndicationAction;
@@ -7,7 +8,6 @@ import oftp.automaton.action.opi.CreateFDataIndicationAction;
 import oftp.automaton.archetype.network.DataExchangeBufferArchetype;
 import oftp.automaton.archetype.network.EndFileArchetype;
 import oftp.automaton.archetype.network.EndSessionArchetype;
-import automaton.transition.Transition;
 
 
 public class OpenInputState extends OftpAbstractState {

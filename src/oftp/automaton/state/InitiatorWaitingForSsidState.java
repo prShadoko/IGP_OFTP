@@ -1,5 +1,6 @@
 package oftp.automaton.state;
 
+import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
@@ -13,7 +14,6 @@ import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.network.EndSessionArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.automaton.predicate.idle.InitiatorSsidNegotiationPredicate;
-import automaton.transition.Transition;
 
 
 public class InitiatorWaitingForSsidState extends OftpAbstractState {
