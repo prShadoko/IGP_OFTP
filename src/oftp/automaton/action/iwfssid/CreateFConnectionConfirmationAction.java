@@ -1,12 +1,12 @@
 package oftp.automaton.action.iwfssid;
 
+import automaton.event.Event;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.OftpAction;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.output.FConnectionConfirmationArchetype;
 import oftp.automaton.archetype.network.StartSessionArchetype;
-import automaton.event.Event;
-import automaton.exception.ActionExecutionExeption;
 
 public class CreateFConnectionConfirmationAction extends OftpAction {
 
@@ -15,7 +15,7 @@ public class CreateFConnectionConfirmationAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 		Event<?> fconncf = new MonitorEvent(new FConnectionConfirmationArchetype());
 
 		fconncf.putAttribute(FConnectionConfirmationArchetype.ID,

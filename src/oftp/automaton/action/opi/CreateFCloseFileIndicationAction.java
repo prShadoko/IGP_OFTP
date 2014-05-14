@@ -1,7 +1,7 @@
 package oftp.automaton.action.opi;
 
 import automaton.event.Event;
-import automaton.exception.ActionExecutionExeption;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.OftpAction;
 import oftp.automaton.archetype.monitor.MonitorEvent;
@@ -16,7 +16,7 @@ public class CreateFCloseFileIndicationAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 		Event<?> fCloseFile = new MonitorEvent(new FCloseFileIndicationArchetype());
 		
 		fCloseFile.putAttribute(FCloseFileIndicationArchetype.RECORD_COUNT, inputEvent.getAttribute(EndFileArchetype.RECORD_COUNT));

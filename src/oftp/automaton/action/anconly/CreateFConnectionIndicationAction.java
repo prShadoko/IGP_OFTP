@@ -1,7 +1,7 @@
 package oftp.automaton.action.anconly;
 
 import automaton.event.Event;
-import automaton.exception.ActionExecutionExeption;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.OftpAction;
 import oftp.automaton.archetype.monitor.MonitorEvent;
@@ -15,7 +15,7 @@ public class CreateFConnectionIndicationAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 		Event<?> event = new MonitorEvent(new FConnectionIndicationArchetype());
 //		event.putAttribute(FConnectionIndicationArchetype.CALLED_ADDRESS,
 //				inputEvent.getAttribute(StartSessionArchetype.));

@@ -2,7 +2,7 @@ package oftp.automaton.action.idlesp;
 
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
-import automaton.exception.ActionExecutionExeption;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.FileFormat;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.OftpAction;
@@ -19,7 +19,7 @@ public class CreateStartFileAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 
 		Event<?> event = new NetworkEvent(new StartFileArchetype());
 
