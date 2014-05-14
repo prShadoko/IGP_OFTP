@@ -72,7 +72,7 @@ public class OftpAutomaton extends AbstractAutomaton {
 		}
 		this.maximumWindow = maximumWindow;
 
-		Collection<OftpNetworkArchetype> archetypes = archetypeProviderService.getArchetype();
+		Collection<OftpNetworkArchetype> archetypes = archetypeProviderService.getArchetype(0);
 		networkEventFactory.addArchetypes(archetypes);
 	}
 

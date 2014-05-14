@@ -21,7 +21,7 @@ import oftp.automaton.archetype.network.StartSessionReadyMessageArchetype;
 
 public class OftpNetworkArchetypeProviderService {
 	
-	public Collection<OftpNetworkArchetype> getArchetype() {
+	public Collection<OftpNetworkArchetype> getArchetype(int dataBufferSize) {
 		
 		Collection<OftpNetworkArchetype> list = new ArrayList<OftpNetworkArchetype>();
 		
@@ -37,7 +37,7 @@ public class OftpNetworkArchetypeProviderService {
 		list.add(new EndFileNegativeAnswerArchetype());	
 		list.add(new EndFilePositiveAnswerArchetype());	
 		list.add(new EndFileArchetype());	
-		list.add(new DataExchangeBufferArchetype());	
+		list.add(new DataExchangeBufferArchetype(dataBufferSize));	
 		list.add(new ChangeDirectionArchetype());
 		
 		return list;

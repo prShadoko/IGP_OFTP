@@ -28,6 +28,10 @@ public class OftpNetworkEventFactory {
 		}
 	}
 	
+	public void clear() {
+		archetypes.clear();
+	}
+	
 	public NetworkEvent build(String packet) {
 		NetworkEvent event = null;
 		
@@ -42,7 +46,7 @@ public class OftpNetworkEventFactory {
 
 	public NetworkEvent build(String packet, NetworkArchetype archetype) {
 		NetworkEvent event = null;
-		
+
 		if(packet.length() == archetype.getLength()) {
 			event = new NetworkEvent(archetype);
 			int pos = 0;
