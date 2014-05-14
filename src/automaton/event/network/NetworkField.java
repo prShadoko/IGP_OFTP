@@ -24,4 +24,11 @@ public class NetworkField<T> extends Field<T> {
 	public T fromString(String str) {
 		return (T) str;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public T fromByte(byte[] bytes) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(bytes);
+		return (T) builder.toString();
+	}
 }

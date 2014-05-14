@@ -17,5 +17,12 @@ public class IntegerNetworkField extends NetworkField<Integer> {
 	@Override
 	public Integer fromString(String str) {
 		return Integer.valueOf(NetworkTools.removeLeftPad(str, ' '));
-	}	
+	}
+	
+	@Override
+	public Integer fromByte(byte[] bytes) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(bytes);
+		return fromString(builder.toString());
+	}
 }

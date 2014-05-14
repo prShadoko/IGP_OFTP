@@ -18,4 +18,11 @@ public class FileFormatNetworkField extends NetworkField<FileFormat> {
 
 		return FileFormat.fromChar(str.charAt(0));
 	}
+	
+	@Override
+	public FileFormat fromByte(byte[] bytes) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(bytes);
+		return fromString(builder.toString());
+	}
 }

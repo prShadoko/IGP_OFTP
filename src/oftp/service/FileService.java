@@ -17,8 +17,8 @@ public class FileService {
 	OutputStream out;
 	
 	public FileService() {
-		inputFile = new File("/home/pierre/Pictures/Photos/48ca54da60b2d68be570620fb7ce2cff.jpg");
-//		file = new File("/home/pierre/Pictures/moi.txt");
+//		inputFile = new File("/home/pierre/Pictures/Photos/48ca54da60b2d68be570620fb7ce2cff.jpg");
+		inputFile = new File("/home/pierre/Pictures/moi.txt");
 		
 		reset();
 	}
@@ -49,16 +49,31 @@ public class FileService {
 	public void setOutputPath(String path) {
 		outputFile = new File("out/" + path);
 		try {
+			outputFile.createNewFile();
 			out = new FileOutputStream(outputFile);
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public void putByte(byte[] data) {
+		System.out.println(" - Data: " + data);
 		try {
 			out.write(data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void closeFile() {
+		try {
+			out.flush();
+			out.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

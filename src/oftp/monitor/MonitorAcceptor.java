@@ -1,8 +1,9 @@
 package oftp.monitor;
 
-import automaton.event.Archetype;
-import automaton.event.Event;
-import automaton.event.EventLayer;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import oftp.automaton.CapabilityInit;
 import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
@@ -12,15 +13,14 @@ import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.monitor.input.NetworkConnectionIndicationArchetype;
 import oftp.automaton.archetype.monitor.input.PositiveFStartFileResponseArchetype;
 import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
+import oftp.automaton.archetype.monitor.output.FCloseFileIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FConnectionIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FDataIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FStartFileIndicationArchetype;
-import oftp.automaton.archetype.network.DataExchangeBufferArchetype;
 import oftp.service.FileService;
-
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import automaton.event.Archetype;
+import automaton.event.Event;
+import automaton.event.EventLayer;
 
 public class MonitorAcceptor extends EventLayer implements Runnable {
 
@@ -83,6 +83,8 @@ public class MonitorAcceptor extends EventLayer implements Runnable {
 		} else if (archetype.equals(new FDataIndicationArchetype())) {
 			String data = inputEvent.getAttribute(FDataIndicationArchetype.DATA);
 			fileService.putByte(data.getBytes());
+		} else if (archetype.equals(new FCloseFileIndicationArchetype())) {
+			fileService.closeFile();
 		}
 
 		if(null != event) {

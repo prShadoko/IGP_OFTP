@@ -24,7 +24,7 @@ import automaton.event.EventLayer;
 public class MonitorInitiator extends EventLayer implements Runnable {
 
 	private FileService fileService = new FileService();
-	
+
 	private String ip;
 	private OftpAutomaton oftp;
 
@@ -77,18 +77,24 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 			event = new MonitorEvent(new FStartFileRequestArchetype());
 			event.putAttribute(FStartFileRequestArchetype.DATE_TIME, now);
 			event.putAttribute(FStartFileRequestArchetype.DESTINATION, "/img");
-			event.putAttribute(FStartFileRequestArchetype.FILE_NAME, "flowerS");
+			event.putAttribute(FStartFileRequestArchetype.FILE_NAME, "flower.txt");
 			event.putAttribute(FStartFileRequestArchetype.FILE_SIZE, (int) fileService.getFileSize());
 			event.putAttribute(FStartFileRequestArchetype.ORIGINATOR, "MonitorInitiator");
 			event.putAttribute(FStartFileRequestArchetype.RECORD_FORMAT, FileFormat.UNSTRUCTURED_BINARY_FILE);
 			event.putAttribute(FStartFileRequestArchetype.RECORD_SIZE, 0);
 			event.putAttribute(FStartFileRequestArchetype.RESTART_POSITION, 0);
-		}else if (archetype.equals(new PositiveFStartFileConfirmationArchetype())) {
+		} else if (archetype.equals(new PositiveFStartFileConfirmationArchetype())) {
 			byte[] buff = new byte[oftp.getBufferSize()];
 			int recordCount = 0;
 			int unitCount = 0;
 			int result = -1;
 			do {
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				result = fileService.getByte(buff);
 
 				event = new MonitorEvent(new FDataRequestArchetype());
@@ -96,11 +102,11 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 
 				publish(event);
 				recordCount++;
-				if(-1 != result) {
+				if (-1 != result) {
 					unitCount += result;
 				}
-			} while(-1 != result);
-			
+			} while (-1 != result);
+
 			event = new MonitorEvent(new FCloseFileRequestArchetype());
 			event.putAttribute(FCloseFileRequestArchetype.RECORD_COUNT, recordCount);
 			event.putAttribute(FCloseFileRequestArchetype.UNIT_COUNT, unitCount);
@@ -109,7 +115,6 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 		if (null != event) {
 			publish(event);
 		}
-		
 
 	}
 }

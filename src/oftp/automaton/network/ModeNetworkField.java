@@ -17,4 +17,11 @@ public class ModeNetworkField extends NetworkField<CapabilityMode> {
 	public CapabilityMode fromString(String str) {
 		return CapabilityMode.fromChar(str.charAt(0));
 	}
+
+	@Override
+	public CapabilityMode fromByte(byte[] bytes) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(bytes);
+		return fromString(builder.toString());
+	}
 }
