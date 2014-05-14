@@ -1,13 +1,13 @@
 package oftp.automaton.action;
 
-import oftp.automaton.OftpAutomaton;
-import oftp.automaton.archetype.network.StartSessionReadyMessageArchetype;
 import automaton.event.Event;
 import automaton.event.network.NetworkEvent;
+import oftp.automaton.OftpAutomaton;
+import oftp.automaton.archetype.network.StartSessionReadyMessageArchetype;
 
-public class CreateSsrmAction extends OftpAction {
+public class CreateStartSessionReadyMessageAction extends OftpAction {
 
-	public CreateSsrmAction(OftpAutomaton automaton) {
+	public CreateStartSessionReadyMessageAction(OftpAutomaton automaton) {
 		super(automaton);
 	}
 

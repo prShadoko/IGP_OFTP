@@ -1,11 +1,11 @@
 package oftp.automaton.state;
 
+import automaton.transition.Transition;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.opip.CreateStartFileNegativeAnswerAction;
 import oftp.automaton.action.opip.CreateStartFilePositiveAnswerAction;
 import oftp.automaton.archetype.monitor.input.NegativeFStartFileResponseArchetype;
 import oftp.automaton.archetype.monitor.input.PositiveFStartFileResponseArchetype;
-import automaton.transition.Transition;
 
 
 public class OpenInputPendingState extends OftpAbstractState {

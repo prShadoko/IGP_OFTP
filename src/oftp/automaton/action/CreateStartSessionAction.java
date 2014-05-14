@@ -5,9 +5,9 @@ import automaton.event.network.NetworkEvent;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 
-public class CreateSsidAction extends OftpAction {
+public class CreateStartSessionAction extends OftpAction {
 
-	public CreateSsidAction(OftpAutomaton oftp) {
+	public CreateStartSessionAction(OftpAutomaton oftp) {
 		super(oftp);
 	}
 

@@ -1,24 +1,26 @@
 package oftp.automaton;
 
-import automaton.AbstractAutomaton;
-import automaton.event.Event;
-import automaton.event.network.NetworkEvent;
-import automaton.exception.AutomatonException;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Collection;
+
 import oftp.automaton.archetype.network.OftpNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OftpNetworkEventFactory;
 import oftp.automaton.state.IdleListenerState;
+import oftp.automaton.state.IdleSpeakerState;
 import oftp.automaton.state.IdleState;
 import oftp.service.OftpNetworkArchetypeProviderService;
-
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Collection;
+import automaton.AbstractAutomaton;
+import automaton.event.Event;
+import automaton.event.network.NetworkEvent;
+import automaton.exception.AutomatonException;
 
 public class OftpAutomaton extends AbstractAutomaton {
 
 	private IdleState idle;
 	private IdleListenerState idleli;
+	private IdleSpeakerState idlesp;
 	
 	private NetworkLayer networkLayer;
 	private OftpNetworkEventFactory networkEventFactory = new OftpNetworkEventFactory();
@@ -80,6 +82,7 @@ public class OftpAutomaton extends AbstractAutomaton {
 		oftp.setState(oftp.getIdleState());
 		oftp.getIdleState().init();
 		oftp.getIdleListenerState().init();
+		oftp.getIdleSpeakerState().init();
 		
 		return oftp;
 	}
@@ -115,6 +118,13 @@ public class OftpAutomaton extends AbstractAutomaton {
 			idleli = new IdleListenerState(this);
 		}
 		return idleli;
+	}
+	
+	public IdleSpeakerState getIdleSpeakerState() {
+		if(null == idlesp) {
+			idlesp = new IdleSpeakerState(this);
+		}
+		return idlesp;
 	}
 
 	public NetworkLayer getNetworkLayer() {
