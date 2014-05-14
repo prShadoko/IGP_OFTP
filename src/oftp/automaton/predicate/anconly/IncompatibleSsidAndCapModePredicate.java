@@ -1,10 +1,10 @@
 package oftp.automaton.predicate.anconly;
 
+import automaton.event.Event;
 import oftp.automaton.CapabilityMode;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.automaton.predicate.OftpPredicate;
-import automaton.event.Event;
 
 
 public class IncompatibleSsidAndCapModePredicate extends OftpPredicate {

@@ -1,7 +1,7 @@
 package oftp.automaton.archetype.monitor;
 
-import oftp.automaton.PlusMinus;
 import automaton.event.Field;
+import oftp.automaton.PlusMinus;
 
 public class PositiveFileClosingAcceptationArchetype extends PlusMinusArchetype {
 

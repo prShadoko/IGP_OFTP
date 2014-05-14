@@ -1,9 +1,9 @@
 package oftp.automaton.archetype.monitor;
 
-import java.util.Date;
-
-import oftp.automaton.FileFormat;
 import automaton.event.Field;
+import oftp.automaton.FileFormat;
+
+import java.util.Date;
 
 public class FileOpeningInitiationArchetype extends MonitorArchetype {
 

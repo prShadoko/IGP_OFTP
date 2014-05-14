@@ -1,7 +1,7 @@
 package oftp.automaton.action;
 
-import oftp.automaton.OftpAutomaton;
 import automaton.action.Action;
+import oftp.automaton.OftpAutomaton;
 
 public abstract class OftpAction implements Action {
 

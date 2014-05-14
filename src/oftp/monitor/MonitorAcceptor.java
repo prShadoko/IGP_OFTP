@@ -15,7 +15,6 @@ import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FConnectionIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FDataIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FStartFileIndicationArchetype;
-import oftp.automaton.archetype.network.DataExchangeBufferArchetype;
 import oftp.service.FileService;
 
 import java.io.IOException;

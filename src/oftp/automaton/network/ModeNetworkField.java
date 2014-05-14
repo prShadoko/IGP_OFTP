@@ -1,7 +1,7 @@
 package oftp.automaton.network;
 
-import oftp.automaton.CapabilityMode;
 import automaton.event.network.NetworkField;
+import oftp.automaton.CapabilityMode;
 
 public class ModeNetworkField extends NetworkField<CapabilityMode> {
 

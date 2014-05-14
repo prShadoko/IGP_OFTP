@@ -1,7 +1,7 @@
 package oftp.automaton.archetype.network;
 
-import oftp.automaton.CommandCode;
 import automaton.event.network.NetworkField;
+import oftp.automaton.CommandCode;
 
 public class DataExchangeBufferArchetype extends OftpNetworkArchetype {
 

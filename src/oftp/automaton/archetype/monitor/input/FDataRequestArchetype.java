@@ -1,7 +1,7 @@
 package oftp.automaton.archetype.monitor.input;
 
-import oftp.automaton.archetype.monitor.MonitorArchetype;
 import automaton.event.Field;
+import oftp.automaton.archetype.monitor.MonitorArchetype;
 
 
 public class FDataRequestArchetype extends MonitorArchetype {

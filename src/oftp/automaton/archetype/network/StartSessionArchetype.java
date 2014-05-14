@@ -1,12 +1,12 @@
 package oftp.automaton.archetype.network;
 
+import automaton.event.network.NetworkField;
 import oftp.automaton.CommandCode;
 import oftp.automaton.YesNo;
 import oftp.automaton.network.IntegerNetworkField;
 import oftp.automaton.network.ModeNetworkField;
 import oftp.automaton.network.OftpNetworkField;
 import oftp.automaton.network.YesNoNetworkField;
-import automaton.event.network.NetworkField;
 
 public class StartSessionArchetype extends OftpNetworkArchetype {
 

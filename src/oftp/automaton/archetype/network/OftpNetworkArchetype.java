@@ -1,8 +1,8 @@
 package oftp.automaton.archetype.network;
 
-import oftp.automaton.CommandCode;
 import automaton.event.network.NetworkArchetype;
 import automaton.event.network.NetworkField;
+import oftp.automaton.CommandCode;
 
 public class OftpNetworkArchetype extends NetworkArchetype {
 	
