@@ -4,7 +4,7 @@ import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
-import oftp.automaton.action.CreateSsidAction;
+import oftp.automaton.action.CreateStartSessionAction;
 import oftp.automaton.action.UserErrorAction;
 import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.network.StartSessionReadyMessageArchetype;
@@ -16,15 +16,16 @@ public class InitiatorWaitingForReadyMessageState extends OftpAbstractState {
 	public InitiatorWaitingForReadyMessageState(OftpAutomaton oftp) {
 		super(oftp, NAME);
 
-		Transition t1 = new Transition()
-				.addAction(new CreateSsidAction(oftp))
+		Transition h = new Transition()
+				.addAction(new CreateStartSessionAction(oftp))
 				.setNextState(new InitiatorWaitingForSsidState(oftp));
-		Transition userErrorTransition = new Transition()
+
+		Transition u = new Transition()
 				.addAction(new UserErrorAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
 				.setNextState(new IdleState(oftp));
 
-		this.addTransition(new StartSessionReadyMessageArchetype(), t1);
-		this.addTransition(new FConnectionResponseArchetype(), userErrorTransition);
+		this.addTransition(new StartSessionReadyMessageArchetype(), h);
+		this.addTransition(new FConnectionResponseArchetype(), u);
 	}
 
 }

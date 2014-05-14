@@ -7,7 +7,7 @@ import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.CreateFAbortIndicationAction;
-import oftp.automaton.action.CreateSsrmAction;
+import oftp.automaton.action.CreateStartSessionReadyMessageAction;
 import oftp.automaton.action.InitSocketAction;
 import oftp.automaton.action.idle.SetModeFromFConnectionRequestAction;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
@@ -31,7 +31,7 @@ public class IdleState extends OftpAbstractState {
 		
 		Action initSocketAction = new InitSocketAction(oftp);
 		Action setModeFromFConnectionRequest = new SetModeFromFConnectionRequestAction(oftp);
-		Action createSsrmEventAction = new CreateSsrmAction(oftp);
+		Action createSsrmEventAction = new CreateStartSessionReadyMessageAction(oftp);
 		Action createFAbortRequestEventAction = new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.LOCAL);
 
 		
