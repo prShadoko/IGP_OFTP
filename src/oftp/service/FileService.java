@@ -3,28 +3,33 @@ package oftp.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileService {
-	
-	private File file;
+
+	private File inputFile;
 	InputStream in;
 	
+	private File outputFile;
+	OutputStream out;
+	
 	public FileService() {
-		file = new File("/home/pierre/Pictures/Photos/48ca54da60b2d68be570620fb7ce2cff.jpg");
+		inputFile = new File("/home/pierre/Pictures/Photos/48ca54da60b2d68be570620fb7ce2cff.jpg");
 //		file = new File("/home/pierre/Pictures/moi.txt");
 		
 		reset();
 	}
 	
 	public long getFileSize() {
-		return file.length();
+		return inputFile.length();
 	}
 
 	public void reset() {
 		try {
-			in = new FileInputStream(file);
+			in = new FileInputStream(inputFile);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,5 +44,24 @@ public class FileService {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+	
+	public void setOutputPath(String path) {
+		outputFile = new File("out/" + path);
+		try {
+			out = new FileOutputStream(outputFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void putByte(byte[] data) {
+		try {
+			out.write(data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

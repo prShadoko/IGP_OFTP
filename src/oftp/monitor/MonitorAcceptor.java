@@ -13,7 +13,10 @@ import oftp.automaton.archetype.monitor.input.NetworkConnectionIndicationArchety
 import oftp.automaton.archetype.monitor.input.PositiveFStartFileResponseArchetype;
 import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FConnectionIndicationArchetype;
+import oftp.automaton.archetype.monitor.output.FDataIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FStartFileIndicationArchetype;
+import oftp.automaton.archetype.network.DataExchangeBufferArchetype;
+import oftp.service.FileService;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -24,7 +27,8 @@ public class MonitorAcceptor extends EventLayer implements Runnable {
 	public static final int LISTEN_PORT = 10101;
 
 	OftpAutomaton oftp;
-
+	FileService fileService = new FileService();
+	
 	@Override
 	public void run() {
 		try {
@@ -72,8 +76,13 @@ public class MonitorAcceptor extends EventLayer implements Runnable {
 			event.putAttribute(FConnectionResponseArchetype.MODE, CapabilityMode.BOTH);
 			event.putAttribute(FConnectionResponseArchetype.RESTART, false);
 		} else if (archetype.equals(new FStartFileIndicationArchetype())) {
+			String path = inputEvent.getAttribute(FStartFileIndicationArchetype.DESTINATION) + "/" + inputEvent.getAttribute(FStartFileIndicationArchetype.FILE_NAME);
+			fileService.setOutputPath(path);
 			event = new MonitorEvent(new PositiveFStartFileResponseArchetype());
 			event.putAttribute(PositiveFStartFileResponseArchetype.RESTART_POSITION, 0);
+		} else if (archetype.equals(new FDataIndicationArchetype())) {
+			String data = inputEvent.getAttribute(FDataIndicationArchetype.DATA);
+			fileService.putByte(data.getBytes());
 		}
 
 		if(null != event) {
