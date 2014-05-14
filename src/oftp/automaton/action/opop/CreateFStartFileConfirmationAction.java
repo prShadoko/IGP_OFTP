@@ -1,11 +1,11 @@
 package oftp.automaton.action.opop;
 
+import automaton.event.Event;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.OftpAction;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.output.PositiveFStartFileConfirmationArchetype;
-import automaton.event.Event;
-import automaton.exception.ActionExecutionException;
 
 public class CreateFStartFileConfirmationAction extends OftpAction {
 

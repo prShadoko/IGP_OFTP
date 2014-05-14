@@ -14,7 +14,6 @@ public class ChangeDirectionPredicate extends OftpPredicate {
 
 	@Override
 	public boolean check(Event<?> inputEvent) {
-		//(I.EFPA.CD-Request = Yes)  AND (V.Mode = Both)
 		boolean changeDirectionRequest = inputEvent.getAttribute(EndFilePositiveAnswerArchetype.CHANGE_DIRECTION_INDICATOR).toBoolean();
 		CapabilityMode mode = oftp.getMode();
 

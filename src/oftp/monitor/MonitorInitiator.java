@@ -1,9 +1,8 @@
 package oftp.monitor;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Date;
-
+import automaton.event.Archetype;
+import automaton.event.Event;
+import automaton.event.EventLayer;
 import oftp.automaton.CapabilityInit;
 import oftp.automaton.CapabilityMode;
 import oftp.automaton.FileFormat;
@@ -17,9 +16,10 @@ import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FConnectionConfirmationArchetype;
 import oftp.automaton.archetype.monitor.output.PositiveFStartFileConfirmationArchetype;
 import oftp.service.FileService;
-import automaton.event.Archetype;
-import automaton.event.Event;
-import automaton.event.EventLayer;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Date;
 
 public class MonitorInitiator extends EventLayer implements Runnable {
 
@@ -58,7 +58,7 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		MonitorInitiator monitor = new MonitorInitiator("localhost");
+		MonitorInitiator monitor = new MonitorInitiator(args[0]);
 		monitor.run();
 	}
 

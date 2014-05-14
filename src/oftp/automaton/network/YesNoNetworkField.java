@@ -1,7 +1,7 @@
 package oftp.automaton.network;
 
-import oftp.automaton.YesNo;
 import automaton.event.network.NetworkField;
+import oftp.automaton.YesNo;
 
 public class YesNoNetworkField extends NetworkField<YesNo> {
 

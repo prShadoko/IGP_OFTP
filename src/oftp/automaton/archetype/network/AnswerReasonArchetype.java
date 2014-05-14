@@ -1,9 +1,9 @@
 package oftp.automaton.archetype.network;
 
+import automaton.event.network.NetworkField;
 import oftp.automaton.AnswerReason;
 import oftp.automaton.CommandCode;
 import oftp.automaton.factory.AnswerReasonFactory;
-import automaton.event.network.NetworkField;
 
 public abstract class AnswerReasonArchetype extends OftpNetworkArchetype {
 

@@ -1,9 +1,9 @@
 package oftp.automaton.archetype.monitor.input;
 
-import java.net.Socket;
-
-import oftp.automaton.archetype.monitor.MonitorArchetype;
 import automaton.event.Field;
+import oftp.automaton.archetype.monitor.MonitorArchetype;
+
+import java.net.Socket;
 
 public class AbstractSocketInitialisationArchetype extends MonitorArchetype {
 

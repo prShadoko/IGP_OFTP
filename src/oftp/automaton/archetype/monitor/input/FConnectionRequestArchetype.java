@@ -1,9 +1,9 @@
 package oftp.automaton.archetype.monitor.input;
 
-import java.net.Socket;
-
 import automaton.event.Field;
 import oftp.automaton.archetype.monitor.SessionConnectionInitiationArchetype;
+
+import java.net.Socket;
 
 public class FConnectionRequestArchetype extends SessionConnectionInitiationArchetype {
 

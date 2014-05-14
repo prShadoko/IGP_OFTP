@@ -1,14 +1,14 @@
 package oftp.automaton.network;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-
 import automaton.event.Event;
 import automaton.event.EventLayer;
 import automaton.event.network.NetworkEvent;
 import automaton.tools.NetworkTools;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 
 public class NetworkLayer extends EventLayer implements Runnable {
 

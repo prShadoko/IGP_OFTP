@@ -1,9 +1,9 @@
 package oftp.automaton.factory;
 
+import oftp.automaton.AnswerReason;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import oftp.automaton.AnswerReason;
 
 public class AnswerReasonFactory {
 

@@ -1,14 +1,14 @@
 package oftp.automaton.network;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import oftp.automaton.CommandCode;
-import oftp.automaton.archetype.network.OftpNetworkArchetype;
 import automaton.event.network.NetworkArchetype;
 import automaton.event.network.NetworkEvent;
 import automaton.event.network.NetworkField;
+import oftp.automaton.CommandCode;
+import oftp.automaton.archetype.network.OftpNetworkArchetype;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OftpNetworkEventFactory {
 

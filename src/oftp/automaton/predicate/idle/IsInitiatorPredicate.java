@@ -1,9 +1,9 @@
 package oftp.automaton.predicate.idle;
 
+import automaton.event.Event;
 import oftp.automaton.CapabilityInit;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.predicate.OftpPredicate;
-import automaton.event.Event;
 
 public class IsInitiatorPredicate extends OftpPredicate {
 

@@ -1,5 +1,6 @@
 package oftp.automaton.state;
 
+import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
@@ -10,7 +11,6 @@ import oftp.automaton.action.opop.CreatePositiveFStartFileConfirmationAction;
 import oftp.automaton.archetype.network.StartFileNegativeAnswerArchetype;
 import oftp.automaton.archetype.network.StartFilePositiveAnswerArchetype;
 import oftp.automaton.predicate.opop.RestartPositionGreaterThanRequestedPredicate;
-import automaton.transition.Transition;
 
 
 public class OpenOutPendingState extends OftpAbstractState {

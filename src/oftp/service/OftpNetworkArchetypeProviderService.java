@@ -1,23 +1,9 @@
 package oftp.service;
 
+import oftp.automaton.archetype.network.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
-
-import oftp.automaton.archetype.network.ChangeDirectionArchetype;
-import oftp.automaton.archetype.network.DataExchangeBufferArchetype;
-import oftp.automaton.archetype.network.EndFileArchetype;
-import oftp.automaton.archetype.network.EndFileNegativeAnswerArchetype;
-import oftp.automaton.archetype.network.EndFilePositiveAnswerArchetype;
-import oftp.automaton.archetype.network.EndSessionArchetype;
-import oftp.automaton.archetype.network.EndToEndResponseArchetype;
-import oftp.automaton.archetype.network.OftpNetworkArchetype;
-import oftp.automaton.archetype.network.ReadyToReceiveArchetype;
-import oftp.automaton.archetype.network.SetCreditArchetype;
-import oftp.automaton.archetype.network.StartFileArchetype;
-import oftp.automaton.archetype.network.StartFileNegativeAnswerArchetype;
-import oftp.automaton.archetype.network.StartFilePositiveAnswerArchetype;
-import oftp.automaton.archetype.network.StartSessionArchetype;
-import oftp.automaton.archetype.network.StartSessionReadyMessageArchetype;
 
 public class OftpNetworkArchetypeProviderService {
 	

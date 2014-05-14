@@ -1,9 +1,9 @@
 package oftp.automaton.archetype.network;
 
+import automaton.event.network.NetworkField;
 import oftp.automaton.CommandCode;
 import oftp.automaton.network.FileFormatNetworkField;
 import oftp.automaton.network.IntegerNetworkField;
-import automaton.event.network.NetworkField;
 
 public class StartFileArchetype extends OftpNetworkArchetype {
 

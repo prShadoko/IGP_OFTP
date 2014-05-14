@@ -1,7 +1,7 @@
 package oftp.automaton.predicate;
 
-import oftp.automaton.OftpAutomaton;
 import automaton.predicate.Predicate;
+import oftp.automaton.OftpAutomaton;
 
 public abstract class OftpPredicate implements Predicate {
 
