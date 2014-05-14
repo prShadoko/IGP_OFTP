@@ -9,10 +9,13 @@ import oftp.automaton.CapabilityMode;
 import oftp.automaton.FileFormat;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
+import oftp.automaton.archetype.monitor.input.FCloseFileRequestArchetype;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
+import oftp.automaton.archetype.monitor.input.FDataRequestArchetype;
 import oftp.automaton.archetype.monitor.input.FStartFileRequestArchetype;
 import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FConnectionConfirmationArchetype;
+import oftp.automaton.archetype.monitor.output.PositiveFStartFileConfirmationArchetype;
 import oftp.service.FileService;
 import automaton.event.Archetype;
 import automaton.event.Event;
@@ -80,6 +83,27 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 			event.putAttribute(FStartFileRequestArchetype.RECORD_FORMAT, FileFormat.UNSTRUCTURED_BINARY_FILE);
 			event.putAttribute(FStartFileRequestArchetype.RECORD_SIZE, 0);
 			event.putAttribute(FStartFileRequestArchetype.RESTART_POSITION, 0);
+		}else if (archetype.equals(new PositiveFStartFileConfirmationArchetype())) {
+			byte[] buff = new byte[oftp.getBufferSize()];
+			int recordCount = 0;
+			int unitCount = 0;
+			int result = -1;
+			do {
+				result = fileService.getByte(buff);
+
+				event = new MonitorEvent(new FDataRequestArchetype());
+				event.putAttribute(FDataRequestArchetype.F_DATA, buff);
+
+				publish(event);
+				recordCount++;
+				if(-1 != result) {
+					unitCount += result;
+				}
+			} while(-1 != result);
+			
+			event = new MonitorEvent(new FCloseFileRequestArchetype());
+			event.putAttribute(FCloseFileRequestArchetype.RECORD_COUNT, recordCount);
+			event.putAttribute(FCloseFileRequestArchetype.UNIT_COUNT, unitCount);
 		}
 
 		if (null != event) {
