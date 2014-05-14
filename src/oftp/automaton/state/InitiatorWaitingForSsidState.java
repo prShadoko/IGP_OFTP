@@ -27,18 +27,18 @@ public class InitiatorWaitingForSsidState extends OftpAbstractState {
 				.setPredicate(new InitiatorSsidNegotiationPredicate(oftp))
 				.addAction(true, new InitializeInitiatorSessionAction(oftp))
 				.addAction(true, new CreateFConnectionConfirmationAction(oftp))
-				.setNextState(true, new IdleSpeakerState(oftp))
+				.setNextState(true, oftp.getIdleSpeakerState())
 				.addAction(false, new CreateEndSessionAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE))
 				.addAction(false, new CreateFAbortIndicationAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))
-				.setNextState(false, new IdleState(oftp));//TODO: Etat intermediaire WF_NDISC ?
+				.setNextState(false, oftp.getIdleState());//TODO: Etat intermediaire WF_NDISC ?
 
 		Transition f = new Transition() //F
 				.addAction(new CreateFAbortRequestAction(oftp, EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE, AbortOrigin.DISTANT))
-				.setNextState(new IdleState(oftp));
+				.setNextState(oftp.getIdleState());
 
 		Transition u = new Transition()
 				.addAction(new UserErrorAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION, AbortOrigin.LOCAL))
-				.setNextState(new IdleState(oftp));
+				.setNextState(oftp.getIdleState());
 
 		this.addTransition(new StartSessionArchetype(), d);
 		this.addTransition(new EndSessionArchetype(EndSessionAnswerReason.MODE_OR_CAPABILITIES_INCOMPATIBLE), f);

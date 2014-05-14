@@ -5,6 +5,7 @@ import automaton.event.network.NetworkEvent;
 import automaton.exception.ActionExecutionException;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.OftpAction;
+import oftp.automaton.archetype.monitor.input.FDataRequestArchetype;
 import oftp.automaton.archetype.network.DataExchangeBufferArchetype;
 
 public class CreateExchangeBufferAction extends OftpAction {
@@ -15,8 +16,12 @@ public class CreateExchangeBufferAction extends OftpAction {
 
 	@Override
 	public void execute(Event<?> inputEvent) throws ActionExecutionException {
-		Event<?> event = new NetworkEvent(new DataExchangeBufferArchetype());
+		Event<?> event = new NetworkEvent(new DataExchangeBufferArchetype(oftp.getBufferSize()));
 
-//		event.putAttribute(DataExchangeBufferArchetype.DATA_EXCHANGE_BUFFER_PAYLOAD, ???);//TODO: construire le buffer
+		byte[] data = inputEvent.getAttribute(FDataRequestArchetype.F_DATA);
+		
+		event.putAttribute(DataExchangeBufferArchetype.DATA_EXCHANGE_BUFFER_PAYLOAD, data);
+		
+		oftp.addOutputEvent(event);
 	}
 }

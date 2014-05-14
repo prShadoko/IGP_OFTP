@@ -9,10 +9,11 @@ public class DataExchangeBufferArchetype extends OftpNetworkArchetype {
 
 	public static final NetworkField<byte[]> DATA_EXCHANGE_BUFFER_PAYLOAD = new NetworkField<>("DATABUF", 0);
 
-	public DataExchangeBufferArchetype() {
+	public DataExchangeBufferArchetype(int bufferSize) {
 		super(NAME, CommandCode.DATA);
 
-		addField(DATA_EXCHANGE_BUFFER_PAYLOAD);
+		NetworkField<byte[]> dataBufferExchangePayload = new NetworkField<>("DATABUF", bufferSize);
+		addField(dataBufferExchangePayload);
 	}
 
 }

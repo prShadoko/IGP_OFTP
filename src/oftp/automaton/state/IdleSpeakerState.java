@@ -16,7 +16,10 @@ public class IdleSpeakerState extends OftpAbstractState {
 	
 	public IdleSpeakerState(OftpAutomaton oftp) {
 		super(oftp, NAME);
-//TODO: créer les (14!) classes manquantes... youpi ! \o/
+
+	}
+
+	public void init() {
 //		Transition a = new Transition()
 //				.addAction(new CreateEndToEndResponseAction(oftp))
 //				.setNextState(true, new WaitingForReadyToRetieveState(oftp));

@@ -4,6 +4,7 @@ import automaton.event.Event;
 import automaton.exception.ActionExecutionException;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.network.StartSessionArchetype;
+import oftp.service.OftpNetworkArchetypeProviderService;
 
 public class InitializeInitiatorSessionAction extends OftpAction {
 
@@ -18,6 +19,9 @@ public class InitializeInitiatorSessionAction extends OftpAction {
 		oftp.setCompressionEnabled(inputEvent.getAttribute(StartSessionArchetype.COMPRESSION_INDICATION).toBoolean());
 		oftp.setBufferSize(inputEvent.getAttribute(StartSessionArchetype.EXCHANGE_BUFFER_SIZE));
 		oftp.setCreditSpeaker(inputEvent.getAttribute(StartSessionArchetype.CREDIT));
+
+		oftp.getNetworkEventFactory().clear();
+		oftp.getNetworkEventFactory().addArchetypes(new OftpNetworkArchetypeProviderService().getArchetype(oftp.getBufferSize()));
 	}
 
 }

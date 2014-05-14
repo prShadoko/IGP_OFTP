@@ -24,7 +24,7 @@ public class OpenOutState extends OftpAbstractState {
 //				.setNextState(true, OpenOutWaitForCreditState())
 				.addAction(false, new CreateExchangeBufferAction(oftp))
 //				.addAction(false, )// Action 13: V.Credit_S = V.Credit_S - 1
-				.setNextState(false, new OpenOutState(oftp));
+				.setNextState(false, this);
 //		Transition o = new Transition()
 //		Transition p = new Transition()
 //		Transition q = new Transition()

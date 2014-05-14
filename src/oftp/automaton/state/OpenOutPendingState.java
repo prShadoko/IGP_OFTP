@@ -1,6 +1,5 @@
 package oftp.automaton.state;
 
-import automaton.transition.Transition;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.EndSessionAnswerReason;
 import oftp.automaton.OftpAutomaton;
@@ -11,6 +10,7 @@ import oftp.automaton.action.opop.CreatePositiveFStartFileConfirmationAction;
 import oftp.automaton.archetype.network.StartFileNegativeAnswerArchetype;
 import oftp.automaton.archetype.network.StartFilePositiveAnswerArchetype;
 import oftp.automaton.predicate.opop.RestartPositionGreaterThanRequestedPredicate;
+import automaton.transition.Transition;
 
 
 public class OpenOutPendingState extends OftpAbstractState {
@@ -19,6 +19,13 @@ public class OpenOutPendingState extends OftpAbstractState {
 	
 	public OpenOutPendingState(OftpAutomaton oftp) {
 		super(oftp, NAME);
+
+//		Transition k = new Transition()
+//			.addAction(true, new CreateFStartFileConfirmationAction(oftp))
+//			.setNextState(true, new OpenOutState(oftp));
+//		
+//		addTransition(new StartFilePositiveAnswerArchetype(), k);
+
 
 		Transition k = new Transition()
 				.setPredicate(new RestartPositionGreaterThanRequestedPredicate(oftp))
@@ -31,7 +38,7 @@ public class OpenOutPendingState extends OftpAbstractState {
 
 		Transition l = new Transition()
 				.addAction(new CreateNegativeFStartFileConfirmationAction(oftp))
-				.setNextState(new IdleSpeakerState(oftp));
+				.setNextState(oftp.getIdleSpeakerState());
 
 // 		Transition c = new Transition()
 //				.addAction(new CreateEndSessionAction(oftp, EndSessionAnswerReason.PROTOCOL_VIOLATION))

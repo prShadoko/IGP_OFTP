@@ -30,7 +30,7 @@ public class OpenInputState extends OftpAbstractState {
 			.setNextState(new CloseInputPendingState(oftp));
 
 		addTransition(new EndSessionArchetype(), d);
-		addTransition(new DataExchangeBufferArchetype(), i);
+		addTransition(new DataExchangeBufferArchetype(oftp.getBufferSize()), i);
 		addTransition(new EndFileArchetype(), j);
 	}
 }
