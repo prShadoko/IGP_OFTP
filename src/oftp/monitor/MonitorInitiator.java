@@ -2,19 +2,26 @@ package oftp.monitor;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Date;
 
 import oftp.automaton.CapabilityInit;
 import oftp.automaton.CapabilityMode;
+import oftp.automaton.FileFormat;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
+import oftp.automaton.archetype.monitor.input.FStartFileRequestArchetype;
 import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
+import oftp.automaton.archetype.monitor.output.FConnectionConfirmationArchetype;
+import oftp.service.FileService;
 import automaton.event.Archetype;
 import automaton.event.Event;
 import automaton.event.EventLayer;
 
 public class MonitorInitiator extends EventLayer implements Runnable {
 
+	private FileService fileService = new FileService();
+	
 	private String ip;
 	private OftpAutomaton oftp;
 
@@ -27,6 +34,7 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 		try {
 			oftp = OftpAutomaton.build(false, CapabilityInit.BOTH, CapabilityMode.BOTH, 999999, 999);
 			this.subscribe(MonitorEvent.class, oftp);
+			oftp.subscribe(MonitorEvent.class, this);
 
 			Thread oftpThread = new Thread(oftp);
 			oftpThread.start();
@@ -40,7 +48,7 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 			publish(fConReq);
 
 			oftpThread.join();
-		} catch(IOException | InterruptedException e) {
+		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -53,14 +61,31 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 
 	@Override
 	public void inform(Event<?> inputEvent) {
+		System.out.println(inputEvent);
 		Archetype<?> archetype = inputEvent.getArchetype();
 		Event<?> event = null;
-		if(archetype.equals(new FAbortIndicationArchetype())) {
+		if (archetype.equals(new FAbortIndicationArchetype())) {
+			System.out.println("Monitor: ABORT");
+			System.out.println("Monitor: Reason=" + inputEvent.getAttribute(FAbortIndicationArchetype.REASON));
 			oftp.closeNetworkLayer();
+		} else if (archetype.equals(new FConnectionConfirmationArchetype())) {
+			Date now = new Date();
+
+			event = new MonitorEvent(new FStartFileRequestArchetype());
+			event.putAttribute(FStartFileRequestArchetype.DATE_TIME, now);
+			event.putAttribute(FStartFileRequestArchetype.DESTINATION, "/img");
+			event.putAttribute(FStartFileRequestArchetype.FILE_NAME, "flowerS");
+			event.putAttribute(FStartFileRequestArchetype.FILE_SIZE, (int) fileService.getFileSize());
+			event.putAttribute(FStartFileRequestArchetype.ORIGINATOR, "MonitorInitiator");
+			event.putAttribute(FStartFileRequestArchetype.RECORD_FORMAT, FileFormat.UNSTRUCTURED_BINARY_FILE);
+			event.putAttribute(FStartFileRequestArchetype.RECORD_SIZE, 0);
+			event.putAttribute(FStartFileRequestArchetype.RESTART_POSITION, 0);
 		}
 
-		if(null != event) {
+		if (null != event) {
 			publish(event);
 		}
+		
+
 	}
 }

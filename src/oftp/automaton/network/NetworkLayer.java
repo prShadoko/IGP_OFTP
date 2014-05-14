@@ -30,7 +30,7 @@ public class NetworkLayer extends EventLayer implements Runnable {
 
 			while (!socket.isClosed()) {
 				StringBuilder packet = new StringBuilder();
-
+				
 				int read = in.read();
 				if (-1 == read) {
 					close();

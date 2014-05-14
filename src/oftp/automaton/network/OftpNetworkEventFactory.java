@@ -61,7 +61,7 @@ public class OftpNetworkEventFactory {
 				pos += field.getLength();
 			}
 		}
-		
+
 		return event;
 	}
 }

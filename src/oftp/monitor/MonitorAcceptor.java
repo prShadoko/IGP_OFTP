@@ -10,8 +10,10 @@ import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.input.AbstractSocketInitialisationArchetype;
 import oftp.automaton.archetype.monitor.input.FConnectionResponseArchetype;
 import oftp.automaton.archetype.monitor.input.NetworkConnectionIndicationArchetype;
+import oftp.automaton.archetype.monitor.input.PositiveFStartFileResponseArchetype;
 import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
 import oftp.automaton.archetype.monitor.output.FConnectionIndicationArchetype;
+import oftp.automaton.archetype.monitor.output.FStartFileIndicationArchetype;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -69,6 +71,9 @@ public class MonitorAcceptor extends EventLayer implements Runnable {
 			event.putAttribute(FConnectionResponseArchetype.PASSWORD, "azertyuiiopqsdfghjklmwxcv");
 			event.putAttribute(FConnectionResponseArchetype.MODE, CapabilityMode.BOTH);
 			event.putAttribute(FConnectionResponseArchetype.RESTART, false);
+		} else if (archetype.equals(new FStartFileIndicationArchetype())) {
+			event = new MonitorEvent(new PositiveFStartFileResponseArchetype());
+			event.putAttribute(PositiveFStartFileResponseArchetype.RESTART_POSITION, 0);
 		}
 
 		if(null != event) {

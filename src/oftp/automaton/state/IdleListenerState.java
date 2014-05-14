@@ -17,7 +17,10 @@ public class IdleListenerState extends OftpAbstractState {
 	
 	public IdleListenerState(OftpAutomaton oftp) {
 		super(oftp, NAME);
-		
+	}
+	
+	public void init() {
+
 		Predicate p1 = new InvalidStartFileCommandPredicate(oftp);
 		
 		Transition a = new Transition()
