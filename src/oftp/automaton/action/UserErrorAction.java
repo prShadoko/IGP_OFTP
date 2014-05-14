@@ -1,12 +1,12 @@
 package oftp.automaton.action;
 
+import automaton.event.Event;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.AnswerReason;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
 import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
-import automaton.event.Event;
-import automaton.exception.ActionExecutionExeption;
 
 public class UserErrorAction extends OftpAction {
 	
@@ -20,7 +20,7 @@ public class UserErrorAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 		System.out.println("User Error !");
 		System.out.println("Event " + inputEvent + " not expected.");
 		oftp.closeNetworkLayer();

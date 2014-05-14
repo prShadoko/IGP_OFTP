@@ -1,10 +1,10 @@
 package oftp.automaton.action.idle;
 
+import automaton.event.Event;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.action.OftpAction;
 import oftp.automaton.archetype.monitor.input.FConnectionRequestArchetype;
-import automaton.event.Event;
-import automaton.exception.ActionExecutionExeption;
 
 public class SetModeFromFConnectionRequestAction extends OftpAction {
 
@@ -13,7 +13,7 @@ public class SetModeFromFConnectionRequestAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 		
 		switch (oftp.getCapMode()) {
 		case BOTH:

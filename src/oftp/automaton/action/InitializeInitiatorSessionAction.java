@@ -1,7 +1,7 @@
 package oftp.automaton.action;
 
 import automaton.event.Event;
-import automaton.exception.ActionExecutionExeption;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.network.StartSessionArchetype;
 import oftp.service.OftpNetworkArchetypeProviderService;
@@ -13,7 +13,7 @@ public class InitializeInitiatorSessionAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 		oftp.setMode(inputEvent.getAttribute(StartSessionArchetype.SEND_RECEIVE_CAPABILITY));
 		oftp.setRestartEnabled(inputEvent.getAttribute(StartSessionArchetype.RESTART_INDICATION).toBoolean());
 		oftp.setCompressionEnabled(inputEvent.getAttribute(StartSessionArchetype.COMPRESSION_INDICATION).toBoolean());

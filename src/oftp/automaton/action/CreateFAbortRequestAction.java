@@ -1,12 +1,11 @@
 package oftp.automaton.action;
 
 import automaton.event.Event;
-import automaton.exception.ActionExecutionExeption;
+import automaton.exception.ActionExecutionException;
 import oftp.automaton.AbortOrigin;
 import oftp.automaton.AnswerReason;
 import oftp.automaton.OftpAutomaton;
 import oftp.automaton.archetype.monitor.MonitorEvent;
-import oftp.automaton.archetype.monitor.input.FAbortRequestArchetype;
 import oftp.automaton.archetype.monitor.output.FAbortIndicationArchetype;
 
 public class CreateFAbortRequestAction extends OftpAction {
@@ -21,7 +20,7 @@ public class CreateFAbortRequestAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 		
 		Event<?> event = new MonitorEvent(new FAbortIndicationArchetype());
 		event.putAttribute(FAbortIndicationArchetype.REASON, this.reason);

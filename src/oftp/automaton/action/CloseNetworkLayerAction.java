@@ -1,8 +1,8 @@
 package oftp.automaton.action;
 
-import oftp.automaton.OftpAutomaton;
 import automaton.event.Event;
-import automaton.exception.ActionExecutionExeption;
+import automaton.exception.ActionExecutionException;
+import oftp.automaton.OftpAutomaton;
 
 public class CloseNetworkLayerAction extends OftpAction {
 
@@ -11,7 +11,7 @@ public class CloseNetworkLayerAction extends OftpAction {
 	}
 
 	@Override
-	public void execute(Event<?> inputEvent) throws ActionExecutionExeption {
+	public void execute(Event<?> inputEvent) throws ActionExecutionException {
 		oftp.closeNetworkLayer();
 	}
 
