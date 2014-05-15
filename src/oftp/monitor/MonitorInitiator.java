@@ -58,7 +58,7 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		MonitorInitiator monitor = new MonitorInitiator(args[0]);
+		MonitorInitiator monitor = new MonitorInitiator("192.168.43.130");
 		monitor.run();
 	}
 
@@ -89,12 +89,6 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 			int unitCount = 0;
 			int result = -1;
 			do {
-				try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				result = fileService.getByte(buff);
 
 				event = new MonitorEvent(new FDataRequestArchetype());
@@ -110,6 +104,7 @@ public class MonitorInitiator extends EventLayer implements Runnable {
 			event = new MonitorEvent(new FCloseFileRequestArchetype());
 			event.putAttribute(FCloseFileRequestArchetype.RECORD_COUNT, recordCount);
 			event.putAttribute(FCloseFileRequestArchetype.UNIT_COUNT, unitCount);
+			
 		}
 
 		if (null != event) {

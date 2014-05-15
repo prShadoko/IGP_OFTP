@@ -1,9 +1,9 @@
 package oftp.automaton;
 
-import automaton.AbstractAutomaton;
-import automaton.event.Event;
-import automaton.event.network.NetworkEvent;
-import automaton.exception.AutomatonException;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Collection;
+
 import oftp.automaton.archetype.network.OftpNetworkArchetype;
 import oftp.automaton.network.NetworkLayer;
 import oftp.automaton.network.OftpNetworkEventFactory;
@@ -11,10 +11,10 @@ import oftp.automaton.state.IdleListenerState;
 import oftp.automaton.state.IdleSpeakerState;
 import oftp.automaton.state.IdleState;
 import oftp.service.OftpNetworkArchetypeProviderService;
-
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Collection;
+import automaton.AbstractAutomaton;
+import automaton.event.Event;
+import automaton.event.network.NetworkEvent;
+import automaton.exception.AutomatonException;
 
 public class OftpAutomaton extends AbstractAutomaton {
 

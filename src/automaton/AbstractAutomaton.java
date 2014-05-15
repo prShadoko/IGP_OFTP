@@ -1,14 +1,14 @@
 package automaton;
 
-import automaton.event.Event;
-import automaton.event.EventLayer;
-import automaton.exception.AutomatonException;
-import automaton.state.State;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import automaton.event.Event;
+import automaton.event.EventLayer;
+import automaton.exception.AutomatonException;
+import automaton.state.State;
 
 public abstract class AbstractAutomaton extends EventLayer implements Automaton {
 
